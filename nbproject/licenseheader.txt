@@ -1,0 +1,8 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}Progama para La bodega Loma Colorada SA de CV
+${licensePrefix}Se conecta a la bascula y medidor de Humedad
+<#if licenseLast??>
+${licenseLast}
+</#if>

@@ -1,0 +1,20 @@
+<RCC>
+  <qresource prefix="prefijoNuevo">
+    <file>Imagenes/barley.png</file>
+    <file>Imagenes/Logo.png</file>
+    <file>Imagenes/Liquidacion1_edit.png</file>
+    <file>Imagenes/Liquidacion2.jpg</file>
+    <file>Imagenes/Bascula1_edit.png</file>
+    <file>Imagenes/Bascula2.jpg</file>
+    <file>Imagenes/Adeudos1_edit.png</file>
+    <file>Imagenes/Adeudos2.jpg</file>
+    <file>Imagenes/Compradores1_edit.png</file>
+    <file>Imagenes/Compradores2.jpg</file>
+    <file>Imagenes/Registros1_edit.png</file>
+    <file>Imagenes/Registros2.jpg</file>
+    <file>Imagenes/Silo1_edit.png</file>
+    <file>Imagenes/Silo2.jpg</file>
+    <file>Imagenes/SorgoPlanta1.jpg</file>
+    <file>Imagenes/textiles BG.jpg</file>
+  </qresource>
+</RCC>
