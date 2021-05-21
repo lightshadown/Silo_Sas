@@ -19,15 +19,12 @@
       <itemPath>Login.ui</itemPath>
       <itemPath>LogoSplashScreen.qrc</itemPath>
       <itemPath>Loma Colorada.jpg</itemPath>
-      <itemPath>Pantalla_Principal V2.1.ui</itemPath>
-      <itemPath>Pantalla_Principal V2.2.ui</itemPath>
-      <itemPath>Pantalla_Principal V2.3.ui</itemPath>
+      <itemPath>Pantalla_Principal V2.4.ui</itemPath>
       <itemPath>../Qt-Frameless-Window-DarkStyle/darkstyle.qrc</itemPath>
       <itemPath>../Qt-Frameless-Window-DarkStyle/framelesswindow.qrc</itemPath>
       <itemPath>../Qt-Frameless-Window-DarkStyle/framelesswindow/framelesswindow.ui</itemPath>
       <itemPath>ui_Login.h</itemPath>
-      <itemPath>ui_Pantalla_Principal V2.2.h</itemPath>
-      <itemPath>ui_Pantalla_Principal_V2.1.h</itemPath>
+      <itemPath>ui_Pantalla_Principal V2.4.h</itemPath>
       <itemPath>ui_framelesswindow.h</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
@@ -365,6 +362,18 @@
                             perm="755"
                             owner="root"
                             group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}.exe"
+                            from="${OUTPUT_PATH}.exe"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}.exe"
+                            from="${OUTPUT_PATH}.exe"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
         </packFileList>
       </packaging>
       <item path="../../../../../MinGW/lib/gcc/mingw32/9.2.0/include/c++/filesystem"
@@ -431,11 +440,7 @@
       </item>
       <item path="Loma Colorada.jpg" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Pantalla_Principal V2.1.ui" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Pantalla_Principal V2.2.ui" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Pantalla_Principal V2.3.ui" ex="false" tool="3" flavor2="0">
+      <item path="Pantalla_Principal V2.4.ui" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Serial.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -449,9 +454,7 @@
       </item>
       <item path="ui_Login.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="ui_Pantalla_Principal V2.2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="ui_Pantalla_Principal_V2.1.h" ex="false" tool="3" flavor2="0">
+      <item path="ui_Pantalla_Principal V2.4.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="ui_framelesswindow.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -537,11 +540,7 @@
       </item>
       <item path="Loma Colorada.jpg" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Pantalla_Principal V2.1.ui" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Pantalla_Principal V2.2.ui" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Pantalla_Principal V2.3.ui" ex="false" tool="3" flavor2="0">
+      <item path="Pantalla_Principal V2.4.ui" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Serial.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -555,9 +554,7 @@
       </item>
       <item path="ui_Login.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="ui_Pantalla_Principal V2.2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="ui_Pantalla_Principal_V2.1.h" ex="false" tool="3" flavor2="0">
+      <item path="ui_Pantalla_Principal V2.4.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="ui_framelesswindow.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -641,11 +638,7 @@
       </item>
       <item path="Loma Colorada.jpg" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Pantalla_Principal V2.1.ui" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Pantalla_Principal V2.2.ui" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Pantalla_Principal V2.3.ui" ex="false" tool="3" flavor2="0">
+      <item path="Pantalla_Principal V2.4.ui" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Serial.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -659,9 +652,7 @@
       </item>
       <item path="ui_Login.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="ui_Pantalla_Principal V2.2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="ui_Pantalla_Principal_V2.1.h" ex="false" tool="3" flavor2="0">
+      <item path="ui_Pantalla_Principal V2.4.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="ui_framelesswindow.h" ex="false" tool="3" flavor2="0">
       </item>

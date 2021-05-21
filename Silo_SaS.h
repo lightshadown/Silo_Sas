@@ -37,8 +37,9 @@
 #include <QDirIterator>
 #include <QPushButton>
 
-#include "ui_Pantalla_Principal V2.3.h"
-#include "ui_Pantalla_Principal V2.2.h"
+#include "ui_Pantalla_Principal V2.4.h"
+//#include "ui_Pantalla_Principal V2.3.h"
+//#include "ui_Pantalla_Principal V2.2.h"
 //#include "ui_Pantalla_Principal V2.h"
 //#include "ui_Pantalla_Principal.h"
 
@@ -68,12 +69,13 @@ class Silo : public QMainWindow {
 public:
     Silo();
     virtual ~Silo();
-    //void Log(QString, QString, QString /* std::vector<QString> */); // modificar para usar un vector<QString> y facilitar el asunto
     void Log(QString save); // dejar una sola funcion
     void LogData(QString);
     void Ciclo();
     void Contrasenas();
     void Creditos();
+    void Dry_n_Wet();
+    void Config();
     void CrearDB(QString, QString);
     bool ChecarDB(QString, QString);    
     void Productores_Lista();
@@ -89,6 +91,9 @@ public:
     void RS232();
     void listaBoletasProd();
     void show_Liquidacion();
+    void Popup_DrynWet_CB1();
+    void Popup_DrynWet_CB2();
+    void Popup_DrynWet_CB3();
     
    
     QStringList buscarArchivos(QStringList, QString);
@@ -110,10 +115,20 @@ public slots:
     void C_Pro();
     void C_Comp();
     void C_Liq();
+    void C_Opc();
+    void C_HumySec1();        //  Primera ventana de tablas Humedad y secado
+    void C_HumySec2();        //  Segunda ventana tablas
+    void TablasDeduc1();  // llena los valores de las tablas de secado
+    void TablasDeduc2();
+    void TablasDeduc3();
     void Salir();
     void Productor();
     void Productor_New();
+    void Productor_Erase();    //  borra el registro de Productor
+    void Produ_Limpiar();      // limpia los campos en productor
     void Comprador_New();
+    void Comprador_Limpiar();   // limpia los campos en comprador
+    //void Comprador_Borrar();    // borra el registro del comprador
     void RegIndProd(QString);
     void TablaRegInd(QString);
     void TablaRegGen(QString);

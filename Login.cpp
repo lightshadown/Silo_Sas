@@ -156,7 +156,7 @@ bool Login::checkConfigFile(QString Dir){
     DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual
     HANDLE fileHandle;
     WIN32_FIND_DATA archivo;
-    QString file = Dir + "/config";
+    QString file = Dir + "/Data/config.db";   // base de datos con la configuracion del usuario
     std::wstring wDb = file.toStdWString();
     //std::wstring go = DirFile + wDb;
     LPCWSTR findDb = wDb.c_str();
@@ -178,7 +178,7 @@ void Login::createConfig(QString MAC){  // if MAC its empty create file config, 
     std::time_t now = time(0);
     std::string timer = ctime(&now);
     
-    archivo.open("config", std::ios::in | std::ios::app);
+    archivo.open("Data/config.db", std::ios::in | std::ios::app);
     if(!archivo.is_open()){silo->Log("Error No se Pudo crear el archivo config");}
     if (!MAC.trimmed().isEmpty()){archivo <<timer << std::endl << "[" << MAC.toStdString() << "]" << std::endl;}
     /*

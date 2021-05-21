@@ -43,7 +43,8 @@
 int main(int argc, char *argv[]) {
    
     QApplication app(argc, argv);
-    app.setWindowIcon(QIcon("/images/Logo.png"));
+    //app.setWindowIcon(QIcon("/images/Logo.png"));
+    app.setWindowIcon(QIcon("/images/Icono_App_Silo_1"));
     
     Silo* base = new Silo;
     base->Log(".                   ");
@@ -58,6 +59,7 @@ int main(int argc, char *argv[]) {
     winPrin.setFixedSize(1920,1080);
     winPrin.setWindowState(Qt::WindowMaximized);
     winPrin.setWindowTitle("SAAS");
+    winPrin.setWindowIcon(QIcon("images/Icono_App_Silo_1.png"));
     
     
     //*********** Pagina de Login*****************************//
@@ -66,6 +68,8 @@ int main(int argc, char *argv[]) {
     winLog.setStyle(new DarkStyle);
     winLog.setContent(login);
     winLog.setFixedSize(460,635);
+    winLog.setWindowTitle("Login");
+    winLog.setWindowIcon(QIcon("images/Icono_App_Silo_2.png"));
     
 
     // winPrin.hide();   usar el hide asta que login sea true
@@ -106,6 +110,9 @@ int main(int argc, char *argv[]) {
         base->findChild<QLabel*>("Fondo_4")->setPixmap(logo);
         base->findChild<QLabel*>("Fondo_5")->setPixmap(logo);
         base->findChild<QLabel*>("Fondo_6")->setPixmap(logo);
+        base->findChild<QLabel*>("Fondo_7")->setPixmap(logo);
+        base->findChild<QLabel*>("Fondo_8")->setPixmap(logo);
+        base->findChild<QLabel*>("Fondo_9")->setPixmap(logo);
     }
     
     // operadores terciarios son igual al if
@@ -176,11 +183,13 @@ int main(int argc, char *argv[]) {
     
     base->Contrasenas();
     base->Creditos();
-    base->Ciclo();
+    base->Ciclo(); 
+    base->Dry_n_Wet();  // secado
     
     //********* Manejo del Serial y mostrar pantallas *********************//
     
-    winLog.show();    //login.show()  pantalla de login;
+    login->createConfig("");  // crea el archivo config
+    
     if(login->checkConfigFile(app.applicationDirPath()) == true){ 
        login->findChild<QPushButton*>("Aceptar")->setCheckable(true);
        login->findChild<QLineEdit*>("Serial_edit")->setVisible(false);  // pone o quita lineedit del serial
@@ -191,13 +200,13 @@ int main(int argc, char *argv[]) {
        if(login->validSerial){  //si es valido el serial
            login->findChild<QPushButton*>("Aceptar")->setCheckable(true); // revisar, y hacer que el boton cambie de color
            login->findChild<QPushButton*>("Aceptar")->setStyleSheet("color:red");
-           winPrin.show();    // base.show()  pantalla principal;
+           //winPrin.show();    // base.show()  pantalla principal;
            //login->createConfig("");  // crea el archivo config
        }
     }
      
-   
-    
+    winLog.show();    //login.show()  pantalla de login;
+    winPrin.show();    // base.show()  pantalla principal;
     
     base->Log("Se Muestran las pantallas");
 

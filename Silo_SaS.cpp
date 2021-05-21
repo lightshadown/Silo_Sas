@@ -18,6 +18,7 @@
 #include "framelesswindow.h"
 #include "Impresora.h"
 #include "Serial.h"
+#include "ui_Pantalla_Principal V2.4.h"
 //#include "filesystem"  // hace la busqueda de archivos mas facil, c++ 17
 
    //**************  se usan en ciclo_actual() ********//
@@ -36,11 +37,6 @@
     static constexpr int YEAR_OFFSET = 20;
     static constexpr int YEAR_LENGTH = 4;
     // ***********************************************//
-    
-
-   //extern QString ciclo_actual();
-   //extern QString users();
-   //extern QString adeudos();   
 
 Silo::Silo() {
     widget_PP.setupUi(this);
@@ -55,29 +51,41 @@ Silo::Silo() {
     QObject::connect(widget_PP.push_Compradores, SIGNAL(clicked()), this, SLOT(C_Comp()));  // Compradores
     QObject::connect(widget_PP.push_Liquidacion, SIGNAL(clicked()), this, SLOT(C_Liq()));  //Liquidaciones
     
-    //************* Nuevo Registro ***********//
+    //************* Botones ***************************//
     
     QObject::connect(widget_PP.push_Nuevo, SIGNAL(clicked()), this, SLOT(Productor()));    
     QObject::connect(widget_PP.Prod_Guardar, SIGNAL(clicked()), this, SLOT(Productor_New()));
-    //***************************************//
+    QObject::connect(widget_PP.push_NextTable, SIGNAL(clicked()), this, SLOT(C_HumySec2())); // Menu Humedad y secado 2, boton
+    QObject::connect(widget_PP.push_BeforeTable, SIGNAL(clicked()), this, SLOT(C_HumySec1())); // Menu Humedad y secado 1, boton
+    QObject::connect(widget_PP.Prod_Limpiar, SIGNAL(clicked()), this, SLOT(Produ_Limpiar())); //  limpia los campos de productor
+    QObject::connect(widget_PP.Prod_Borrar, SIGNAL(clicked()), this, SLOT(Productor_Erase()));  //  borra el registro del productor
+    QObject::connect(widget_PP.Comp_Limpiar, SIGNAL(clicked()), this, SLOT(Comprador_Limpiar())); //  limpia los campos de comprador
+   
+    //************* ComboBox  **************************//
    
     QObject::connect(widget_PP.RegInd_Ciclo_CB, SIGNAL(currentIndexChanged(const QString)), this, SLOT(RegIndProd(QString)));  // Registros Individual 
     QObject::connect(widget_PP.RegInd_Prod_CB, SIGNAL(currentIndexChanged(const QString)), this, SLOT(TablaRegInd(QString)));  // Registros Individual 
     QObject::connect(widget_PP.RegGen_Ciclo_CB, SIGNAL(currentIndexChanged(const QString)), this, SLOT(TablaRegGen(QString)));  // Registros Generales 
     QObject::connect(widget_PP.Liq_Prod_CB, SIGNAL(currentIndexChanged(const QString)), this, SLOT(Liquidaciones(QString))); // Liquidaciones
-    QObject::connect(widget_PP.Liq_Boletas_Lista, SIGNAL(cellClicked(int,int)), this, SLOT(Liquidaciones_Data(int, int))); // Liquidaciones Data
     QObject::connect(widget_PP.Prod_sal_CB, SIGNAL(currentIndexChanged(const QString)), this, SLOT(AdeudosProdu(QString))); // Adeudos
     QObject::connect(widget_PP.Prod_ComboBox, SIGNAL(currentIndexChanged(const QString)), this, SLOT(NumProdu(QString))); // num productor boletas
-    QObject::connect(widget_PP.Productores_Lista, SIGNAL(cellClicked(int,int)), this, SLOT(mostrar_Produc(int, int))); // Productores
-    QObject::connect(widget_PP.Compradores_Lista, SIGNAL(cellClicked(int,int)), this, SLOT(mostrar_Compra(int, int))); // Compradores
-    //QObject::connect(widget_PP.RegInd_Print, SIGNAL(clicked()), this, SLOT(TablaRegInd()));
-    //QObject::connect(widget_PP.RegGen_Print, SIGNAL(clicked()), this, SLOT(TablaRegGen()));
+    //QObject::connect(widget_PP.HumSec_CB1, SIGNAL(currentIndexChanged(const QString)), this, SLOT(TablasDeduc(int)));   Combobox CB1
     
+    //******************************************************//
+    
+    QObject::connect(widget_PP.Liq_Boletas_Lista, SIGNAL(cellClicked(int,int)), this, SLOT(Liquidaciones_Data(int, int))); // Liquidaciones Data
+    QObject::connect(widget_PP.Productores_Lista, SIGNAL(cellClicked(int,int)), this, SLOT(mostrar_Produc(int, int))); // Productores
+    QObject::connect(widget_PP.Compradores_Lista, SIGNAL(cellClicked(int,int)), this, SLOT(mostrar_Compra(int, int))); // Compradores 
+    QObject::connect(widget_PP.HumSec_CB1_edit, SIGNAL(returnPressed()), this, SLOT(TablasDeduc1()));  // senal de enter al introducir el valor para las tablas de secado
+    QObject::connect(widget_PP.HumSec_CB2_edit, SIGNAL(returnPressed()), this, SLOT(TablasDeduc2()));  // senal de enter al introducir el valor para las tablas de secado
+    QObject::connect(widget_PP.HumSec_CB3_edit, SIGNAL(returnPressed()), this, SLOT(TablasDeduc3()));  // senal de enter al introducir el valor para las tablas de secado    
     //************* Menu ************//
     
     QObject::connect(widget_PP.About, SIGNAL(triggered()), this, SLOT(Ventana_About()));
-    QObject::connect(widget_PP.actionAcerda_de, SIGNAL(triggered()), this, SLOT(About()));
-    QObject::connect(widget_PP.actionSalir, SIGNAL(triggered()), this, SLOT(closeEvent()));
+    QObject::connect(widget_PP.actionAcerda_de, SIGNAL(triggered()), this, SLOT(About()));  // Menu About
+    QObject::connect(widget_PP.actionOpciones, SIGNAL(triggered()), this, SLOT(C_Opc()));  // Menu Opciones
+    QObject::connect(widget_PP.actionHumedad_y_secado, SIGNAL(triggered()), this, SLOT(C_HumySec1())); // Menu Humedad y secado 1
+    QObject::connect(widget_PP.actionSalir, SIGNAL(triggered()), this, SLOT(closeEvent()));  // cerrar programa, arreglar
      
     QObject::connect(widget_PP.actionEntradas, SIGNAL(triggered()), this, SLOT(C_Ent()));  // Menu Boletas
     QObject::connect(widget_PP.actionRegistros, SIGNAL(triggered()), this, SLOT(C_Reg()));  // Menu Registros
@@ -112,6 +120,7 @@ QString Silo::ciclo_actual()
     //std::string dayNumber(date.begin() + DAY_NUMBER_OFFSET, date.begin() + DAY_NUMBER_OFFSET + DAY_NUMBER_LENGTH); // vas a leer
     //std::string hours(date.begin() + HOUR_OFFSET, date.begin() + HOUR_OFFSET + HOUR_LENGTH); // inicializacion c++11/14
     std::string year(date.begin() + YEAR_OFFSET, date.begin() + YEAR_OFFSET + YEAR_LENGTH); 
+   
     ano2 = stoi(year);   // stoi combierte de string a int  
    
     if (month == "Jan"){mes = 1; /*mes2 = Jan;*/}
@@ -127,16 +136,17 @@ QString Silo::ciclo_actual()
     if (month == "Nov"){mes = 11;}
     if (month == "Dec"){mes = 12;}
     
-    if (mes > 0 && mes <4 ){  // entre Enero, Feb y Marzo
+    if (mes >= 5 && mes <= 11 ){  // entre Mayo y Noviembre
            ano2_ant = ano2 - 1;
            ciclo = "Ciclo_OI_" + QString::number(ano2_ant)  + "_" + QString::fromStdString(year) + ".db";    //ciclo OI
     }
-    if (mes > 9 && mes <13 ){   // entre Oct, Nov y Dic
+   
+    if (mes == 12){   // Dicembre
            ano2_ant = ano2 - 1;
-           ciclo = "Ciclo_OI_" + QString::number(ano2_ant)  + "_" + QString::fromStdString(year) + ".db";    //ciclo OI
+           ciclo = "Ciclo_PV_" + QString::number(ano2_ant)  + "_" + QString::fromStdString(year) + ".db";    //ciclo OI
     }
     
-    if (mes>=4 && mes<=9){  // entre abril y Septiembre
+    if (mes >= 1 && mes <= 4){  // entre Dic y Abril
         ano2_ant = ano2 - 1;
         ciclo = "Ciclo_PV_" + QString::number(ano2_ant)  + "_" + QString::fromStdString(year) + ".db";    //ciclo PV
     }
@@ -155,25 +165,17 @@ QString Silo::users(){return QStringLiteral("Utilisateurs.db");}
  
 QString Silo::adeudos()
 {
-    return QStringLiteral("Dettes_OI_19-20.db");
+    return QStringLiteral("Dettes.db");
     // modificar igual que ciclo actual segun la fecha del ano
 }
 
-//int Silo::TonsXaccion(){return TonsXaccion = 50;}
-//*****************************************************************
-//*****************************************************************
-
-//*********** crea nuevo registro en boletas ***********//
 
 void Silo::Productor(){
   
     // sacar de la boleta o la base de datos la info del productor
-    
+    QString Folio = widget_PP.Folio_edit->text();
     QString prodNum = widget_PP.SocioNum_edit->text(); // recupera el numero de productor del formulario, ponerlo como protegido
-    
-    QString predio = widget_PP.Predio_Nombre_edit->text();
     QString ubicacion = widget_PP.Predio_Ubicacion_edit->text();
-   
     QString c_nombre = widget_PP.Nombres_Chofer_edit->text();
     QString c_apellidos = widget_PP.Apellidos_Chofer_edit->text();
     QString placas = widget_PP.Placas_Camion_edit->text();
@@ -182,29 +184,42 @@ void Silo::Productor(){
     QString bruto = widget_PP.Peso_Bruto_edit->text();
     QString tara = widget_PP.Peso_Tara_edit->text();
     QString humedad = widget_PP.Humedad_edit->text();  
+    QString Peso_esp = widget_PP.Peso_Espe_edit->text();
     QString silo; // traer cual silo esta seleccionado
-    int neto = 0;
    
-    if (bruto.toInt() < tara.toInt())   // se asegura que el peso bruto nunca sea mayor que la tara, dando valores negativos
-    {
-        QMessageBox::information( this, "  Error Peso  ", " Error, la Tara no puede ser mayor al Bruto");
-        widget_PP.Peso_Bruto_edit->clear();
-        widget_PP.Peso_Tara_edit->clear();
-    } else{
-        neto = bruto.toInt() - tara.toInt();
-    }
+    QObject::connect(widget_PP.Peso_Tara_edit, &QLineEdit::returnPressed, [=](){
+        if (bruto.toInt() < tara.toInt()) {   // se asegura que el peso bruto nunca sea mayor que la tara, dando valores negativos
+            QMessageBox::information( this, "  Error Peso  ", " Error, la Tara no puede ser mayor al Bruto");
+            widget_PP.Peso_Bruto_edit->clear();
+            widget_PP.Peso_Tara_edit->clear();
+        } else{
+            int neto{0};
+            neto = bruto.toInt() - tara.toInt();
+            widget_PP.Peso_Neto_edit->setText(QString::number(neto));
+        }
+    });
+    
     
     std::time_t now = time(0);
     QString fecha = ctime(&now);
     
     widget_PP.Silo_1->isChecked() ? silo="1" : silo="2";
     
+    int neto{0};
+    neto = bruto.toInt() - tara.toInt();
+    
     QSqlQuery valor(QSqlDatabase::database(ciclo_actual()));
-    valor.prepare( "INSERT INTO Boletas_Entradas ( Prod_Num, Chofer_Nombre, Chofer_Apellidos, Placas, Color, Tipo, Humedad, "
+    // cambiar las columnas y agregar las que faltan
+    valor.prepare( "INSERT INTO Boletas_Entradas ( Folio, Procedencia, Prod_Num, Chofer_Nombre, Chofer_Apellidos,"
+                   " Placas, Color, Tipo, Humedad, "
                    " Bruto, Tara, Neto, Silo, Ciclo, Fecha ) " // agregar las fotos al ultimo, foto_Cam1, foto_Cam2,
-                   "VALUES ( :Prod_Num, :Chofer_Nombre, :Chofer_Apellidos, :Placas, :Color, :Tipo, :Humedad,"
+                   "VALUES ( :Folio, :Proc, :Prod_Num, :Chofer_Nombre, :Chofer_Apellidos, :Placas, :Color, :Tipo, :Humedad,"
                    " :Bruto, :Tara, :Neto, :Silo, :Ciclo, :Fecha )"); // :foto_Cam1, :foto_Cam2,
-   // valor.bindValue(":Folio", Folio_Num());  // hacer funcion que genere los Folios segun el ciclo_actual
+    
+    valor.bindValue(":Folio", Folio);  // hacer funcion que genere los Folios segun el ciclo_actual
+    LogData("Folio -- " + Folio);
+    valor.bindValue(":Proc", ubicacion);
+    LogData("Procedencia -- " + ubicacion);
     valor.bindValue(":Prod_Num", prodNum ); 
     LogData("Numero Productor -- " + prodNum);
     valor.bindValue(":Chofer_Nombre", c_nombre);
@@ -219,12 +234,6 @@ void Silo::Productor(){
     LogData("Tipo camion -- " + tipo);
     valor.bindValue(":Humedad", humedad);
     LogData("Humedad -- " + humedad);
-//    valor.bindValue(":foto_Cam1", );  // conectar con opencv camara1 y camara 2, se guardan como binario
-//    valor.bindValue(":foto_Cam2", );
-    valor.bindValue(":Ciclo", ciclo_actual());  // hacer script que identifique la fecha actual y defina el ciclo
-    LogData("Ciclo -- " + ciclo_actual());
-    valor.bindValue(":Fecha", fecha);
-    LogData("Fecha -- " + fecha);
     valor.bindValue(":Bruto", bruto);
     LogData("Bruto -- " + bruto);
     valor.bindValue(":Tara", tara);
@@ -233,19 +242,34 @@ void Silo::Productor(){
     LogData("Neto -- " + neto);
     valor.bindValue(":Silo", silo);
     LogData("Silo -- " + silo);
+    valor.bindValue(":Ciclo", ciclo_actual());  // hacer script que identifique la fecha actual y defina el ciclo
+    LogData("Ciclo -- " + ciclo_actual());
+    valor.bindValue(":Fecha", fecha);
+    LogData("Fecha -- " + fecha);
+    
+    QMessageBox MBox;
+    QPushButton *boton_OK = MBox.addButton("Ok", QMessageBox::AcceptRole);
+    //QPushButton *boton_CANCEL = MBox.addButton(QMessageBox::Cancel);
+    MBox.setDefaultButton(boton_OK);
+    //MBox.setIconPixmap(QPixmap("images/Icono_App_Silo_1.png"));
+    MBox.setWindowIcon(QPixmap("images/Icono_App_Silo_1.png"));
     if(valor.exec()){
-        Log("Registro creado Productor \n" + valor.executedQuery() + "\n" + valor.lastError().text());
-        QMessageBox::information( this, "Nuevo Registro", "\n Creado");
+        Log("Registro creado Productor");
+        MBox.setWindowTitle("Nuevo Registro");
+        MBox.setText("Registro Creado con exito");
+        MBox.exec();
         return;
         }
     else {
         Log("Error al agregar Valores \n" + valor.executedQuery() + "\n" + valor.lastError().text());
-        QMessageBox::warning( this, "Error", valor.lastError().text());
+        MBox.setWindowTitle("Error");
+        MBox.setText("Hubo un problema al crear el Registro\n" + valor.lastError().text());
+        MBox.exec();
         return;
         }
     
     widget_PP.SocioNum_edit->clear(); 
-    widget_PP.Predio_Nombre_edit->clear();
+    widget_PP.Folio_edit->clear();
     widget_PP.Predio_Ubicacion_edit->clear();
     widget_PP.Nombres_Chofer_edit->clear();
     widget_PP.Apellidos_Chofer_edit->clear();
@@ -256,14 +280,14 @@ void Silo::Productor(){
     widget_PP.Peso_Tara_edit->clear();
     widget_PP.Peso_Neto_edit->clear();
     widget_PP.Humedad_edit->clear();  
-
+    widget_PP.Peso_Espe_edit->clear();
 
 }
 
 void Silo::listaBoletasProd(){  // llenar el combo box productor boletas
     
     widget_PP.Prod_ComboBox->clear();
-    widget_PP.Predio_Nombre_edit->clear();
+    //widget_PP.Predio_Nombre_edit->clear();
     widget_PP.Predio_Ubicacion_edit->clear();
     widget_PP.Nombres_Chofer_edit->clear();
     widget_PP.Apellidos_Chofer_edit->clear();
@@ -318,7 +342,7 @@ void Silo::NumProdu(QString ComboBox){   // poner el numero del socio boletas
     QString prod;
     bool check = false;
    
-    widget_PP.SocioNum_edit->setReadOnly(true);// isEnabled(); // solo lectura
+    widget_PP.SocioNum_edit->setEnabled(false);// isEnabled(); // solo lectura
     do{
         prod = busq.value("Prod_Apellidos").toString() + ", " + busq.value("Prod_Nombre").toString();
         if(prod == ", "){
@@ -356,14 +380,27 @@ void Silo::Productor_New(){
     QString email = widget_PP.Email_Lista_Prod_edit->text();
     QString whatsapp = widget_PP.Whats_Lista_Prod_edit->text();
     QString telefono = widget_PP.Tel_Lista_Prod_edit->text();
+    int newProd{0};
     
     QSqlQuery valor(QSqlDatabase::database(ciclo_actual()));
-    valor.prepare( "INSERT INTO Productores ( Prod_Nombre, Prod_Apellidos, Prod_Direccion, Predio_Nombre, Ciudad, "
-                   "Tipo_Prod, Socio_Ref, Num_Acciones, Email, Whattsapp, Telefono ) "
-                   "VALUES (:Prod_Nombre, :Prod_Apellidos, :Prod_Direccion, :Predio_Nombre, :Ciudad, :Tipo_Prod, "
-                   ":Socio_Ref, :Num_Acciones, :Email, :Whattsapp, :Telefono )");
+    
+    valor.exec("SELECT Prod_Num FROM Productores");  //  hace lo mismo que autoincrement, hacer algo similar en borrar productor pero que borre el numero y reajuste los demas productores
+    valor.last();
+    newProd = valor.value("Prod_Num").toInt();
+    if (newProd <= 0 ){
+        newProd = 1; 
+    }else{
+        newProd = valor.value("Prod_Num").toInt() + 1;
+    }
+    
+    valor.prepare( "INSERT INTO Productores ( Prod_Num, Prod_Nombre, Prod_Apellidos, Prod_Direccion, Predio_Nombre, Ciudad, "
+                   " Email, Whattsapp, Telefono, RFCF ) "                                  //  Tipo_Prod, Socio_Ref, Num_Acciones,
+                   "VALUES ( :Prod_Num, :Prod_Nombre, :Prod_Apellidos, :Prod_Direccion, :Predio_Nombre, :Ciudad, "   //   :Tipo_Prod, :Socio_Ref, :Num_Acciones, 
+                   ":Email, :Whattsapp, :Telefono, :RFCF )");
     
     LogData("Productor_New");
+    valor.bindValue(":Prod_Num", newProd);
+    LogData("Numero Productor -- " + newProd );
     valor.bindValue(":Prod_Nombre", nombre);
     LogData("Nombre -- " + nombre);
     valor.bindValue(":Prod_Apellidos", apellidos);
@@ -389,12 +426,67 @@ void Silo::Productor_New(){
     LogData("Telefono -- " + telefono);
     valor.exec();
     
-    if(valor.lastError().isValid()){
-        Log("Productor_New \n" + valor.lastError().text() +  valor.lastQuery());
+    QMessageBox MBox;
+    QPushButton *boton_OK = MBox.addButton("Ok", QMessageBox::AcceptRole);
+    //QPushButton *boton_CANCEL = MBox.addButton(QMessageBox::Cancel);
+    MBox.setDefaultButton(boton_OK);
+    //MBox.setIconPixmap(QPixmap("images/Icono_App_Silo_1.png"));
+    MBox.setWindowIcon(QPixmap("images/Icono_App_Silo_1.png"));
+    
+     if(valor.lastError().isValid()){
+        Log("Error al crear un Productor nuevo \n" + valor.executedQuery() + "\n" + valor.lastError().text());
+        MBox.setWindowTitle("Error");
+        MBox.setText("Hubo un problema al crear el Registro\n" + valor.lastError().text());
+        MBox.exec();
+        }
+    else {    
+        Log("Productor Agregado");
+        MBox.setWindowTitle("Nuevo Registro");
+        MBox.setText("Registro Creado con exito");
+        MBox.exec();
     }
     
     valor.finish();
     Productores_Lista(); // lo llamo para actualizar la lista
+}
+
+ void Silo::Productor_Erase(){
+    
+    QSqlQuery valor(QSqlDatabase::database(ciclo_actual()));
+    valor.exec("SELECT Prod_Num FROM Productores");
+    
+    QMessageBox MBox;
+    QPushButton *boton_OK = MBox.addButton("Ok", QMessageBox::AcceptRole);
+    //QPushButton *boton_CANCEL = MBox.addButton(QMessageBox::Cancel);
+    MBox.setDefaultButton(boton_OK);
+    //MBox.setIconPixmap(QPixmap("images/Icono_App_Silo_1.png"));
+    MBox.setWindowIcon(QPixmap("images/Icono_App_Silo_1.png"));
+    
+    if (valor.at() <= 0){
+        Log("Tabla Vacia " + QString::number(valor.at()));
+        MBox.setWindowTitle("Error");
+        MBox.setText("La tabla esta vacia, no se puede borrar\n" + valor.lastError().text());
+        MBox.exec();
+    }else{
+        Log("Borrado de Productor");
+        MBox.setWindowTitle("Productor");
+        MBox.setText("Borrado Exitoso");
+        MBox.exec();
+    }
+    
+    Produ_Limpiar();
+}
+
+void Silo::Produ_Limpiar(){
+    widget_PP.Nombre_Lista_Prod_edit->clear();
+    widget_PP.Apellidos_Lista_Prod_edit->clear();
+    widget_PP.Predio_Lista_Prod_edit->clear();
+    widget_PP.Tel_Lista_Prod_edit->clear();
+    widget_PP.Whats_Lista_Prod_edit->clear();
+    widget_PP.Direccion_Lista_Prod_edit->clear();
+    widget_PP.Ciudad_Lista_Prod_edit->clear();
+    widget_PP.Email_Lista_Prod_edit->clear();
+    widget_PP.RFC_Lista_Prod_edit->clear();
 }
 
 void Silo::Comprador_New(){
@@ -457,7 +549,7 @@ void Silo::RegistroInd(){    // comboBox del Ciclo
     QStringList ciclos = buscarArchivos(filename, "Data");
     widget_PP.RegInd_Ciclo_CB->clear();
     widget_PP.RegInd_Prod_CB->clear();
-    widget_PP.RegInd_NoCont_edit->clear();
+  
     if (ciclos.size() <= 0){
         Log("Registros Individual, No se Pueden Encontrar los archivos: " + filename.at(0) );//QString::number(ciclos.size()));
     }
@@ -566,6 +658,8 @@ void Silo::TablaRegInd(QString ComboBox){  // Tabla con la informacion
           //  QString Prod_Num = registros.value("Prod_Num").toString();
               Chofer = prod.value("Chofer_Nombre").toString();
               C_Apellidos = prod.value("Chofer_Apellidos").toString();
+              Chofer.append(" ");
+              Chofer.append(C_Apellidos);
               Placas = prod.value("Placas").toString();
               Color = prod.value("Color").toString();
               Tipo = prod.value("Tipo").toString();
@@ -573,7 +667,7 @@ void Silo::TablaRegInd(QString ComboBox){  // Tabla con la informacion
               Bruto = prod.value("Bruto").toString();
               Tara = prod.value("Tara").toString();
               Neto = prod.value("Neto").toString();
-              Silo = prod.value("Silo").toString();
+              //Silo = prod.value("Silo").toString();
           //  QString foto1 = registros.value("foto_Cam1").toString();
           //  QString foto2 = registros.value("foto_Cam2").toString();
     
@@ -583,33 +677,33 @@ void Silo::TablaRegInd(QString ComboBox){  // Tabla con la informacion
               QTableWidgetItem *obj1 = new QTableWidgetItem;
               obj1->setText(Chofer);
               widget_PP.Registros_Ind->setItem(filas,1,obj1);
+              //QTableWidgetItem *obj2 = new QTableWidgetItem;
+              //obj2->setText(C_Apellidos);
+              //widget_PP.Registros_Ind->setItem(filas,2,obj2);
               QTableWidgetItem *obj2 = new QTableWidgetItem;
-              obj2->setText(C_Apellidos);
+              obj2->setText(Placas);
               widget_PP.Registros_Ind->setItem(filas,2,obj2);
               QTableWidgetItem *obj3 = new QTableWidgetItem;
-              obj3->setText(Placas);
+              obj3->setText(Color);
               widget_PP.Registros_Ind->setItem(filas,3,obj3);
               QTableWidgetItem *obj4 = new QTableWidgetItem;
-              obj4->setText(Color);
-              widget_PP.Registros_Ind->setItem(filas,4,obj4);
+              obj4->setText(Tipo);
+              widget_PP.Registros_Ind->setItem(filas,4,obj4);    
               QTableWidgetItem *obj5 = new QTableWidgetItem;
-              obj5->setText(Tipo);
-              widget_PP.Registros_Ind->setItem(filas,5,obj5);    
+              obj5->setText(Humedad);
+              widget_PP.Registros_Ind->setItem(filas,5,obj5);
               QTableWidgetItem *obj6 = new QTableWidgetItem;
-              obj6->setText(Humedad);
+              obj6->setText(Bruto);
               widget_PP.Registros_Ind->setItem(filas,6,obj6);
               QTableWidgetItem *obj7 = new QTableWidgetItem;
-              obj7->setText(Bruto);
+              obj7->setText(Tara);
               widget_PP.Registros_Ind->setItem(filas,7,obj7);
               QTableWidgetItem *obj8 = new QTableWidgetItem;
-              obj8->setText(Tara);
+              obj8->setText(Neto);
               widget_PP.Registros_Ind->setItem(filas,8,obj8);
-              QTableWidgetItem *obj9 = new QTableWidgetItem;
-              obj9->setText(Neto);
-              widget_PP.Registros_Ind->setItem(filas,9,obj9);
-              QTableWidgetItem *obj10 = new QTableWidgetItem;
-              obj10->setText(Silo);
-              widget_PP.Registros_Ind->setItem(filas,10,obj10);
+              //QTableWidgetItem *obj10 = new QTableWidgetItem;
+              //obj10->setText(Silo);
+              //widget_PP.Registros_Ind->setItem(filas,10,obj10);
 
     } else {
           if (info.trimmed() == ","){contador++;}
@@ -824,8 +918,9 @@ void Silo::mostrar_Produc(int fila, int columna){ // carga la informacion de los
     } while (correcto == false);
     reg.finish();
 }
-
 //#pragma GCC diagnostic pop
+
+
 
 void Silo::Compradores_Lista(){  // Lista de compradores
     
@@ -901,6 +996,17 @@ void Silo::mostrar_Compra(int fila, int columna){   // Carga la info de los prod
     reg.finish();
 }
 
+void Silo::Comprador_Limpiar(){
+    widget_PP.Contacto_edit->clear();
+    widget_PP.Razon_Social_edit->clear();
+    widget_PP.Direccion_edit->clear();
+    widget_PP.Telefono_edit->clear();
+    widget_PP.Whatsapp_edit->clear();
+    widget_PP.Email_edit->clear();
+    widget_PP.Ciudad_edit->clear();
+    widget_PP.Estado_edit->clear();
+    widget_PP.RFC_edit->clear();
+}
 
 void Silo::PopuAdeudos(){
     
@@ -1114,13 +1220,14 @@ void Silo::show_Liquidacion(){
     if(Liq.lastError().isValid()){
         Log("Error en Liquidaciones \n" + Liq.lastQuery() + "\n" + Liq.lastError().text() );
     }
+    widget_PP.Liq_Prod_CB->clear();
     while(Liq.next()){
         widget_PP.Liq_Prod_CB->addItem(Liq.value("Prod_Apellidos").toString() + ", " + Liq.value("Prod_Nombre").toString());
     }
     Liq.finish();
 }
 
-void Silo::Liquidaciones(QString ComboBox){
+void Silo::Liquidaciones(QString ComboBox){   // Recuadro Boletas dentro de Liquidacion
     std::wstring DirFile;
     TCHAR buffer[MAX_PATH] = {0};
     GetModuleFileName(NULL, buffer, MAX_PATH);
@@ -1192,7 +1299,8 @@ void Silo::Liquidaciones(QString ComboBox){
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-variable"
-void Silo::Liquidaciones_Data(int row, int col){
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+void Silo::Liquidaciones_Data(int row, int col){  // Muestra la info de la boleta dentro de Liquidaciones
     
     std::wstring DirFile;
     TCHAR buffer[MAX_PATH] = {0};
@@ -1201,9 +1309,12 @@ void Silo::Liquidaciones_Data(int row, int col){
     DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
     
     CrearDB(QString::fromStdWString(DirFile), "Humedad_Secado.db");
+    CrearDB(QString::fromStdWString(DirFile), "Config.db");
     
     bool correcto = false;
     bool correcto_Hum = false;
+    bool correcto_Tar = false;
+    
     QSqlQuery reg(QSqlDatabase::database(ciclo_actual()));
     reg.exec("SELECT * FROM Boletas_Entradas AS a JOIN Productores AS b JOIN Contrato As c ON a.Prod_Num=b.Prod_Num=c.Prod_Num ORDER BY Folio"); // orderna alphabeticamente por Apellidos   
     if(reg.lastError().isValid()){
@@ -1211,8 +1322,15 @@ void Silo::Liquidaciones_Data(int row, int col){
     }
     
     QSqlQuery Hmd(QSqlDatabase::database("Humedad_Secado.db"));
+    Hmd.exec();    // seleccionar las tablas de humedad
     if(Hmd.lastError().isValid()){
         Log("Error Humedad y Secado \n" + Hmd.executedQuery() + "\n" + Hmd.lastError().text());
+    }
+    
+    QSqlQuery Cnf(QSqlDatabase::database("Config.db"));
+    Cnf.exec("SELECT * FROM Config");
+    if(Cnf.lastError().isValid()){
+        Log("Error de Config \n" + Cnf.executedQuery() + "\n" + Cnf.lastError().text());
     }
     
     QTableWidgetItem* item = widget_PP.Liq_Boletas_Lista->item(row,0);  // item entrega el objeto en fila y columna
@@ -1226,47 +1344,64 @@ void Silo::Liquidaciones_Data(int row, int col){
         if (table == item->text()){  // ver cual renglon esta activo y comparararlo con table
             Log("Dentro del If en Liquidaciones_Data \n" + table + "\n"+ item->text());
             
-            float DeduX_norma, Humd_Kilos_Restar, Merma_1Ciento, unoCiento;
-            float Total_Deduc, Peso_Anali, Tons_Exced, Sub_Total, Total_Pagar, Secado;
-            float Iva_Secado, Reten_Total;
-            float Cuota_Cons, Sanidad, PIFSV, Modulo;  // revisar las cuotas del patronato y consv
+            float DeduX_norma, Humd_Kilos, Merma_1Ciento, KilosxTon;
+            float Total_Deduc, Peso_Anali, Tons_Exced, Total_Pagar, Secado;
+            float Iva_Secado, Reten_Total, Tarifa;
+            float Cuota_Cons, Sanidad;  // las cuotas viene de la DB Config.db
             
             //   Calculo Excedentes
-            if(reg.value("Sorgo_Contrato").toFloat() <= reg.value("Sorgo_Entregado").toFloat() ){
+            if(reg.value("Sorgo_Contrato").toFloat() < reg.value("Sorgo_Entregado").toFloat() ){
                 Tons_Exced = reg.value("Sorgo_Entregado").toFloat() - reg.value("Sorgo_Contrato").toFloat() ;
             }else{
                 Tons_Exced = 0.0;
             }
             
             // Calculo Deducciones
-            do{
+            do{    // Obtener kilos X Humedad
                 if(reg.value("Humedad").toFloat() == Hmd.value("Porcentaje").toFloat()){
-                    Humd_Kilos_Restar = Hmd.value("Kgs/Ton").toFloat();  // Kilos a restar por Ton
+                    Humd_Kilos = Hmd.value("Kgs/Ton").toFloat();  // Kilos a restar por Ton
                     correcto_Hum = true;
                 }else{
                     Hmd.next();
                 }
             } while (correcto_Hum == true);
-            
-            unoCiento = Humd_Kilos_Restar / 1000;  
-            DeduX_norma = unoCiento * reg.value("Neto").toFloat(); // Kilos a restar al neto
-            Merma_1Ciento = reg.value("Neto").toFloat() * 0.01;  // 1% merma de la boleta
+            /////////////////////  RANGO   /////////////////////////////
+            do{    // Obtener Tarifa x Humedad
+                if(reg.value("Humedad").toFloat() == Hmd.value("Rango").toFloat() ){  // revisar por que la humedad no es igual al rango
+                    Tarifa = Hmd.value("Tarifa").toFloat();
+                    correcto_Hum = true;
+                }else{
+                    Hmd.next();
+                }
+                if (reg.value("Humedad").toFloat() > 30.0){
+                    Log("error el valor de humedad es mayor a 30.0 " + QString::number(reg.value("Humedad").toFloat()));
+                    Tarifa = 0.0;
+                    correcto_Tar == true;
+                }
+                
+            } while(correcto_Tar == true);
+            ///////////////////////////////////////////////////////////
+            //  1000kgs = 1 Ton
+            KilosxTon = Humd_Kilos / 1000; // los kilos a restar por Tonelada 
+            DeduX_norma = KilosxTon * reg.value("Neto").toFloat(); // Kilos a restar al neto
+            Merma_1Ciento = (reg.value("Neto").toFloat() - DeduX_norma) * 0.01;  // 1% merma de la boleta
             Total_Deduc = DeduX_norma + Merma_1Ciento;  // total de deducciones
             Peso_Anali = reg.value("Neto").toFloat() - Total_Deduc ;  
             
             // Calculo Retenciones de Liquidacion
-            Cuota_Cons = 0;
-            Sanidad = 0;
-            PIFSV = 0;
-            Modulo = 0;
+            Cuota_Cons = Cnf.value("Cuota").toFloat();
+            Sanidad = Cnf.value("Sanidad").toFloat();  // estos valores viene la DB Config.db, hacerla al iniciar el programa
+         
             //  Subtotal y total
-            Sub_Total = (Peso_Anali / 1000) * reg.value("Precio_Ton").toFloat();
-            Secado = (Total_Deduc / 1000) * reg.value("Precio_Ton").toFloat();
+            //Sub_Total = (Peso_Anali / 1000) * reg.value("Precio_Ton").toFloat();
+            Secado = (Tarifa / 1000) * Cnf.value("Precio_Ton").toFloat();   // cambiar Precio_Ton por la tarifa de secado
             Iva_Secado = Secado * 0.16;
-            Total_Pagar = Sub_Total + (Secado + Iva_Secado) + Reten_Total;
+            Reten_Total = Cuota_Cons + Sanidad + Secado + Iva_Secado;  // total de retenciones
+            Total_Pagar = Peso_Anali * Cnf.value("Precio_Ton").toFloat();
             //Info General Boleta
             widget_PP.Liq_Prod_Info_edit->setText(reg.value("Prod_Nombre").toString() + " " + reg.value("Prod_Apellidos").toString());         
-            widget_PP.Liq_Proce_Info_edit->setText("Rancho");  // revisar la procedencia del rancho              
+            
+            widget_PP.Liq_Proce_Info_edit->setText(reg.value("Procedencia").toString());              
             widget_PP.Liq_Vehi_Info_edit->setText(reg.value("Tipo").toString());            
             widget_PP.Liq_Placas_Info_edit->setText(reg.value("Placas").toString());        
             widget_PP.Liq_Chofer_Info_edit->setText(reg.value("Chofer_Nombre").toString() + " " + reg.value("Chofer_Apellidos").toString());        
@@ -1278,20 +1413,20 @@ void Silo::Liquidaciones_Data(int row, int col){
             //Excedentes
             widget_PP.Liq_Excd_Derecho_edit->setText(reg.value("Sorgo_Contrato").toString());      // Tons con derecho
             widget_PP.Liq_Excd_Entrega_edit->setText(reg.value("Sorgo_Entregado").toString());      // Tons Entregadas
-            widget_PP.Liq_Excd_Excede_edit->setText(QString::number(Tons_Exced, 'g', 4));       //  tons Excentes
-            widget_PP.Liq_Excd_Pagar_edit->setText("nll");        // Total a pagar
+            widget_PP.Liq_Excd_Excede_edit->setText(QString::number(Tons_Exced, 'f', 3));       //  tons Excentes
             //Retenciones de Liquidacion
-            widget_PP.Liq_Reten_ConsGrano_edit->setText("nll");   // Cuota Conservacion de Grano
-            widget_PP.Liq_Total_Secado_edit->setText("nll");      //  Cuota por secado
-            widget_PP.Liq_Reten_Sanidad_edit->setText("nll");     // sanidad vegetal
-            widget_PP.Liq_Reten_PIFSV_edit->setText("nll");       // Patronato
-            widget_PP.Liq_Reten_Modulo_edit->setText("nll");      //  Modulo sur
-            widget_PP.Liq_Reten_Total_edit->setText("nll");       // Total de retenciones
+            widget_PP.Liq_Reten_ConsGrano_edit->setText(QString::number(Cuota_Cons, 'f', 2));   // Cuota Conservacion de Grano  viene de las opciones
+            widget_PP.Liq_Reten_Secado_edit->setText(QString::number(Secado, 'f', 2));      //  Cuota por secado            
+            widget_PP.Liq_Reten_IvaSecado_edit->setText(QString::number(Iva_Secado, 'f', 2));
+            widget_PP.Liq_Reten_Sanidad_edit->setText(QString::number(Sanidad, 'f', 2));     // sanidad vegetal              vienede las opciones
+            widget_PP.Liq_Reten_Total_edit->setText(QString::number(Total_Deduc, 'f', 2));       // Total de retenciones
             // Deducciones
-            widget_PP.Liq_Dedc_Humedad_edit->setText(reg.value("Humedad").toString());
-            widget_PP.Liq_Dedc_Merma_edit->setText(QString::number(Merma_1Ciento, 'g', 4));         // prevencion merma
-            widget_PP.Liq_Dedc_Deducciones_edit->setText(QString::number(Total_Deduc, 'g', 4));   // Deducciones
-            widget_PP.Liq_Dedc_Analizado_edit->setText(QString::number(Peso_Anali, 'g', 3));     // Peso Analizado
+            widget_PP.Liq_Dedc_Humedad_edit->setText(QString::number(DeduX_norma, 'f', 2));      // Deducciones normas Kgs
+            widget_PP.Liq_Dedc_Merma_edit->setText(QString::number(Merma_1Ciento, 'f', 2));         // prevencion merma
+            //Totales
+            widget_PP.Liq_Total_PrecioTon_edit->setText(QString::number(Cnf.value("Precio_Ton").toFloat(), 'f', 2));   //  sacar de las opciones
+            widget_PP.Liq_Total_Analizado_edit->setText(QString::number(Peso_Anali, 'f', 2));     // Peso Analizado   Revisar cambie el nombre
+            widget_PP.Liq_Total_Pagar_edit->setText(QString::number(Total_Pagar , 'f', 2));
         correcto = true;
      }
     else 
@@ -1307,8 +1442,698 @@ void Silo::Liquidaciones_Data(int row, int col){
     }
     } while (correcto == false);
     reg.finish();
+    Hmd.finish();
+    Cnf.finish();
 }
-#pragma GCC diagnostic pop
+
+void Silo::Popup_DrynWet_CB1(){
+    widget_PP.HumSec_CB1->clear();
+    for ( float it = 14.0; it <=25.9 ; ){
+        it = it + 0.1;
+        widget_PP.HumSec_CB1->addItem(QString::number( it, 'f', 1));
+    }
+    widget_PP.HumSec_CB1_edit->setValidator(new QDoubleValidator(0, 1000, 2, this));
+    
+    QLocale mexico(QLocale::Spanish, QLocale::Mexico);
+    widget_PP.HumSec_CB1_edit->setLocale(mexico);
+}
+
+void Silo::Popup_DrynWet_CB2(){
+    widget_PP.HumSec_CB2->clear();
+    for ( float it = 26.0; it <=30.0 ; ){
+        widget_PP.HumSec_CB2->addItem(QString::number( it, 'f', 1));
+        it = it + 0.1;
+    }
+    widget_PP.HumSec_CB2_edit->setValidator(new QDoubleValidator(0, 1000, 2, this));
+}
+
+void Silo::Popup_DrynWet_CB3(){
+    widget_PP.HumSec_CB3->clear();
+    for ( float it = 14.1; it <30.0 ; ){
+        widget_PP.HumSec_CB3->addItem(QString::number( it, 'f', 1));
+         it = it + 1;
+    }
+    widget_PP.HumSec_CB3_edit->setValidator(new QDoubleValidator(0, 1000, 2, this));
+}
+
+//#pragma GCC diagnostic pop
+
+void Silo::TablasDeduc1(){ 
+    int index = widget_PP.HumSec_CB1->currentIndex();
+    QString text =widget_PP.HumSec_CB1_edit->text();
+    
+    std::wstring DirFile;
+    TCHAR buffer[MAX_PATH] = {0};
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
+    DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
+    
+    CrearDB(QString::fromStdWString(DirFile), "Humedad_Secado.db");
+    QSqlQuery Kgs_Ton(QSqlDatabase::database("Humedad_Secado.db"));
+    // actuliza los valores de la tabla, siempre usar el WHERE
+    Kgs_Ton.prepare("UPDATE Kilos SET Kgs_Ton = :Kgs WHERE Porcentaje = :Porctg");
+    Kgs_Ton.bindValue(":Kgs", text); 
+    Kgs_Ton.bindValue(":Porctg", index); 
+    Kgs_Ton.exec();
+    if(Kgs_Ton.lastError().isValid()){
+        Log("No se pudo guardar el valor " + QString::number(index) +" en Kgs_Ton: " + text + "\n" +Kgs_Ton.lastQuery() + "\n" + Kgs_Ton.lastError().text());
+    }
+    
+    if (index <0 ){
+        Log("Error el combox esta vacio, TablasDeduc");
+    }
+    
+    if (index >= 0 && index < 20){  // de 14.1 a 16.0
+        switch (index){
+            case 0:
+                widget_PP.HumSec_val141->setText(text);  // 0 pesos a descontar
+                break;
+            case 1:
+                widget_PP.HumSec_val142->setText(text);
+                break;
+            case 2:
+                widget_PP.HumSec_val143->setText(text);
+                break;
+            case 3:
+                widget_PP.HumSec_val144->setText(text);
+                break;
+            case 4:
+                widget_PP.HumSec_val145->setText(text);
+                break;
+            case 5:
+                widget_PP.HumSec_val146->setText(text);
+                break;
+            case 6:
+                widget_PP.HumSec_val147->setText(text);
+                break;
+            case 7:
+                widget_PP.HumSec_val148->setText(text);
+                break;
+            case 8:
+                widget_PP.HumSec_val149->setText(text);
+                break;
+            case 9:
+                widget_PP.HumSec_val150->setText(text);
+                break;
+            case 10:
+                widget_PP.HumSec_val151->setText(text);
+                break;
+            case 11:
+                widget_PP.HumSec_val152->setText(text);
+                break;
+            case 12:
+                widget_PP.HumSec_val153->setText(text);
+                break;
+            case 13:
+                widget_PP.HumSec_val154->setText(text);
+                break;
+            case 14:
+                widget_PP.HumSec_val155->setText(text);
+                break;
+            case 15:
+                widget_PP.HumSec_val156->setText(text);
+                break;
+            case 16:
+                widget_PP.HumSec_val157->setText(text);
+                break;
+            case 17:
+                widget_PP.HumSec_val158->setText(text);
+                break;
+            case 18:
+                widget_PP.HumSec_val159->setText(text);
+                break;
+            case 19:
+                widget_PP.HumSec_val160->setText(text);
+                break;
+        }
+    }
+    
+    if (index >= 20 && index < 40){  // de 16.1 a 18
+        switch (index){
+            case 20:
+                widget_PP.HumSec_val161->setText(text);
+                break;
+            case 21:
+                widget_PP.HumSec_val162->setText(text);
+                break;
+            case 22:
+                widget_PP.HumSec_val163->setText(text);
+                break;
+            case 23:
+                widget_PP.HumSec_val164->setText(text);
+                break;
+            case 24:
+                widget_PP.HumSec_val165->setText(text);
+                break;
+            case 25:
+                widget_PP.HumSec_val166->setText(text);
+                break;
+            case 26:
+                widget_PP.HumSec_val167->setText(text);
+                break;
+            case 27:
+                widget_PP.HumSec_val168->setText(text);
+                break;
+            case 28:
+                widget_PP.HumSec_val169->setText(text);
+                break;
+            case 29:
+                widget_PP.HumSec_val170->setText(text);
+                break;
+            case 30:
+                widget_PP.HumSec_val171->setText(text);
+                break;
+            case 31:
+                widget_PP.HumSec_val172->setText(text);
+                break;
+            case 32:
+                widget_PP.HumSec_val173->setText(text);
+                break;
+            case 33:
+                widget_PP.HumSec_val174->setText(text);
+                break;
+            case 34:
+                widget_PP.HumSec_val175->setText(text);
+                break;
+            case 35:
+                widget_PP.HumSec_val176->setText(text);
+                break;
+            case 36:
+                widget_PP.HumSec_val177->setText(text);
+                break;
+            case 37:
+                widget_PP.HumSec_val178->setText(text);
+                break;
+            case 38:
+                widget_PP.HumSec_val179->setText(text);
+                break;
+            case 39:
+                widget_PP.HumSec_val180->setText(text);
+                break;
+        }
+    }
+    
+    if (index >= 40 && index < 60){  // de 18.1 a 20
+        switch (index){
+            case 40:
+                widget_PP.HumSec_val181->setText(text);
+                break;
+            case 41:
+                widget_PP.HumSec_val182->setText(text);
+                break;
+            case 42:
+                widget_PP.HumSec_val183->setText(text);
+                break;
+            case 43:
+                widget_PP.HumSec_val184->setText(text);
+                break;
+            case 44:
+                widget_PP.HumSec_val185->setText(text);
+                break;
+            case 45:
+                widget_PP.HumSec_val186->setText(text);
+                break;
+            case 46:
+                widget_PP.HumSec_val187->setText(text);
+                break;
+            case 47:
+                widget_PP.HumSec_val188->setText(text);
+                break;
+            case 48:
+                widget_PP.HumSec_val189->setText(text);
+                break;
+            case 49:
+                widget_PP.HumSec_val190->setText(text);
+                break;
+            case 50:
+                widget_PP.HumSec_val191->setText(text);
+                break;
+            case 51:
+                widget_PP.HumSec_val192->setText(text);
+                break;
+            case 52:
+                widget_PP.HumSec_val193->setText(text);
+                break;
+            case 53:
+                widget_PP.HumSec_val194->setText(text);
+                break;
+            case 54:
+                widget_PP.HumSec_val195->setText(text);
+                break;
+            case 55:
+                widget_PP.HumSec_val196->setText(text);
+                break;
+            case 56:
+                widget_PP.HumSec_val197->setText(text);
+                break;
+            case 57:
+                widget_PP.HumSec_val198->setText(text);
+                break;
+            case 58:
+                widget_PP.HumSec_val199->setText(text);
+                break;
+            case 59:
+                widget_PP.HumSec_val200->setText(text);
+                break;
+        }
+    }
+    
+    if (index >= 60 && index < 80){  // de 20.1 a 22.0
+        switch (index){
+            case 60:
+                widget_PP.HumSec_val201->setText(text);
+                break;
+            case 61:
+                widget_PP.HumSec_val202->setText(text);
+                break;
+            case 62:
+                widget_PP.HumSec_val203->setText(text);
+                break;
+            case 63:
+                widget_PP.HumSec_val204->setText(text);
+                break;
+            case 64:
+                widget_PP.HumSec_val205->setText(text);
+                break;
+            case 65:
+                widget_PP.HumSec_val206->setText(text);
+                break;
+            case 66:
+                widget_PP.HumSec_val207->setText(text);
+                break;
+            case 67:
+                widget_PP.HumSec_val208->setText(text);
+                break;
+            case 68:
+                widget_PP.HumSec_val209->setText(text);
+                break;
+            case 69:
+                widget_PP.HumSec_val210->setText(text);
+                break;
+            case 70:
+                widget_PP.HumSec_val211->setText(text);
+                break;
+            case 71:
+                widget_PP.HumSec_val212->setText(text);
+                break;
+            case 72:
+                widget_PP.HumSec_val213->setText(text);
+                break;
+            case 73:
+                widget_PP.HumSec_val214->setText(text);
+                break;
+            case 74:
+                widget_PP.HumSec_val215->setText(text);
+                break;
+            case 75:
+                widget_PP.HumSec_val216->setText(text);
+                break;
+            case 76:
+                widget_PP.HumSec_val217->setText(text);
+                break;
+            case 77:
+                widget_PP.HumSec_val218->setText(text);
+                break;
+            case 78:
+                widget_PP.HumSec_val219->setText(text);
+                break;
+            case 79:
+                widget_PP.HumSec_val220->setText(text);
+                break;
+        }
+    }
+    
+    if (index >= 80 && index < 100){  // de 22.1 a 24.0
+        switch (index){
+            case 80:
+                widget_PP.HumSec_val221->setText(text);
+                break;
+            case 81:
+                widget_PP.HumSec_val222->setText(text);
+                break;
+            case 82:
+                widget_PP.HumSec_val223->setText(text);
+                break;
+            case 83:
+                widget_PP.HumSec_val224->setText(text);
+                break;
+            case 84:
+                widget_PP.HumSec_val225->setText(text);
+                break;
+            case 85:
+                widget_PP.HumSec_val226->setText(text);
+                break;
+            case 86:
+                widget_PP.HumSec_val227->setText(text);
+                break;
+            case 87:
+                widget_PP.HumSec_val228->setText(text);
+                break;
+            case 88:
+                widget_PP.HumSec_val229->setText(text);
+                break;
+            case 89:
+                widget_PP.HumSec_val230->setText(text);
+                break;
+            case 90:
+                widget_PP.HumSec_val231->setText(text);
+                break;
+            case 91:
+                widget_PP.HumSec_val232->setText(text);
+                break;
+            case 92:
+                widget_PP.HumSec_val233->setText(text);
+                break;
+            case 93:
+                widget_PP.HumSec_val234->setText(text);
+                break;
+            case 94:
+                widget_PP.HumSec_val235->setText(text);
+                break;
+            case 95:
+                widget_PP.HumSec_val236->setText(text);
+                break;
+            case 96:
+                widget_PP.HumSec_val237->setText(text);
+                break;
+            case 97:
+                widget_PP.HumSec_val238->setText(text);
+                break;
+            case 98:
+                widget_PP.HumSec_val239->setText(text);
+                break;
+            case 99:
+                widget_PP.HumSec_val240->setText(text);
+                break;
+        }
+    }
+    
+    if (index >= 100 && index < 120){  // de 24.1 a 26.0
+        switch (index){
+            case 100:
+                widget_PP.HumSec_val241->setText(text);
+                break;
+            case 101:
+                widget_PP.HumSec_val242->setText(text);
+                break;
+            case 102:
+                widget_PP.HumSec_val243->setText(text);
+                break;
+            case 103:
+                widget_PP.HumSec_val244->setText(text);
+                break;
+            case 104:
+                widget_PP.HumSec_val245->setText(text);
+                break;
+            case 105:
+                widget_PP.HumSec_val246->setText(text);
+                break;
+            case 106:
+                widget_PP.HumSec_val247->setText(text);
+                break;
+            case 107:
+                widget_PP.HumSec_val248->setText(text);
+                break;
+            case 108:
+                widget_PP.HumSec_val249->setText(text);
+                break;
+            case 109:
+                widget_PP.HumSec_val250->setText(text);
+                break;
+            case 110:
+                widget_PP.HumSec_val251->setText(text);
+                break;
+            case 111:
+                widget_PP.HumSec_val252->setText(text);
+                break;
+            case 112:
+                widget_PP.HumSec_val253->setText(text);
+                break;
+            case 113:
+                widget_PP.HumSec_val254->setText(text);
+                break;
+            case 114:
+                widget_PP.HumSec_val255->setText(text);
+                break;
+            case 115:
+                widget_PP.HumSec_val256->setText(text);
+                break;
+            case 116:
+                widget_PP.HumSec_val257->setText(text);
+                break;
+            case 117:
+                widget_PP.HumSec_val258->setText(text);
+                break;
+            case 118:
+                widget_PP.HumSec_val259->setText(text);
+                break;
+        }
+    }
+}
+
+void Silo::TablasDeduc2(){
+    int index = widget_PP.HumSec_CB2->currentIndex();
+    QString text =widget_PP.HumSec_CB2_edit->text();
+    
+    std::wstring DirFile;
+    TCHAR buffer[MAX_PATH] = {0};
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
+    DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
+    
+    CrearDB(QString::fromStdWString(DirFile), "Humedad_Secado.db");
+    QSqlQuery Kgs_Ton(QSqlDatabase::database("Humedad_Secado.db"));
+    // actuliza los valores de la tabla, siempre usar el WHERE
+    Kgs_Ton.prepare("UPDATE Kilos SET Kgs_Ton = :Kgs WHERE Porcentaje = :Porctg");
+    Kgs_Ton.bindValue(":Kgs", text); 
+    Kgs_Ton.bindValue(":Porctg", index); 
+    Kgs_Ton.exec();
+    if(Kgs_Ton.lastError().isValid()){
+        Log("No se pudo guardar el valor " + QString::number(index) +" en Kgs_Ton: " + text + "\n" +Kgs_Ton.lastQuery() + "\n" + Kgs_Ton.lastError().text());
+    }
+   
+    if (index <0 ){
+        Log("Error el combox esta vacio, TablasDeduc 2");
+    }
+    
+     if (index >= 0 && index < 21){  // de 26.0 a 28.0
+        switch (index){
+            case 0:
+                widget_PP.HumSec_val260->setText(text);
+                break;
+            case 1:
+                widget_PP.HumSec_val261->setText(text);
+                break;
+            case 2:
+                widget_PP.HumSec_val262->setText(text);
+                break;
+            case 3:
+                widget_PP.HumSec_val263->setText(text);
+                break;
+            case 4:
+                widget_PP.HumSec_val264->setText(text);
+                break;
+            case 5:
+                widget_PP.HumSec_val265->setText(text);
+                break;
+            case 6:
+                widget_PP.HumSec_val266->setText(text);
+                break;
+            case 7:
+                widget_PP.HumSec_val267->setText(text);
+                break;
+            case 8:
+                widget_PP.HumSec_val268->setText(text);
+                break;
+            case 9:
+                widget_PP.HumSec_val269->setText(text);
+                break;
+            case 10:
+                widget_PP.HumSec_val270->setText(text);
+                break;
+            case 11:
+                widget_PP.HumSec_val271->setText(text);
+                break;
+            case 12:
+                widget_PP.HumSec_val272->setText(text);
+                break;
+            case 13:
+                widget_PP.HumSec_val273->setText(text);
+                break;
+            case 14:
+                widget_PP.HumSec_val274->setText(text);
+                break;
+            case 15:
+                widget_PP.HumSec_val275->setText(text);
+                break;
+            case 16:
+                widget_PP.HumSec_val276->setText(text);
+                break;
+            case 17:
+                widget_PP.HumSec_val277->setText(text);
+                break;
+            case 18:
+                widget_PP.HumSec_val278->setText(text);
+                break;
+            case 19:
+                widget_PP.HumSec_val279->setText(text);
+                break;
+            case 20:
+                widget_PP.HumSec_val280->setText(text);
+                break;
+        }
+    }
+    
+    if (index >= 21 && index <= 41){  // de 28.1 a 30
+        switch (index){
+            case 21:
+                widget_PP.HumSec_val281->setText(text);
+                break;
+            case 22:
+                widget_PP.HumSec_val282->setText(text);
+                break;
+            case 23:
+                widget_PP.HumSec_val283->setText(text);
+                break;
+            case 24:
+                widget_PP.HumSec_val284->setText(text);
+                break;
+            case 25:
+                widget_PP.HumSec_val285->setText(text);
+                break;
+            case 26:
+                widget_PP.HumSec_val286->setText(text);
+                break;
+            case 27:
+                widget_PP.HumSec_val287->setText(text);
+                break;
+            case 28:
+                widget_PP.HumSec_val288->setText(text);
+                break;
+            case 29:
+                widget_PP.HumSec_val289->setText(text);
+                break;
+            case 30:
+                widget_PP.HumSec_val290->setText(text);
+                break;
+            case 31:
+                widget_PP.HumSec_val291->setText(text);
+                break;
+            case 32:
+                widget_PP.HumSec_val292->setText(text);
+                break;
+            case 33:
+                widget_PP.HumSec_val293->setText(text);
+                break;
+            case 34:
+                widget_PP.HumSec_val294->setText(text);
+                break;
+            case 35:
+                widget_PP.HumSec_val295->setText(text);
+                break;
+            case 36:
+                widget_PP.HumSec_val296->setText(text);
+                break;
+            case 37:
+                widget_PP.HumSec_val297->setText(text);
+                break;
+            case 38:
+                widget_PP.HumSec_val298->setText(text);
+                break;
+            case 39:
+                widget_PP.HumSec_val299->setText(text);
+                break;
+            case 40:
+                widget_PP.HumSec_val300->setText(text);
+                break;
+            case 41:
+                widget_PP.HumSec_val300->setText(text);
+                break;
+        }
+    }
+}
+
+void Silo::TablasDeduc3(){   // tarifas de secado en rangos
+    int index = widget_PP.HumSec_CB3->currentIndex();
+    QString text =widget_PP.HumSec_CB3_edit->text();
+    
+    std::wstring DirFile;
+    TCHAR buffer[MAX_PATH] = {0};
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
+    DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
+    
+    CrearDB(QString::fromStdWString(DirFile), "Humedad_Secado.db");
+    QSqlQuery tarifa(QSqlDatabase::database("Humedad_Secado.db"));
+    // actuliza los valores de la tabla, siempre usar el WHERE
+    tarifa.prepare("UPDATE Secado SET Tarifa = :Tarifa WHERE Rango = :Rango");
+    tarifa.bindValue(":Tarifa", text); 
+    tarifa.bindValue(":Rango", index); 
+    tarifa.exec();
+    if(tarifa.lastError().isValid()){
+        Log("No se pudo guardar el valor " + QString::number(index) +" en Tarifa: " + text + "\n" +tarifa.lastQuery() + "\n" + tarifa.lastError().text());
+    }
+   
+    if (index <0 ){
+        Log("Error el combox esta vacio, TablasDeduc 3");
+    }
+    
+     if (index >= 0 && index < 16){  // rangos de Tarifas
+        switch (index){
+            case 0:
+                widget_PP.HumSec_Tarifa_141_150->setText(text);
+                break;
+            case 1:
+                widget_PP.HumSec_Tarifa_151_160->setText(text);
+                break;
+            case 2:
+                widget_PP.HumSec_Tarifa_161_170->setText(text);
+                break;
+            case 3:
+                widget_PP.HumSec_Tarifa_171_180->setText(text);
+                break;
+            case 4:
+                widget_PP.HumSec_Tarifa_181_190->setText(text);
+                break;
+            case 5:
+                widget_PP.HumSec_Tarifa_191_200->setText(text);
+                break;
+            case 6:
+                widget_PP.HumSec_Tarifa_201_210->setText(text);
+                break;
+            case 7:
+                widget_PP.HumSec_Tarifa_211_220->setText(text);
+                break;
+            case 8:
+                widget_PP.HumSec_Tarifa_221_230->setText(text);
+                break;
+            case 9:
+                widget_PP.HumSec_Tarifa_231_240->setText(text);
+                break;
+            case 10:
+                widget_PP.HumSec_Tarifa_241_250->setText(text);
+                break;
+            case 11:
+                widget_PP.HumSec_Tarifa_251_260->setText(text);
+                break;
+            case 12:
+                widget_PP.HumSec_Tarifa_261_270->setText(text);
+                break;
+            case 13:
+                widget_PP.HumSec_Tarifa_271_280->setText(text);
+                break;
+            case 14:
+                widget_PP.HumSec_Tarifa_281_290->setText(text);
+                break;
+            case 15:
+                widget_PP.HumSec_Tarifa_291_300->setText(text);
+                break;
+        }
+    }
+}
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wwrite-strings"
 
 void Silo::About(){
     //QString add = getMacAddress();  // esta en Login.cpp
@@ -1337,7 +2162,7 @@ void Silo::About(){
     QMessageBox::information( this, "About", about);
     
 }
-
+#pragma GCC diagnostic pop
 
 QStringList Silo::buscarArchivos(QStringList file, QString SearchDir){  // checar https://doc.qt.io/qt-5/qtwidgets-dialogs-findfiles-example.html  esta en el messenger
     
@@ -1467,14 +2292,14 @@ void Silo::Creditos(){
     }
   
     valor.exec("CREATE TABLE IF NOT EXISTS Creditos_Cosecha"
-               "(Prod_Num INTEGER NOT NULL, Cantidad INTEGER, "
+               "(Prod_Num INTEGER, Cantidad INTEGER, "
                "Tipo_Interes FLOAT, fecha_Credito VARCHAR(30), fecha_Pago VARCHAR(30))");
     if(valor.lastError().isValid()){
         Log("Error al crear Creditos_Cosecha \n" + valor.lastQuery() + "\n" + valor.lastError().text() );
     }
     
     valor.exec("CREATE TABLE IF NOT EXISTS Semilla"
-               "(Prod_Num INTEGER NOT NULL, Tipo_semilla VARCHAR(250), "
+               "(Prod_Num INTEGER, Tipo_semilla VARCHAR(250), "
                "Cant_Bolsas INTEGER, Precio_Bolsas FLOAT, "
                "fecha_Credito VARCHAR(30), fecha_Pago VARCHAR(30), "
                "Tipo_Interes FLOAT)");
@@ -1483,7 +2308,7 @@ void Silo::Creditos(){
     }
     
     valor.exec("CREATE TABLE IF NOT EXISTS Diesel"
-               "(Prod_Num INTEGER NOT NULL, Cantidad FLOAT,"
+               "(Prod_Num INTEGER, Cantidad FLOAT,"
                "Precio FLOAT, fecha_Carga VARCHAR(30), fecha_pago VARCHAR(30) )");
     if(valor.lastError().isValid()){
         Log("Error al crear Diesel" + valor.lastQuery() + "\n" + valor.lastError().text() );
@@ -1512,39 +2337,41 @@ void Silo::Ciclo(){
     }
     
     valor.exec("CREATE TABLE IF NOT EXISTS Productores "
-               "(Prod_Num INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+               "(RFCF VARCHAR(13) PRIMARY KEY, Prod_Num INTEGER,"   // RFCF es para personas fisicas, RFCM para personas morales
                "Prod_Nombre VARCHAR(100), Prod_Apellidos VARCHAR(250), "
                "Predio_Nombre VARCHAR(100), Prod_Direccion TEXT, "
                "Ciudad VARCHAR(250), Tipo_Prod TINYINT, "
                "Socio_Ref INTEGER, Num_Acciones INTEGER, "
                "Email VARCHAR(250), Whattsapp INTEGER,"
                "Telefono INTEGER)");
-                //"RFC VARCHAR(13)"   // agregar y Ordenar por RFC
+            
     if(valor.lastError().isValid()){
         Log("Error al crear Productores \n" + valor.lastQuery() + "\n" + valor.lastError().text() );
     }
     
     valor.exec("CREATE TABLE IF NOT EXISTS Boletas_Entradas "
-               "(Folio INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
+               "(Folio INTEGER NOT NULL, "
                "Prod_Num INTEGER, "
                "Chofer_Nombre VARCHAR(100) , Chofer_Apellidos VARCHAR(250), "
                "Placas VARCHAR(8) , Color VARCHAR(20), "
                "Tipo VARCHAR(30), Humedad FLOAT, "
                "Bruto FLOAT, Tara FLOAT, "
                "Neto FLOAT, Silo TINYINT, "
-               "foto_Cam1 VARBINARY, foto_Cam2 VARBINARY, " // VARBINARY(MAX) soporta imagenes/pdf/word etc
-               "Fecha VARCHAR(30), Ciclo VARCHAR(20) )");  
+               //"foto_Cam1 VARBINARY, foto_Cam2 VARBINARY, " // VARBINARY(MAX) soporta imagenes/pdf/word etc
+               "Fecha VARCHAR(30), Ciclo VARCHAR(20), "
+                "Procedencia VARCHAR(150) )" );  
+    
     if(valor.lastError().isValid()){
         Log("Error al crear Boletas_Entradas \n " + valor.lastQuery() + "\n" + valor.lastError().text() );
     }
     
     valor.exec("CREATE TABLE IF NOT EXISTS Boletas_Salidas "
-               "(Folio INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-               "Comp_Num INTEGER, "
+               "(Folio INTEGER NOT NULL, Comp_Num INTEGER, "
                "Chofer_Nombre VARCHAR(100), Chofer_Apellidos VARCHAR(250),"
                "Placas VARCHAR(8), Color VARCHAR(20), Tipo VARCHAR(30), "
-               "Bruto FLOAT, Tara FLOAT, Neto FLOAT,"
-               "foto_Cam1 VARBINARY, foto_Cam2 VARBINARY,"
+               "Bruto FLOAT, Tara FLOAT, Neto FLOAT, "
+               //"foto_Cam1 VARBINARY, foto_Cam2 VARBINARY,"  // agregar cuando ponga las camaras
+               "Destino VARCHAR(150), "
                "Fecha VARCHAR(30), Silo TINYINT)");
     if(valor.lastError().isValid()){
         Log("Error al crear Boletas_salidas \n" + valor.lastQuery() + "\n" + valor.lastError().text() );
@@ -1562,7 +2389,7 @@ void Silo::Ciclo(){
     }
     
     valor.exec("CREATE TABLE IF NOT EXISTS Compradores"
-               "(Comp_Num INTEGER, Razon_Social VARCHAR(250), "
+               "(RFCM VARCHAR(12), Comp_Num INTEGER NOT NULL, Razon_Social VARCHAR(250), "  // RFCM es para personas morales, 12 caracteres
                "Direccion VARCHAR(500), Ciudad VARCHAR(250), Estado VARCHAR(250), "
                "Contacto VARCHAR(500), Telefono INTEGER, "
                "Whattsapp INTEGER, Email VARCHAR(250) )");
@@ -1581,6 +2408,97 @@ void Silo::Ciclo(){
        Log( "Creacion de tablas Ciclo ");
     }
 }
+
+void Silo::Dry_n_Wet(){
+    // crea las tablas de Humedad
+    int size{0}, size2{0};
+    std::wstring DirFile;
+    TCHAR buffer[MAX_PATH] = {0};
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
+    DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
+    
+    CrearDB(QString::fromStdWString(DirFile), "Humedad_Secado.db");
+    
+    QSqlQuery valor(QSqlDatabase::database("Humedad_Secado.db"));
+    if(valor.lastError().isValid()){
+        Log("Creacion de Db Humedad_Secado fallida \n" + valor.executedQuery() + "\n" + valor.lastError().text() );
+    }
+    
+    valor.exec("CREATE TABLE IF NOT EXISTS Kilos"
+               "(Porcentaje INTEGER NOT NULL, Kgs_Ton FLOAT )");
+    if(valor.lastError().isValid()){
+        Log("Creacion de Humedad \n" + valor.lastQuery() + "\n" + valor.lastError().text() );
+    }
+    
+    valor.exec("CREATE TABLE IF NOT EXISTS Secado"
+               "(Rango INTEGER NOT NULL, Tarifa FLOAT )");
+    if(valor.lastError().isValid()){
+        Log("Creacion de Secado \n" + valor.lastQuery() + "\n" + valor.lastError().isValid() );
+    }
+    
+    /// inicializa los campos de las tablas, poner un if para evitar que se inicializen dos veces o mas
+    
+    valor.exec("SELECT Porcentaje FROM Kilos");
+    valor.last();
+    size2 = valor.at() + 1;
+    
+    if (size2 <= 0){
+    for( int t = 0; t<160 ; ){
+        valor.prepare("INSERT INTO Kilos (Porcentaje, Kgs_Ton) VALUES (:Porctg, :Kilos)");
+        valor.bindValue(":Porctg", t);
+        valor.bindValue(":Kilos", 0);
+        valor.exec();
+        t++;
+    }
+    }
+    
+    valor.exec("SELECT Rango FROM Secado");
+    valor.last();
+    size = valor.at() + 1;  // obtiene el total de elementos dentro de la tabla y evita doble inicializacion
+  
+    if (size <= 0){
+        for( int i = 0; i<16 ; ){  // inicializa la tabla
+          valor.prepare("INSERT INTO Secado (Rango, Tarifa) VALUES (:Rango, :Tarifa)");
+          valor.bindValue(":Rango", i);
+          valor.bindValue(":Tarifa", 0);
+          valor.exec();
+          i++;
+    }
+    }
+    
+    if(!valor.lastError().isValid()){
+        Log("Creacion de Humedad y Secado");
+    }
+} 
+
+void Silo::Config(){
+    // crea la DB de Configuracion
+    
+    std::wstring DirFile;
+    TCHAR buffer[MAX_PATH] = {0};
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
+    DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
+    
+    CrearDB(QString::fromStdWString(DirFile), "Config.db");
+    
+    QSqlQuery valor(QSqlDatabase::database("Config.db"));
+    if(valor.lastError().isValid()){
+        Log("Creacion de Db Config fallida \n" + valor.executedQuery() + "\n" + valor.lastError().text() );
+    }
+    
+    valor.exec("CREATE TABLE IF NOT EXISTS Config"
+               "(Mac VARCHAR(18), Duracion INT, Ton_Socio FLOAT, Precio_Ton FLOAT, Sanidad FLOAT,"
+               " Cuota FLOAT, Modulo FLOAT, Update INT, Precio_Fix FLOAT, Mac VARCHAR(18) )");
+    if(valor.lastError().isValid()){
+        Log("Creacion de Humedad \n" + valor.lastQuery() + "\n" + valor.lastError().text() );
+    }
+    
+    if(!valor.lastError().isValid()){
+        Log("Creacion de Config");
+    }
+} 
 
 void Silo::LogData(QString data){
     std::ofstream archivo; 
@@ -1764,15 +2682,18 @@ void Silo::C_Liq(){  // Liquidaciones
     show_Liquidacion();
 }
 
-/*  Usar SpinBox
- QSpinBox myInt;
-myInt.setMinimum(-5);
-myInt.setMaximum(5);
-myInt.setSingleStep(1);// Will increment the current value with 1 (if you use up arrow key) (if you use down arrow key => -1)
-myInt.setValue(2);// Default/begining value
-myInt.value();// Get the current value
-//connect(&myInt, SIGNAL(valueChanged(int)), this, SLOT(myValueChanged(int)));
- 
- 
- 
- */
+
+void Silo::C_Opc(){
+    widget_PP.SW_Zona_Principal->setCurrentIndex(7);
+}
+
+void Silo::C_HumySec1(){
+    Popup_DrynWet_CB1();
+    widget_PP.SW_Zona_Principal->setCurrentIndex(8);
+}
+
+void Silo::C_HumySec2(){
+    Popup_DrynWet_CB2();
+    Popup_DrynWet_CB3();
+    widget_PP.SW_Zona_Principal->setCurrentIndex(9);
+}
