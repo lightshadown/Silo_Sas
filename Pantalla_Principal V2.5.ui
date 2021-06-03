@@ -175,7 +175,7 @@ border-radius:0px;</string>
      <number>2</number>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="page_Landing">
      <widget class="QLabel" name="SplashScreenLogo">
@@ -824,7 +824,7 @@ color:red;</string>
      <widget class="QLabel" name="Panel_Boletas">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>20</x>
         <y>20</y>
         <width>170</width>
         <height>40</height>
@@ -871,7 +871,7 @@ border-radius:0px;</string>
        <number>0</number>
       </property>
       <property name="text">
-       <string>BOLETAS</string>
+       <string>Boletas</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -2103,7 +2103,7 @@ border-radius:0px;</string>
        <number>0</number>
       </property>
       <property name="text">
-       <string>REGISTROS</string>
+       <string>Registros</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -3424,7 +3424,7 @@ border-radius:0px;</string>
        <number>0</number>
       </property>
       <property name="text">
-       <string>ADEUDOS</string>
+       <string>Adeudos</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -6487,7 +6487,7 @@ border-color: rgb(255, 255, 255);</string>
      <widget class="QLabel" name="Panel_Productores">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>20</x>
         <y>20</y>
         <width>230</width>
         <height>40</height>
@@ -6534,7 +6534,7 @@ border-radius:0px;</string>
        <number>0</number>
       </property>
       <property name="text">
-       <string>PRODUCTORES</string>
+       <string>Productores</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -7583,7 +7583,7 @@ Registro</string>
      <widget class="QLabel" name="Panel_Compradores">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>20</x>
         <y>20</y>
         <width>240</width>
         <height>40</height>
@@ -7624,7 +7624,7 @@ border-radius:0px;</string>
        <number>0</number>
       </property>
       <property name="text">
-       <string>COMPRADORES</string>
+       <string>Compradores</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -11424,7 +11424,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_21">
@@ -11481,7 +11484,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_14">
@@ -11538,7 +11544,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_24">
@@ -11614,7 +11623,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val143">
@@ -11633,7 +11645,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val146">
@@ -11652,7 +11667,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val141">
@@ -11671,7 +11689,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val144">
@@ -11690,7 +11711,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_20">
@@ -11747,7 +11771,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </widget>
@@ -11803,7 +11830,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_27">
@@ -11860,7 +11890,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_53">
@@ -11898,7 +11931,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_55">
@@ -11936,7 +11972,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_57">
@@ -12012,7 +12051,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val153">
@@ -12031,7 +12073,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val156">
@@ -12050,7 +12095,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val151">
@@ -12069,7 +12117,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val154">
@@ -12088,7 +12139,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_65">
@@ -12164,7 +12218,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </widget>
@@ -12202,7 +12259,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_70">
@@ -12259,7 +12319,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_73">
@@ -12297,7 +12360,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_75">
@@ -12335,7 +12401,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_77">
@@ -12411,7 +12480,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val163">
@@ -12430,7 +12502,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val166">
@@ -12449,7 +12524,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val161">
@@ -12468,7 +12546,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val164">
@@ -12487,7 +12568,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_85">
@@ -12563,7 +12647,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </widget>
@@ -12601,7 +12688,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_90">
@@ -12658,7 +12748,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_93">
@@ -12696,7 +12789,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_95">
@@ -12734,7 +12830,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_97">
@@ -12810,7 +12909,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val173">
@@ -12829,7 +12931,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val176">
@@ -12848,7 +12953,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val171">
@@ -12867,7 +12975,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val174">
@@ -12886,7 +12997,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_105">
@@ -12962,7 +13076,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </widget>
@@ -13000,7 +13117,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_110">
@@ -13057,7 +13177,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_113">
@@ -13095,7 +13218,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_115">
@@ -13133,7 +13259,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_117">
@@ -13209,7 +13338,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val183">
@@ -13228,7 +13360,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val186">
@@ -13247,7 +13382,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val181">
@@ -13266,7 +13404,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val184">
@@ -13285,7 +13426,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_130">
@@ -13361,7 +13505,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </widget>
@@ -13399,7 +13546,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_144">
@@ -13456,7 +13606,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_155">
@@ -13494,7 +13647,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_157">
@@ -13532,7 +13688,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_159">
@@ -13608,7 +13767,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val193">
@@ -13627,7 +13789,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val196">
@@ -13646,7 +13811,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val191">
@@ -13665,7 +13833,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val194">
@@ -13684,7 +13855,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_167">
@@ -13760,7 +13934,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </widget>
@@ -13798,7 +13975,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_172">
@@ -13855,7 +14035,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_175">
@@ -13893,7 +14076,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_177">
@@ -13931,7 +14117,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_179">
@@ -14007,7 +14196,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val203">
@@ -14026,7 +14218,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val206">
@@ -14045,7 +14240,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val201">
@@ -14064,7 +14262,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val204">
@@ -14083,7 +14284,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_187">
@@ -14159,7 +14363,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </widget>
@@ -14197,7 +14404,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_192">
@@ -14254,7 +14464,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_195">
@@ -14292,7 +14505,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_197">
@@ -14330,7 +14546,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_199">
@@ -14406,7 +14625,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val213">
@@ -14425,7 +14647,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val216">
@@ -14444,7 +14669,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val211">
@@ -14463,7 +14691,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val214">
@@ -14482,7 +14713,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_210">
@@ -14558,7 +14792,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </widget>
@@ -14596,7 +14833,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_215">
@@ -14653,7 +14893,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_218">
@@ -14691,7 +14934,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_220">
@@ -14729,7 +14975,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_222">
@@ -14805,7 +15054,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val223">
@@ -14824,7 +15076,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val226">
@@ -14843,7 +15098,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val221">
@@ -14862,7 +15120,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val224">
@@ -14881,7 +15142,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_230">
@@ -14957,7 +15221,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </widget>
@@ -14995,7 +15262,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_235">
@@ -15052,7 +15322,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_238">
@@ -15090,7 +15363,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_240">
@@ -15128,7 +15404,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_242">
@@ -15204,7 +15483,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val233">
@@ -15223,7 +15505,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val236">
@@ -15242,7 +15527,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val231">
@@ -15261,7 +15549,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val234">
@@ -15280,7 +15571,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_250">
@@ -15356,7 +15650,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </widget>
@@ -15394,7 +15691,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_255">
@@ -15451,7 +15751,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_258">
@@ -15489,7 +15792,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_260">
@@ -15527,7 +15833,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_262">
@@ -15603,7 +15912,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val243">
@@ -15622,7 +15934,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val246">
@@ -15641,7 +15956,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val241">
@@ -15660,7 +15978,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val244">
@@ -15679,7 +16000,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_270">
@@ -15755,7 +16079,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </widget>
@@ -15793,7 +16120,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_275">
@@ -15850,7 +16180,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_278">
@@ -15888,7 +16221,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_280">
@@ -15926,7 +16262,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_282">
@@ -16002,7 +16341,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val253">
@@ -16021,7 +16363,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val256">
@@ -16040,7 +16385,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val251">
@@ -16059,7 +16407,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val254">
@@ -16078,7 +16429,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_290">
@@ -16154,7 +16508,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </widget>
@@ -16532,7 +16889,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_537">
@@ -16589,7 +16949,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_540">
@@ -16627,7 +16990,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_542">
@@ -16665,7 +17031,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_544">
@@ -16741,7 +17110,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val263">
@@ -16760,7 +17132,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val266">
@@ -16779,7 +17154,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val261">
@@ -16798,7 +17176,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val264">
@@ -16817,7 +17198,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_552">
@@ -16893,7 +17277,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </widget>
@@ -16949,7 +17336,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_557">
@@ -17006,7 +17396,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_560">
@@ -17044,7 +17437,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_562">
@@ -17082,7 +17478,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_564">
@@ -17158,7 +17557,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val273">
@@ -17177,7 +17579,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val276">
@@ -17196,7 +17601,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val271">
@@ -17215,7 +17623,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val274">
@@ -17234,7 +17645,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_572">
@@ -17310,7 +17724,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </widget>
@@ -17348,7 +17765,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_577">
@@ -17405,7 +17825,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_580">
@@ -17443,7 +17866,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_582">
@@ -17481,7 +17907,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_584">
@@ -17557,7 +17986,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val283">
@@ -17576,7 +18008,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val286">
@@ -17595,7 +18030,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val281">
@@ -17614,7 +18052,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val284">
@@ -17633,7 +18074,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_592">
@@ -17709,7 +18153,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </widget>
@@ -17747,7 +18194,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_597">
@@ -17804,7 +18254,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_600">
@@ -17842,7 +18295,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_602">
@@ -17880,7 +18336,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_604">
@@ -17956,7 +18415,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val293">
@@ -17975,7 +18437,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val296">
@@ -17994,7 +18459,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val291">
@@ -18013,7 +18481,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val294">
@@ -18032,7 +18503,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_612">
@@ -18108,7 +18582,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_val300">
@@ -18127,7 +18604,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_634">
@@ -18203,7 +18683,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_660">
@@ -18241,7 +18724,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_662">
@@ -18279,7 +18765,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_664">
@@ -18336,7 +18825,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_Tarifa_171_180">
@@ -18355,7 +18847,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_Tarifa_201_210">
@@ -18374,7 +18869,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_Tarifa_151_160">
@@ -18393,7 +18891,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_Tarifa_181_190">
@@ -18412,7 +18913,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_672">
@@ -18526,7 +19030,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_680">
@@ -18564,7 +19071,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_682">
@@ -18602,7 +19112,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_684">
@@ -18659,7 +19172,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_Tarifa_251_260">
@@ -18678,7 +19194,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_Tarifa_281_290">
@@ -18697,7 +19216,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_Tarifa_231_240">
@@ -18716,7 +19238,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="HumSec_Tarifa_261_270">
@@ -18735,7 +19260,10 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
-         <string>0000</string>
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_692">
@@ -18800,7 +19328,7 @@ border-color: rgb(237, 237, 237);</string>
        <property name="geometry">
         <rect>
          <x>990</x>
-         <y>260</y>
+         <y>520</y>
          <width>150</width>
          <height>30</height>
         </rect>
@@ -18817,7 +19345,7 @@ background:white;</string>
        <property name="geometry">
         <rect>
          <x>910</x>
-         <y>220</y>
+         <y>480</y>
          <width>171</width>
          <height>31</height>
         </rect>
@@ -18836,7 +19364,7 @@ border-color: rgb(237, 237, 237);</string>
        <property name="geometry">
         <rect>
          <x>870</x>
-         <y>260</y>
+         <y>520</y>
          <width>91</width>
          <height>32</height>
         </rect>
@@ -19155,6 +19683,260 @@ border-radius:0px;</string>
       </property>
      </widget>
     </widget>
+    <widget class="QWidget" name="page">
+     <widget class="QLabel" name="Panel_Salidas">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>180</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Bahnschrift</family>
+        <pointsize>30</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 30pt &quot;Bahnschrift&quot;;
+border-width:3px;
+border-color:rgb(255, 20, 82);
+border-style:none none solid none;
+border-radius:0px;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <property name="lineWidth">
+       <number>2</number>
+      </property>
+      <property name="midLineWidth">
+       <number>0</number>
+      </property>
+      <property name="text">
+       <string>Salidas</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="Fondo_11">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1640</width>
+        <height>1030</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="Loma Colorada.qrc">:/prefijoNuevo/Imagenes/SorgoPlanta2.jpg</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <zorder>Fondo_11</zorder>
+     <zorder>Panel_Salidas</zorder>
+    </widget>
+    <widget class="QWidget" name="page_2">
+     <widget class="QLabel" name="Panel_Silos">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>180</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Bahnschrift</family>
+        <pointsize>30</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 30pt &quot;Bahnschrift&quot;;
+border-width:3px;
+border-color:rgb(255, 20, 82);
+border-style:none none solid none;
+border-radius:0px;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <property name="lineWidth">
+       <number>2</number>
+      </property>
+      <property name="midLineWidth">
+       <number>0</number>
+      </property>
+      <property name="text">
+       <string>Silos</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="Fondo_10">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1640</width>
+        <height>1030</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="Loma Colorada.qrc">:/prefijoNuevo/Imagenes/SorgoPlanta2.jpg</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="Silo_Total_1">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>110</y>
+        <width>600</width>
+        <height>780</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:transparent;
+border-width:0px;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="Loma Colorada.qrc">:/prefijoNuevo/Imagenes/Silo_Volumen_1.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="Silo_Total_2">
+      <property name="geometry">
+       <rect>
+        <x>800</x>
+        <y>110</y>
+        <width>600</width>
+        <height>780</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:transparent;
+border-width:0px;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="Loma Colorada.qrc">:/prefijoNuevo/Imagenes/Silo_Volumen_1.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="icon_Arrow_8">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>360</y>
+        <width>51</width>
+        <height>35</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:transparent;
+border-width:0px;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="Loma Colorada.qrc">:/prefijoNuevo/Imagenes/Arrow_Right.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="icon_Arrow_9">
+      <property name="geometry">
+       <rect>
+        <x>800</x>
+        <y>360</y>
+        <width>51</width>
+        <height>35</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:transparent;
+border-width:0px;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="Loma Colorada.qrc">:/prefijoNuevo/Imagenes/Arrow_Right.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <zorder>Fondo_10</zorder>
+     <zorder>Panel_Silos</zorder>
+     <zorder>Silo_Total_1</zorder>
+     <zorder>Silo_Total_2</zorder>
+     <zorder>icon_Arrow_9</zorder>
+     <zorder>icon_Arrow_8</zorder>
+    </widget>
    </widget>
    <widget class="QFrame" name="Barra_lateral">
     <property name="geometry">
@@ -19167,7 +19949,8 @@ border-radius:0px;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">border-width:0px;
-color: rgba(239, 237, 228,255);</string>
+color: rgba(239, 237, 228,255);
+background-color:rgb(220, 220, 220);</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -19180,7 +19963,7 @@ color: rgba(239, 237, 228,255);</string>
       <rect>
        <x>20</x>
        <y>340</y>
-       <width>331</width>
+       <width>300</width>
        <height>501</height>
       </rect>
      </property>
@@ -19199,9 +19982,9 @@ color: rgba(239, 237, 228,255);</string>
         <colorrole role="Button">
          <brush brushstyle="SolidPattern">
           <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
+           <red>220</red>
+           <green>220</green>
+           <blue>220</blue>
           </color>
          </brush>
         </colorrole>
@@ -19226,18 +20009,18 @@ color: rgba(239, 237, 228,255);</string>
         <colorrole role="Base">
          <brush brushstyle="SolidPattern">
           <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
+           <red>220</red>
+           <green>220</green>
+           <blue>220</blue>
           </color>
          </brush>
         </colorrole>
         <colorrole role="Window">
          <brush brushstyle="SolidPattern">
           <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
+           <red>220</red>
+           <green>220</green>
+           <blue>220</blue>
           </color>
          </brush>
         </colorrole>
@@ -19255,9 +20038,9 @@ color: rgba(239, 237, 228,255);</string>
         <colorrole role="Button">
          <brush brushstyle="SolidPattern">
           <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
+           <red>220</red>
+           <green>220</green>
+           <blue>220</blue>
           </color>
          </brush>
         </colorrole>
@@ -19282,18 +20065,18 @@ color: rgba(239, 237, 228,255);</string>
         <colorrole role="Base">
          <brush brushstyle="SolidPattern">
           <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
+           <red>220</red>
+           <green>220</green>
+           <blue>220</blue>
           </color>
          </brush>
         </colorrole>
         <colorrole role="Window">
          <brush brushstyle="SolidPattern">
           <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
+           <red>220</red>
+           <green>220</green>
+           <blue>220</blue>
           </color>
          </brush>
         </colorrole>
@@ -19311,9 +20094,9 @@ color: rgba(239, 237, 228,255);</string>
         <colorrole role="Button">
          <brush brushstyle="SolidPattern">
           <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
+           <red>220</red>
+           <green>220</green>
+           <blue>220</blue>
           </color>
          </brush>
         </colorrole>
@@ -19338,18 +20121,18 @@ color: rgba(239, 237, 228,255);</string>
         <colorrole role="Base">
          <brush brushstyle="SolidPattern">
           <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
+           <red>220</red>
+           <green>220</green>
+           <blue>220</blue>
           </color>
          </brush>
         </colorrole>
         <colorrole role="Window">
          <brush brushstyle="SolidPattern">
           <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
+           <red>220</red>
+           <green>220</green>
+           <blue>220</blue>
           </color>
          </brush>
         </colorrole>
@@ -19377,10 +20160,10 @@ border-radius:0px;</string>
      <widget class="QLabel" name="icon_Boletas">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>40</y>
-        <width>45</width>
-        <height>40</height>
+        <x>50</x>
+        <y>50</y>
+        <width>39</width>
+        <height>35</height>
        </rect>
       </property>
       <property name="autoFillBackground">
@@ -19405,10 +20188,10 @@ border-radius:0px;</string>
      <widget class="QLabel" name="icon_Reg">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>190</y>
-        <width>43</width>
-        <height>43</height>
+        <x>50</x>
+        <y>224</y>
+        <width>40</width>
+        <height>40</height>
        </rect>
       </property>
       <property name="text">
@@ -19427,10 +20210,10 @@ border-radius:0px;</string>
      <widget class="QLabel" name="icon_Prod">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>270</y>
-        <width>39</width>
-        <height>44</height>
+        <x>50</x>
+        <y>283</y>
+        <width>36</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="text">
@@ -19449,10 +20232,10 @@ border-radius:0px;</string>
      <widget class="QLabel" name="icon_Comp">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>350</y>
-        <width>45</width>
-        <height>40</height>
+        <x>50</x>
+        <y>347</y>
+        <width>40</width>
+        <height>35</height>
        </rect>
       </property>
       <property name="text">
@@ -19471,9 +20254,9 @@ border-radius:0px;</string>
      <widget class="QPushButton" name="push_Liquidacion">
       <property name="geometry">
        <rect>
-        <x>110</x>
-        <y>110</y>
-        <width>200</width>
+        <x>0</x>
+        <y>100</y>
+        <width>300</width>
         <height>50</height>
        </rect>
       </property>
@@ -19505,11 +20288,13 @@ color:black;
 background-color:transparent;
 border-color:transparent;
 border-width:1px;
-border-radius:20px;
+border-radius:10px;
+padding-left:80px;
 }
 
 QPushButton:hover{
-background:rgb(203, 219, 253);
+color:black;
+background-color:rgb(255, 130, 75);
 border-color:rgb(255,255,255);
 border-width:2px;
 }
@@ -19526,10 +20311,10 @@ border-width:2px;
      <widget class="QLabel" name="icon_Liq">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>110</y>
-        <width>45</width>
-        <height>51</height>
+        <x>50</x>
+        <y>104</y>
+        <width>37</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -19551,9 +20336,9 @@ border-width:2px;
      <widget class="QPushButton" name="push_Boletas">
       <property name="geometry">
        <rect>
-        <x>110</x>
+        <x>0</x>
         <y>40</y>
-        <width>200</width>
+        <width>301</width>
         <height>50</height>
        </rect>
       </property>
@@ -19588,11 +20373,14 @@ color:black;
 background-color:transparent;
 border-color:transparent;
 border-width:1px;
-border-radius:20px;
+border-radius:10px;
+padding-left:70px;
+
 }
 
 QPushButton:hover{
-background:rgb(203, 219, 253);
+color:black;
+background-color:rgb(255, 130, 75);
 border-color:rgb(255,255,255);
 border-width:2px;
 }
@@ -19609,9 +20397,9 @@ border-width:2px;
      <widget class="QPushButton" name="push_Registros">
       <property name="geometry">
        <rect>
-        <x>110</x>
-        <y>190</y>
-        <width>200</width>
+        <x>0</x>
+        <y>220</y>
+        <width>300</width>
         <height>50</height>
        </rect>
       </property>
@@ -19640,11 +20428,13 @@ color:black;
 background-color:transparent;
 border-color:transparent;
 border-width:1px;
-border-radius:20px;
+border-radius:10px;
+padding-left:70px
 }
 
 QPushButton:hover{
-background:rgb(203, 219, 253);
+color:black;
+background-color:rgb(255, 130, 75);
 border-color:rgb(255,255,255);
 border-width:2px;
 }
@@ -19661,9 +20451,9 @@ border-width:2px;
      <widget class="QPushButton" name="push_Productores">
       <property name="geometry">
        <rect>
-        <x>110</x>
-        <y>270</y>
-        <width>200</width>
+        <x>0</x>
+        <y>280</y>
+        <width>300</width>
         <height>50</height>
        </rect>
       </property>
@@ -19692,11 +20482,13 @@ color:black;
 background-color:transparent;
 border-color:transparent;
 border-width:1px;
-border-radius:20px;
+border-radius:10px;
+padding-left:85px;
 }
 
 QPushButton:hover{
-background:rgb(203, 219, 253);
+color:black;
+background-color:rgb(255, 130, 75);
 border-color:rgb(255,255,255);
 border-width:2px;
 }
@@ -19713,9 +20505,9 @@ border-width:2px;
      <widget class="QPushButton" name="push_Compradores">
       <property name="geometry">
        <rect>
-        <x>100</x>
-        <y>350</y>
-        <width>221</width>
+        <x>0</x>
+        <y>340</y>
+        <width>300</width>
         <height>50</height>
        </rect>
       </property>
@@ -19744,11 +20536,13 @@ color:black;
 background-color:transparent;
 border-color:transparent;
 border-width:1px;
-border-radius:20px;
+border-radius:10px;
+padding-left:90px;
 }
 
 QPushButton:hover{
-background:rgb(203, 219, 253);
+color:black;
+background-color:rgb(255, 130, 75);
 border-color:rgb(255,255,255);
 border-width:2px;
 }
@@ -19762,6 +20556,391 @@ border-width:2px;
        <bool>true</bool>
       </property>
      </widget>
+     <widget class="QPushButton" name="push_Salidas">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>160</y>
+        <width>300</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>160</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Bahnschrift</family>
+        <pointsize>30</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="whatsThis">
+       <string>Crea una nueva boleta</string>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+QPushButton{
+color:black;
+background-color:transparent;
+border-color:transparent;
+border-width:1px;
+border-radius:10px;
+padding-left:70px;
+
+}
+
+QPushButton:hover{
+color:black;
+background-color:rgb(255, 130, 75);
+border-color:rgb(255,255,255);
+border-width:2px;
+}
+
+</string>
+      </property>
+      <property name="text">
+       <string>Salidas</string>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="icon_Salidas">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>168</y>
+        <width>39</width>
+        <height>35</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="Loma Colorada.qrc">:/prefijoNuevo/Imagenes/Bascula1_edit.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="push_Silos">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>400</y>
+        <width>300</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>160</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Bahnschrift</family>
+        <pointsize>30</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="whatsThis">
+       <string>Muestra los adeudos existentes</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+QPushButton{
+color:black;
+background-color:transparent;
+border-color:transparent;
+border-width:1px;
+border-radius:10px;
+padding-left:70px;
+}
+
+QPushButton:hover{
+color:black;
+background-color:rgb(255, 130, 75);
+border-color:rgb(255,255,255);
+border-width:2px;
+}
+
+</string>
+      </property>
+      <property name="text">
+       <string>Silos</string>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="icon_Silos">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>404</y>
+        <width>36</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="Loma Colorada.qrc">:/prefijoNuevo/Imagenes/Silo1_edit.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="icon_Arrow_1">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>56</y>
+        <width>51</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="Loma Colorada.qrc">:/prefijoNuevo/Imagenes/Arrow_Right.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="icon_Arrow_2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>116</y>
+        <width>51</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="Loma Colorada.qrc">:/prefijoNuevo/Imagenes/Arrow_Right.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="icon_Arrow_3">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>176</y>
+        <width>51</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="Loma Colorada.qrc">:/prefijoNuevo/Imagenes/Arrow_Right.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="icon_Arrow_4">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>235</y>
+        <width>51</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="Loma Colorada.qrc">:/prefijoNuevo/Imagenes/Arrow_Right.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="icon_Arrow_5">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>295</y>
+        <width>51</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="Loma Colorada.qrc">:/prefijoNuevo/Imagenes/Arrow_Right.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="icon_Arrow_6">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>355</y>
+        <width>51</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="Loma Colorada.qrc">:/prefijoNuevo/Imagenes/Arrow_Right.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="icon_Arrow_7">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>414</y>
+        <width>51</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="Loma Colorada.qrc">:/prefijoNuevo/Imagenes/Arrow_Right.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <zorder>icon_Arrow_7</zorder>
+     <zorder>icon_Arrow_6</zorder>
+     <zorder>icon_Arrow_5</zorder>
+     <zorder>icon_Arrow_4</zorder>
+     <zorder>icon_Arrow_3</zorder>
+     <zorder>icon_Arrow_2</zorder>
+     <zorder>icon_Arrow_1</zorder>
+     <zorder>push_Boletas</zorder>
+     <zorder>push_Salidas</zorder>
+     <zorder>push_Compradores</zorder>
+     <zorder>push_Productores</zorder>
+     <zorder>push_Registros</zorder>
+     <zorder>icon_Boletas</zorder>
+     <zorder>icon_Reg</zorder>
+     <zorder>icon_Prod</zorder>
+     <zorder>icon_Comp</zorder>
+     <zorder>push_Liquidacion</zorder>
+     <zorder>icon_Liq</zorder>
+     <zorder>icon_Salidas</zorder>
+     <zorder>push_Silos</zorder>
+     <zorder>icon_Silos</zorder>
     </widget>
     <widget class="QLabel" name="Usuario_Actual">
      <property name="geometry">
@@ -19928,46 +21107,6 @@ background: transparent;</string>
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QPushButton" name="push_Adeudos">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>180</x>
-       <y>860</y>
-       <width>160</width>
-       <height>50</height>
-      </rect>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>160</width>
-       <height>50</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>-1</pointsize>
-       <weight>50</weight>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="whatsThis">
-      <string>Muestra los adeudos existentes</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background: transparent;
-color:transparent;</string>
-     </property>
-     <property name="text">
-      <string>Adeudos</string>
-     </property>
-     <property name="flat">
-      <bool>true</bool>
-     </property>
-    </widget>
     <widget class="QFrame" name="frame_25">
      <property name="geometry">
       <rect>
@@ -20013,7 +21152,6 @@ color:black;</string>
     <zorder>frame_Botones</zorder>
     <zorder>Usuario_Actual</zorder>
     <zorder>Puesto</zorder>
-    <zorder>push_Adeudos</zorder>
     <zorder>frame_25</zorder>
    </widget>
   </widget>

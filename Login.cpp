@@ -13,18 +13,20 @@
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-copy"
-#include <QObject>
-#include <QString>
-#include <QMessageBox>
+
 
 #include "Login.h"
 #include "Silo_SaS.h"
+#include "../Qt-Frameless-Window-DarkStyle/DarkStyle.h"  // se debia agregar el DarkStyle.cpp a sources files del projecto
+#include "../Qt-Frameless-Window-DarkStyle/framelesswindow/framelesswindow.h"  // tambien se agrega el Framelesswindow.cpp al sources files
+
 
 #pragma GCC diagnostic pop
 
-Login::Login() {
+Login::Login(){ //(QString appDir, QApplication app) {
     widget_Login.setupUi(this);
-    QObject::connect(widget_Login.Serial_edit, SIGNAL(returnPressed()), this, SLOT(Check()));  // senal de enter al introducir el serial
+    QObject::connect(widget_Login.Serial_edit, SIGNAL(returnPressed()), this, SLOT(CheckSerial()));  // senal de enter al introducir el serial
+    QObject::connect(widget_Login.Aceptar, SIGNAL(clicked), this, SLOT(BotonAceptar()));  // boton de Aceptar
 }
 
 Login::~Login() {
@@ -103,10 +105,10 @@ QString Login::CheckSerial(QString Cb){ // convierte de Hexa a Deci
     return serial;
 }
 
-bool Login::SortMAC(const QStringList &sort){
+bool Login::SortMAC(const QStringList &sort, QString serial){  // compara el serial con la lista de Macs de la maquina
     Silo* silo = new Silo;
     bool ready = false;
-    QString MAC_addrs, serial;
+    QString MAC_addrs;
     
     for (int i = 0; i < sort.size(); i +=2 ){
         //silo->Log("Antes del IF --->  " + sort.at(i));
@@ -115,10 +117,13 @@ bool Login::SortMAC(const QStringList &sort){
            MAC_addrs = CheckSerial(sort[i+1]);
         }
         
-        serial = widget_Login.Serial_edit->text();
-        serial.chop(3);
+        //serial = widget_Login.Serial_edit->text();  // me jala el serial dela pantalla de login
+        if (serial.contains("-")){
+            serial.chop(3);
+        }
         if (serial.isEmpty() == false && serial == MAC_addrs){
             // create file for config
+            silo->Log(" valor de serial: " + serial + "\nMac addres: " + MAC_addrs);
             ready = true;
             break;
         }
@@ -126,34 +131,121 @@ bool Login::SortMAC(const QStringList &sort){
     return ready;
 }
 
-void Login::Check(){
-    Silo* silo = new Silo;
-    if (SortMAC(getMacAddress())){
+/*void Login::showMainWindow(){
+   
+    
+    Silo* silo = new Silo();
+
+    FramelessWindow winPrin;
+    winPrin.setStyle(new DarkStyle);
+    winPrin.setContent(silo);
+    winPrin.setFixedSize(1920,1080);
+    winPrin.setWindowState(Qt::WindowMaximized);
+    winPrin.setWindowTitle("SAAS");
+    winPrin.setWindowIcon(QIcon("images/Icono_App_Silo_1.png"));
+    winPrin.show();  // muestra la pantalla principal
+   
+}
+*/
+
+void Login::BotonAceptar(){
+    QMessageBox MBox;
+    QPushButton *boton_OK = MBox.addButton("Ok", QMessageBox::AcceptRole);
+    
+    MBox.setDefaultButton(boton_OK);
+    //MBox.setIconPixmap(QPixmap("images/Icono_App_Silo_1.png"));
+    MBox.setWindowIcon(QPixmap("images/Icono_App_Silo_1.png"));
+    MBox.setWindowTitle("Boton Aceptar");
+    MBox.setText("Funciono");
+    MBox.exec();
+}
+
+void Login::CheckSerial(){  //(QString AppDir, QApplication){    
+    Silo* silo = new Silo();
+    //std::wstring DirFile;
+    //TCHAR buffer[MAX_PATH] = {0};
+    //GetModuleFileName(NULL, buffer, MAX_PATH);
+    //std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
+    //DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
+    
+    QString DirFile = Init;
+    if (SortMAC(getMacAddress(), widget_Login.Serial_edit->text())){
             silo->Log("Serial Valido");
             widget_Login.Serial_aviso->setStyleSheet("color:green");
             widget_Login.Serial_aviso->setText("Serial Valido");
-            validSerial = true;
+            widget_Login.Aceptar->setCheckable(true);
+            widget_Login.Aceptar->setStyleSheet("background-color:rgba(255,255,255,0.5); border-radius:10px; color:black;");
+            emit ShowMainSignal();     // show Pantalla Principal
         }else{
             silo->Log("Serial NO VALIDO");
             widget_Login.Serial_aviso->setStyleSheet("color:red");
             widget_Login.Serial_aviso->setText("No Valido, intentelo de Nuevo");
-            validSerial = false;
+            //validSerial = false;
         }
+    
+}
+
+void Login::Check(){
+    
+    //********* Manejo del Serial y mostrar pantallas *********************//
+    
+    Silo* silo = new Silo();
+    QString DirFile = Init;
+    
+    if(checkConfigFile(DirFile) == true){   //check if file exist
+       // check mac inside config vs machines mac  
+       silo->CrearDB(DirFile, "Config.db");
+       QSqlQuery mac(QSqlDatabase::database("Config.db"));
+       mac.exec("SELECT Mac FROM Config");
+       if(mac.lastError().isValid()){
+           silo->Log("No se Puede obtener la Mac \n" + mac.lastError().text());
+       }
+       widget_Login.Serial_edit->setVisible(false);   // hide or show serial_edit
+       if(SortMAC(getMacAddress(), mac.value("Mac").toString()) == true){   // return true or false SortMac mac comparision goes here   
+           widget_Login.Aceptar->setCheckable(true);                         //  set enable
+           widget_Login.Aceptar->setStyleSheet("background-color:green;");   // set color
+           widget_Login.Serial_edit->setVisible(false);   // hide or show serial_edit
+       } else{
+           widget_Login.Serial_aviso->setText("No se Puede leer Config");
+           silo->Log("No se puede comparar la Mac");
+       }
+    
+      }else{
+        widget_Login.Aceptar->setCheckable(false); // hide button
+        widget_Login.Aceptar->setStyleSheet("border-width:0px;background-color:white;");  // change button color
+        widget_Login.Serial_edit->setVisible(true);   //show lineiedit for serial
+        widget_Login.Serial_aviso->setText("Por favor Introduzca un Serial Valido");
+        silo->Log("Si config no existe");
+       /*
+        //   login->Check();
+           if(login->validSerial == true){  //if serial is valid, triger when Check() happends   como carajos llamo la funcion Check aqui???
+           login->findChild<QPushButton*>("Aceptar")->setCheckable(true); // 
+           login->findChild<QPushButton*>("Aceptar")->setStyleSheet("border-width:1px; background-color:transparent; color:red");  // change button color
+           //winPrin.show();    // base.show()  pantalla principal;
+           base->CreateConfigFile(app.applicationDirPath(), "");  // Create config File, pass the valid serial here
+         }
+         if (login->validSerial == true){base->Log("Hubo un cambio, valid serial es true ");} else{base->Log("valid serial es False"); }
+      */
+    }
+    
+
 
 }
 
-bool Login::checkConfigFile(QString Dir){
+bool Login::checkConfigFile(QString Dir){  // pasa la direccion de la aplicacion
     Silo* silo = new Silo;
     bool fileConfig = false;
     //QStringList Silo::buscarArchivos(QStringList file, QString SearchDir){  // checar https://doc.qt.io/qt-5/qtwidgets-dialogs-findfiles-example.html  esta en el messenger
     
     //********************* how to get current directory*************************//
     //****** https://stackoverflow.com/questions/875249/how-to-get-current-directory ******//
+    /*
     std::wstring DirFile;
     TCHAR buffer[MAX_PATH] = {0};
     GetModuleFileName(NULL, buffer, MAX_PATH);
     std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
     DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual
+    */
     HANDLE fileHandle;
     WIN32_FIND_DATA archivo;
     QString file = Dir + "/Data/config.db";   // base de datos con la configuracion del usuario
@@ -167,32 +259,8 @@ bool Login::checkConfigFile(QString Dir){
         silo->Log("No se pudo encontrar el archivo " + file);
     }else{
         fileConfig = true;
-        silo->Log("Se encontro el archivo " + file);
+        silo->Log("Config Correcto");
     }
     return fileConfig;
 }
 
-void Login::createConfig(QString MAC){  // if MAC its empty create file config, otherwise append the MAC address 
-    std::ofstream archivo; 
-    Silo* silo = new Silo;
-    std::time_t now = time(0);
-    std::string timer = ctime(&now);
-    
-    archivo.open("Data/config.db", std::ios::in | std::ios::app);
-    if(!archivo.is_open()){silo->Log("Error No se Pudo crear el archivo config");}
-    if (!MAC.trimmed().isEmpty()){archivo <<timer << std::endl << "[" << MAC.toStdString() << "]" << std::endl;}
-    /*
-    if (!MAC.trimmed().isEmpty()){
-        archivo.open("config", std::ios::in | std::ios::app);
-        if(!archivo.is_open()){silo->Log("Error", "No se Pudo crear el archivo config");}
-    }else {
-        archivo.open("config", std::ios::in | std::ios::app);
-        if(!archivo.is_open()){
-            silo->Log("Error No se Pudo encontrar el archivo config"); 
-        }else{
-        archivo <<timer << std::endl << "[" << MAC.toStdString() << "]" << std::endl;
-       
-    }
-    } */
-    archivo.close();
-}

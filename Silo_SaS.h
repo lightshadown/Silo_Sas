@@ -36,8 +36,10 @@
 #include <Qdir>
 #include <QDirIterator>
 #include <QPushButton>
+#include <QHash>
 
-#include "ui_Pantalla_Principal V2.4.h"
+#include "ui_Pantalla_Principal V2.5.h"
+//#include "ui_Pantalla_Principal V2.4.h"
 //#include "ui_Pantalla_Principal V2.3.h"
 //#include "ui_Pantalla_Principal V2.2.h"
 //#include "ui_Pantalla_Principal V2.h"
@@ -75,7 +77,7 @@ public:
     void Contrasenas();
     void Creditos();
     void Dry_n_Wet();
-    void Config();
+    void CreateConfigFile(QString, QString);
     void CrearDB(QString, QString);
     bool ChecarDB(QString, QString);    
     void Productores_Lista();
@@ -122,8 +124,8 @@ public slots:
     void TablasDeduc2();
     void TablasDeduc3();
     void Salir();
-    void Productor();
-    void Productor_New();
+    void Boleta_New();   // crea una nueva boleta
+    void Productor_New();      // crea un nuevo productor
     void Productor_Erase();    //  borra el registro de Productor
     void Produ_Limpiar();      // limpia los campos en productor
     void Comprador_New();
@@ -139,6 +141,7 @@ public slots:
     void Liquidaciones_Data(int, int);
     void AdeudosProdu(QString ComboBox);
     void Impresion();
+    void CheckBrutoTara();
     virtual void closeEvent(QCloseEvent *event) override;
     
    // virtual void mousePressEvent(QMouseEvent *evento) override;  // el evento del click es llamado por la misma aplicacion Qt

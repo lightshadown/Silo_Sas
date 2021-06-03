@@ -16,10 +16,12 @@
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-copy"
+#include <QApplication>
+#include <QMessageBox>
 #include <QObject>
 #include <QString>
 #include <QStringList>
-#include "ui_Login.h"
+
 #include <fstream>  // hacer stream para escribir en un archivo
 #include <windows.h> // funciones de windows, funciones para abrir y cerrar directorios 
 #include <ctime>
@@ -27,24 +29,30 @@
 #include <Iphlpapi.h>  //  pip adapter, for mac address
 #include <Assert.h>
 #include <QDirIterator>
+
+//#include "ui_Login.h"
+#include "ui_Login V0.2.h"
 #pragma GCC diagnostic pop
 
 class Login : public QWidget {
     Q_OBJECT
 public:
-    Login();
+    Login();  //(QString, QApplication);
     virtual ~Login();
     QString CheckSerial(QString Cb);
-    bool SortMAC(const QStringList &sort);
+    bool SortMAC(const QStringList &sort, QString);
     QStringList getMacAddress();
     bool checkConfigFile(QString);
-    void createConfig(QString MAC);
+    void CheckSerial();
+    //void showMainWindow();
+    QString Init;
+    //bool validSerial = false; 
     
-    bool validSerial = false; 
-    //bool fileConfig = false;
-    
+signals:
+    void ShowMainSignal();
 public slots:
-    void Check();
+    void Check(); //(QString, QApplication);
+    void BotonAceptar();
     
 private:
     Ui::Embarques widget_Login;
