@@ -17,16 +17,16 @@
 
 #include "Login.h"
 #include "Silo_SaS.h"
-#include "../Qt-Frameless-Window-DarkStyle/DarkStyle.h"  // se debia agregar el DarkStyle.cpp a sources files del projecto
-#include "../Qt-Frameless-Window-DarkStyle/framelesswindow/framelesswindow.h"  // tambien se agrega el Framelesswindow.cpp al sources files
+//#include "../Qt-Frameless-Window-DarkStyle/DarkStyle.h"  // se debia agregar el DarkStyle.cpp a sources files del projecto
+//#include "../Qt-Frameless-Window-DarkStyle/framelesswindow/framelesswindow.h"  // tambien se agrega el Framelesswindow.cpp al sources files
 
 
 #pragma GCC diagnostic pop
 
 Login::Login(){ //(QString appDir, QApplication app) {
     widget_Login.setupUi(this);
-    QObject::connect(widget_Login.Serial_edit, SIGNAL(returnPressed()), this, SLOT(CheckSerial()));  // senal de enter al introducir el serial
-    QObject::connect(widget_Login.Aceptar, SIGNAL(clicked), this, SLOT(BotonAceptar()));  // boton de Aceptar
+    QObject::connect(widget_Login.Serial_edit, SIGNAL(returnPressed()), this, SLOT(Check()));  // senal de enter al introducir el serial
+    QObject::connect(widget_Login.Aceptar, SIGNAL(clicked()), this, SLOT(BotonAceptar()));  // boton de Aceptar
 }
 
 Login::~Login() {
@@ -113,20 +113,25 @@ bool Login::SortMAC(const QStringList &sort, QString serial){  // compara el ser
     for (int i = 0; i < sort.size(); i +=2 ){
         //silo->Log("Antes del IF --->  " + sort.at(i));
         if(sort[i] != "0.0.0.0" && sort[i] != "0000:0000:0000:0000:0000:0000:0000:0000"){
-           silo->Log("verdadero \nIP: " + sort[i] + "\nMAC: " + sort[i+1]);
+           //silo->Log("verdadero \nIP: " + sort[i] + "\nMAC: " + sort[i+1]);
            MAC_addrs = CheckSerial(sort[i+1]);
         }
         
         //serial = widget_Login.Serial_edit->text();  // me jala el serial dela pantalla de login
         if (serial.contains("-")){
             serial.chop(3);
+            //silo->Log(serial);
         }
+       
         if (serial.isEmpty() == false && serial == MAC_addrs){
             // create file for config
-            silo->Log(" valor de serial: " + serial + "\nMac addres: " + MAC_addrs);
+            //silo->Log(" valor de serial: " + serial + "\nMac addres: " + MAC_addrs);
             ready = true;
             break;
         }
+    }
+    if (ready == false){
+        silo->Log("la mac no es correcta");
     }
     return ready;
 }
@@ -149,7 +154,7 @@ bool Login::SortMAC(const QStringList &sort, QString serial){  // compara el ser
 */
 
 void Login::BotonAceptar(){
-    QMessageBox MBox;
+   /* QMessageBox MBox;
     QPushButton *boton_OK = MBox.addButton("Ok", QMessageBox::AcceptRole);
     
     MBox.setDefaultButton(boton_OK);
@@ -158,9 +163,12 @@ void Login::BotonAceptar(){
     MBox.setWindowTitle("Boton Aceptar");
     MBox.setText("Funciono");
     MBox.exec();
+    */
+    emit ShowMainSignal(InitApp);     // show Pantalla Principal
+    this->hide();
 }
 
-void Login::CheckSerial(){  //(QString AppDir, QApplication){    
+void Login::Check(){  //(QString AppDir, QApplication){    
     Silo* silo = new Silo();
     //std::wstring DirFile;
     //TCHAR buffer[MAX_PATH] = {0};
@@ -168,54 +176,68 @@ void Login::CheckSerial(){  //(QString AppDir, QApplication){
     //std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
     //DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
     
-    QString DirFile = Init;
-    if (SortMAC(getMacAddress(), widget_Login.Serial_edit->text())){
+    QString DirFile = InitApp;
+    if (SortMAC(getMacAddress(), widget_Login.Serial_edit->text())){  // compares and check if the serial provided is valid
             silo->Log("Serial Valido");
             widget_Login.Serial_aviso->setStyleSheet("color:green");
             widget_Login.Serial_aviso->setText("Serial Valido");
             widget_Login.Aceptar->setCheckable(true);
             widget_Login.Aceptar->setStyleSheet("background-color:rgba(255,255,255,0.5); border-radius:10px; color:black;");
-            emit ShowMainSignal();     // show Pantalla Principal
+            silo->CreateConfigFile(DirFile, widget_Login.Serial_edit->text());  // Create config File, pass the valid serial here
         }else{
-            silo->Log("Serial NO VALIDO");
+            silo->Log("Serial NO VALIDO");                         //  serial its not valid
             widget_Login.Serial_aviso->setStyleSheet("color:red");
             widget_Login.Serial_aviso->setText("No Valido, intentelo de Nuevo");
-            //validSerial = false;
+           
         }
     
 }
 
-void Login::Check(){
+void Login::CheckLogin(){
     
     //********* Manejo del Serial y mostrar pantallas *********************//
     
     Silo* silo = new Silo();
-    QString DirFile = Init;
+    QString MacSql;
+    QPixmap logo;
+    QString fondo = InitApp + "/images/SorgoPlanta1.jpg";
     
-    if(checkConfigFile(DirFile) == true){   //check if file exist
+    if (!logo.load(fondo)){
+        silo->Log("imposible cargar la imagen: " + fondo);
+    }else{   
+        widget_Login.LoginSplash->setPixmap(logo);
+    }
+    
+    if(checkConfigFile(InitApp) == true){   //check if file exist
        // check mac inside config vs machines mac  
-       silo->CrearDB(DirFile, "Config.db");
+       silo->CrearDB(InitApp, "Config.db");
        QSqlQuery mac(QSqlDatabase::database("Config.db"));
        mac.exec("SELECT Mac FROM Config");
        if(mac.lastError().isValid()){
            silo->Log("No se Puede obtener la Mac \n" + mac.lastError().text());
        }
+       mac.first();
+       MacSql = mac.value("Mac").toString();
+       //silo->Log("Valor mac de config " + MacSql + "\n" + mac.lastError().text());
        widget_Login.Serial_edit->setVisible(false);   // hide or show serial_edit
-       if(SortMAC(getMacAddress(), mac.value("Mac").toString()) == true){   // return true or false SortMac mac comparision goes here   
+       if(SortMAC(getMacAddress(), MacSql) == true){   // return true or false SortMac mac comparision goes here   
            widget_Login.Aceptar->setCheckable(true);                         //  set enable
-           widget_Login.Aceptar->setStyleSheet("background-color:green;");   // set color
+           widget_Login.Aceptar->setStyleSheet("background-color:green;color:black;");   // set color
            widget_Login.Serial_edit->setVisible(false);   // hide or show serial_edit
        } else{
-           widget_Login.Serial_aviso->setText("No se Puede leer Config");
+           widget_Login.Aceptar->setCheckable(false);              // not enable
+           widget_Login.Serial_edit->setVisible(true);
+           widget_Login.Serial_aviso->setText("No se Puede leer Config");   // cant read table config
            silo->Log("No se puede comparar la Mac");
        }
     
-      }else{
+      }else{   // Config file dosnt exist
         widget_Login.Aceptar->setCheckable(false); // hide button
         widget_Login.Aceptar->setStyleSheet("border-width:0px;background-color:white;");  // change button color
         widget_Login.Serial_edit->setVisible(true);   //show lineiedit for serial
         widget_Login.Serial_aviso->setText("Por favor Introduzca un Serial Valido");
-        silo->Log("Si config no existe");
+        silo->CreateConfigFile(InitApp,"");  // creates the Config file
+        silo->Log("Si config no existe, se crea");
        /*
         //   login->Check();
            if(login->validSerial == true){  //if serial is valid, triger when Check() happends   como carajos llamo la funcion Check aqui???

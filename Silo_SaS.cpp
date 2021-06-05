@@ -89,7 +89,7 @@ Silo::Silo() {
     QObject::connect(widget_PP.actionAcerda_de, SIGNAL(triggered()), this, SLOT(About()));  // Menu About
     QObject::connect(widget_PP.actionOpciones, SIGNAL(triggered()), this, SLOT(C_Opc()));  // Menu Opciones
     QObject::connect(widget_PP.actionHumedad_y_secado, SIGNAL(triggered()), this, SLOT(C_HumySec1())); // Menu Humedad y secado 1
-    QObject::connect(widget_PP.actionSalir, SIGNAL(triggered()), this, SLOT(closeEvent()));  // cerrar programa, arreglar
+    QObject::connect(widget_PP.actionSalir, SIGNAL(triggered()), this, SLOT(Salir()));//closeEvent()));  // cerrar programa, arreglar
      
     QObject::connect(widget_PP.actionEntradas, SIGNAL(triggered()), this, SLOT(C_Ent()));  // Menu Boletas
     QObject::connect(widget_PP.actionRegistros, SIGNAL(triggered()), this, SLOT(C_Reg()));  // Menu Registros
@@ -104,6 +104,144 @@ Silo::Silo() {
 }
 
 Silo::~Silo() {  //Destructor de Clase
+}
+
+void Silo::InitSilo(QString App){
+    Login* login = new Login();
+    
+    //*******************  Fondos  ****************************//
+    QString icon_boletas = App + "/images/Bascula1_edit.png";
+    QString icon_liqui = App + "/images/Liquidacion1_edit.png";
+    QString icon_Salidas = App + "/images/Bascula2_edit.png";
+    QString icon_reg = App + "/images/Registros1_edit.png";
+    QString icon_produ = App + "/images/Silo1_edit.png";
+    QString icon_comp = App + "/images/Compradores1_edit.png";
+    QString icon_Silos = App + "/images/Silo1_edit.png";
+    QString Logo_Emp = App + "/images/Logo.png";
+    QString fondo = App + "/images/SorgoPlanta1.jpg";
+    QString fondoApp = App + "/images/SorgoPlanta2.jpg";
+    QString icon_arrow = App + "/images/Arrow_Right.png";
+    QString silo = App + "/images/Silo_Volumen_1.png";
+    QPixmap logo;
+    
+    if (!logo.load(fondo)){
+        Log("imposible cargar la imagen: " + fondo);
+    }else{
+       widget_PP.SplashScreenLogo->setPixmap(logo);    
+      //  login->findChild<QLabel*>("LoginSplash")->setPixmap(logo);
+    }
+   
+    if (!logo.load(fondoApp)){
+        Log("imposible cargar la imagen: " + fondoApp);
+    }else{
+        widget_PP.Fondo_1->setPixmap(logo);
+        widget_PP.Fondo_2->setPixmap(logo);
+        widget_PP.Fondo_3->setPixmap(logo);
+        widget_PP.Fondo_4->setPixmap(logo);
+        widget_PP.Fondo_5->setPixmap(logo); 
+        widget_PP.Fondo_6->setPixmap(logo);
+        widget_PP.Fondo_7->setPixmap(logo); 
+        widget_PP.Fondo_8->setPixmap(logo);
+        widget_PP.Fondo_9->setPixmap(logo);
+        widget_PP.Fondo_10->setPixmap(logo); 
+        widget_PP.Fondo_11->setPixmap(logo);
+    }
+    
+    // Load icons
+    !logo.load(icon_boletas) ? Log("imposible cargar la imagen: " + icon_boletas) : widget_PP.icon_Boletas->setPixmap(logo);
+    !logo.load(icon_liqui) ? Log("imposible cargar la imagen: " + icon_liqui) : widget_PP.icon_Liq->setPixmap(logo); 
+    !logo.load(icon_Salidas) ? Log("imposible cargar la imagen: " + icon_Salidas) : widget_PP.icon_Salidas->setPixmap(logo); 
+    !logo.load(icon_reg)? Log("imposible cargar la imagen: " + icon_reg) : widget_PP.icon_Reg->setPixmap(logo);
+    !logo.load(icon_Silos) ? Log("imposible cargar la imagen: " + icon_Silos) : widget_PP.icon_Silos->setPixmap(logo);
+    !logo.load(icon_produ) ? Log("imposible cargar la imagen: " + icon_produ) : widget_PP.icon_Prod->setPixmap(logo); 
+    !logo.load(icon_comp) ? Log("imposible cargar la imagen: " + icon_comp) : widget_PP.icon_Comp->setPixmap(logo);
+    !logo.load(Logo_Emp) ? Log("imposible cargar la imagen: " + Logo_Emp) : widget_PP.Nombre_Programa_Landing->setPixmap(logo);
+    !logo.load(Logo_Emp) ? Log("imposible cargar la imagen: " + Logo_Emp) : widget_PP.Nombre_Programa->setPixmap(logo); 
+    !logo.load(silo) ? Log("imposible cargar la imagen: " + silo) : widget_PP.Silo_Total_1->setPixmap(logo);
+    !logo.load(silo) ? Log("imposible cargar la imagen: " + silo) : widget_PP.Silo_Total_2->setPixmap(logo);
+    
+    //widget_PP.Nombre_Programa_Landing->setFixedSize(430,620);
+    widget_PP.Nombre_Programa->setFixedSize(290,250); 
+    
+    // icon Arrow
+    if(!logo.load(icon_arrow)){
+        Log("imposible cargar la imagen: " + Logo_Emp);
+    }else{
+        widget_PP.icon_Arrow_1->setPixmap(logo);
+        widget_PP.icon_Arrow_2->setPixmap(logo);
+        widget_PP.icon_Arrow_3->setPixmap(logo);
+        widget_PP.icon_Arrow_4->setPixmap(logo);
+        widget_PP.icon_Arrow_5->setPixmap(logo);
+        widget_PP.icon_Arrow_6->setPixmap(logo);
+        widget_PP.icon_Arrow_7->setPixmap(logo);
+        widget_PP.icon_Arrow_8->setPixmap(logo);
+        widget_PP.icon_Arrow_9->setPixmap(logo);
+    }
+    
+}
+
+void Silo::InitDb(QString App){
+    /****************  Creacion de las Bases de Datos  *************************/
+   
+    // usar los if para revisar que existan las bases de datos, si no crearlas
+   
+    Log("Creacion de Bases de Datos");
+    
+    QMessageBox MBox;
+    QPushButton *boton_OK = MBox.addButton("Ok", QMessageBox::AcceptRole);
+    QPushButton *boton_CANCEL = MBox.addButton(QMessageBox::Cancel);
+    MBox.setWindowTitle("Error de Base Datos");
+    MBox.setDefaultButton(boton_OK);
+    if (ChecarDB(App, ciclo_actual()) == false){
+       // QMessageBox::critical( base, "Error de Database", "No se pudo encontrar la Base de Datos " + base->ciclo_actual(), QMessageBox::Ok | QMessageBox::Cancel);
+       MBox.setText("No se Pudo encontrar la base de datos: " + ciclo_actual());
+       MBox.setInformativeText("Desea crearla?");
+       MBox.exec();
+       if (MBox.clickedButton() == boton_OK){
+        CrearDB(App, ciclo_actual());
+        Log("Se creo la DB: " + ciclo_actual());
+       }else if(MBox.clickedButton() == boton_CANCEL){
+           
+       }
+    }/*else{
+        base->CrearDB(App, base->ciclo_actual());
+    }*/
+        
+    if (ChecarDB(App, users()) == false){
+       // QMessageBox::critical( base, "Error de Database", "No se pudo encontrar la Base de Datos " + base->users() ,QMessageBox::Ok);
+       MBox.setText("No se Pudo encontrar la base de datos: " + users());
+       MBox.setInformativeText("Desea crearla?");
+       MBox.exec(); 
+       if (MBox.clickedButton() == boton_OK){
+        CrearDB(App, users());
+        Log("Se creo la DB: " + users());
+       } else if(MBox.clickedButton() == boton_CANCEL){
+           
+       }
+    }/*else{
+        base->ChecarDB(App, base->users());
+    }*/
+    
+    if (ChecarDB(App, adeudos()) == false){
+        //QMessageBox::critical( base, "Error de Database", "No se pudo encontrar la Base de Datos " + base->adeudos() ,QMessageBox::Ok);
+       MBox.setText("No se Pudo encontrar la base de datos: " + adeudos());
+       MBox.setInformativeText("Desea crearla?");
+       MBox.exec(); 
+       if (MBox.clickedButton() == boton_OK){
+        CrearDB(App, adeudos());
+        Log("Se creo la DB: " + adeudos());
+       } else if(MBox.clickedButton() == boton_CANCEL){
+           
+       }
+    }/*else{
+        base->ChecarDB(App, base->adeudos());
+    }*/
+    
+    Contrasenas();
+    Creditos();
+    Ciclo(); 
+    Dry_n_Wet();  // secado
+    
 }
 
 //******************************************************************
@@ -1143,7 +1281,7 @@ void Silo::AdeudosProdu(QString ComboBox){              // Manejo de Adeudos
             Conser = ton_entregada * 0.8;   // cuota de conservacion del grano es el 8% al millar
             //QString conser;
             //conser = conser.setNum(float,Conser,3);
-            ton_derecho = prod.value("Num_Acciones").toFloat() * TonsXaccion; // Num_Acciones * TonsXaccion
+            ton_derecho = prod.value("Num_Acciones").toFloat() * TonsXaccion; // Num_Acciones * TonsXaccion  sacar tonsxaccion de config
             ton_entregada = prod.value("Sorgo_Entregado").toFloat();  // viene del total de boletas entregadas
             ton_contrato = prod.value("Sorgo_Contrato").toFloat();
         
@@ -2646,10 +2784,10 @@ void Silo::Dry_n_Wet(){
 } 
 
 void Silo::CreateConfigFile(QString DirFile, QString MAC){
-    // crea la DB de Configuracion
-    
-    Login* login = new Login;
-    QString MacSerial;
+    // creates the DB Config 
+    // if the Mac its empty creates the file
+    // if the Mac its pass, it updates the mac inside Config table
+    int row{0};
     
     if (MAC.isEmpty()){   // si esta vacio la mac crea el archivo
         CrearDB(DirFile, "Config.db");
@@ -2670,23 +2808,41 @@ void Silo::CreateConfigFile(QString DirFile, QString MAC){
             Log("Creacion de Config");
         }
     }else{
-        // aqui se guarda la mac dentro de la tabla config
-        CrearDB(DirFile, "Config.db");   // crea la coneccion a la DB
+        // here i update the mac address inside the config file
+        CrearDB(DirFile, "Config.db");   // creates conecction to DB
         QSqlQuery valor(QSqlDatabase::database("Config.db"));
         if(valor.lastError().isValid()){
             Log("Error \n" + valor.executedQuery() + "\n" + valor.lastError().text() );
         }
     
-        //valor.exec("SELECT Mac FROM Config");
+        valor.exec("SELECT * FROM Config");
+       Log("antes del while");
+        while (valor.last() == true){
+            row++;
+            valor.next();
+        }
         
-        MacSerial = login->findChild<QLineEdit*>("Serial_edit")->text();
-        valor.prepare("UPDATE Config SET Mac = :serial");
-        valor.bindValue(":serial", MacSerial);
+        Log(MAC);
+        
+        if( row == 1 ){  // if exist a row update the mac address
+        valor.prepare("UPDATE Config SET Mac = ':serial'");
+        valor.bindValue(":serial", MAC);
         valor.exec();
         if(valor.lastError().isValid()){
             Log("No se puede accesar la tabla Config \n" + valor.lastQuery() + "\n" + valor.lastError().text() );
+            }
         }
-        
+        if( row == 0){     //if not creates the row and update it
+            valor.prepare("INSERT INTO Config (Mac) VALUES (:serial)");
+            valor.bindValue(":serial", MAC);
+            valor.exec();
+            if(valor.lastError().isValid()){
+                Log("No se puede crear el registro\n" + valor.lastQuery() + "\n" + valor.lastError().text() );
+            }
+        }
+        if( row>1 ){
+            Log("Error Demaciados campos " + QString::number(row));
+        }
         if(!valor.lastError().isValid()){
             Log("Update de Config");
         }

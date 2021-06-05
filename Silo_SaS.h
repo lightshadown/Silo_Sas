@@ -71,6 +71,8 @@ class Silo : public QMainWindow {
 public:
     Silo();
     virtual ~Silo();
+    void InitSilo(QString);
+    void InitDb(QString);
     void Log(QString save); // dejar una sola funcion
     void LogData(QString);
     void Ciclo();
@@ -107,7 +109,7 @@ public:
     QString ciclo_actual_Postgres();  // Base de Datos en PostgresSQL
     QString users(); // Base de Datos de usuarios
     QString adeudos(); // Base de Datos de los Adeudos/semillas/prestamos
-    int TonsXaccion = 50;
+    int TonsXaccion = 50;  // cambiar y usar Ton_Socio dentro de config
     
 public slots:
     void About();
@@ -123,7 +125,7 @@ public slots:
     void TablasDeduc1();  // llena los valores de las tablas de secado
     void TablasDeduc2();
     void TablasDeduc3();
-    void Salir();
+    void Salir();    // exit program, fix
     void Boleta_New();   // crea una nueva boleta
     void Productor_New();      // crea un nuevo productor
     void Productor_Erase();    //  borra el registro de Productor
@@ -142,7 +144,8 @@ public slots:
     void AdeudosProdu(QString ComboBox);
     void Impresion();
     void CheckBrutoTara();
-    virtual void closeEvent(QCloseEvent *event) override;
+    virtual void closeEvent(QCloseEvent *event) override;  // old exit program
+   
     
    // virtual void mousePressEvent(QMouseEvent *evento) override;  // el evento del click es llamado por la misma aplicacion Qt
 

@@ -47,9 +47,7 @@ int main(int argc, char *argv[]) {
     app.setWindowIcon(QIcon("/images/Icono_App_Silo_1"));
     
     Launcher* lanch = new Launcher();
-    lanch->Init(app.applicationDirPath());  
-    //lanch->show();
-    //lanch->hide();
+    lanch->Init(app.applicationDirPath());  //  start the app
     
     /*  codigo viejo
      * 

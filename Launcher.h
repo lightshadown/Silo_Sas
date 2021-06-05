@@ -39,7 +39,7 @@ public:
     void Init(QString);
     virtual ~Launcher();
 public slots:
-    void ShowMainWindow();
+    void ShowMainWindow(QString);
     
 private:
     Ui::Launcher widget;
