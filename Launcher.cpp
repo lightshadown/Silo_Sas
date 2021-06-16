@@ -46,8 +46,9 @@ void Launcher::ShowMainWindow(QString App){
     
     Silo* base = new Silo;
     
+    base->setMinimumSize(1280, 800);
     base->setFixedSize(1920,1080);
-    base->setWindowState(Qt::WindowMaximized);
+    //base->setWindowState(Qt::WindowMaximized);
     base->setWindowTitle("SAAS");
     base->setWindowIcon(QIcon("images/Icono_App_Silo_1.png"));
     //FramelessWindow winPrin;

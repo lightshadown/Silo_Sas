@@ -170,11 +170,6 @@ void Login::BotonAceptar(){
 
 void Login::Check(){  //(QString AppDir, QApplication){    
     Silo* silo = new Silo();
-    //std::wstring DirFile;
-    //TCHAR buffer[MAX_PATH] = {0};
-    //GetModuleFileName(NULL, buffer, MAX_PATH);
-    //std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
-    //DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
     
     QString DirFile = InitApp;
     if (SortMAC(getMacAddress(), widget_Login.Serial_edit->text())){  // compares and check if the serial provided is valid
@@ -222,7 +217,7 @@ void Login::CheckLogin(){
        widget_Login.Serial_edit->setVisible(false);   // hide or show serial_edit
        if(SortMAC(getMacAddress(), MacSql) == true){   // return true or false SortMac mac comparision goes here   
            widget_Login.Aceptar->setCheckable(true);                         //  set enable
-           widget_Login.Aceptar->setStyleSheet("background-color:green;color:black;");   // set color
+           widget_Login.Aceptar->setStyleSheet("background-color:green;color:black; border-radius:10px");   // everything its fine continue to log on
            widget_Login.Serial_edit->setVisible(false);   // hide or show serial_edit
        } else{
            widget_Login.Aceptar->setCheckable(false);              // not enable

@@ -37,6 +37,9 @@
 #include <QDirIterator>
 #include <QPushButton>
 #include <QHash>
+#include <QVector>
+#include <QDoubleValidator>
+#include <QLineEdit>
 
 #include "ui_Pantalla_Principal V2.5.h"
 //#include "ui_Pantalla_Principal V2.4.h"
@@ -50,6 +53,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <string>
+#include <cmath>
 #include <fstream>  // hacer stream para escribir en un archivo
 #include <windows.h> // funciones de windows, funciones para abrir y cerrar directorios 
 #include <ctime>
@@ -85,11 +89,11 @@ public:
     void Productores_Lista();
     void Compradores_Lista();
     void PopuAdeudos();
-    void RetencionesLiquidacion();
-    void CalculoExcedentes();
-    void CalculoPrima();
-    void AdeudosSemilla();
-    void AnticiposSorgo();
+    //void RetencionesLiquidacion();
+    //void CalculoExcedentes();
+    //void CalculoPrima();
+    //void AdeudosSemilla();
+    //void AnticiposSorgo();
     void RegistroInd();
     void RegistroGeneral();
     void RS232();
@@ -98,7 +102,8 @@ public:
     void Popup_DrynWet_CB1();
     void Popup_DrynWet_CB2();
     void Popup_DrynWet_CB3();
-    
+    void Arrows();
+    void ShowDeduc();
    
     QStringList buscarArchivos(QStringList, QString);
   
@@ -115,11 +120,13 @@ public slots:
     void About();
     void C_Ent();
     void C_Reg();
-    void C_Ade();
+    //void C_Ade();  // eliminado adeudos
     void C_Pro();
     void C_Comp();
     void C_Liq();
     void C_Opc();
+    void Salidas();
+    void Silos();
     void C_HumySec1();        //  Primera ventana de tablas Humedad y secado
     void C_HumySec2();        //  Segunda ventana tablas
     void TablasDeduc1();  // llena los valores de las tablas de secado
@@ -132,7 +139,7 @@ public slots:
     void Produ_Limpiar();      // limpia los campos en productor
     void Comprador_New();
     void Comprador_Limpiar();   // limpia los campos en comprador
-    //void Comprador_Borrar();    // borra el registro del comprador
+    void Comprador_Borrar();    // borra el registro del comprador
     void RegIndProd(QString);
     void TablaRegInd(QString);
     void TablaRegGen(QString);
@@ -142,15 +149,16 @@ public slots:
     void Liquidaciones(QString);
     void Liquidaciones_Data(int, int);
     void AdeudosProdu(QString ComboBox);
-    void Impresion();
+    void Imp_Liquida();    // prints liquidacines
+    void Imp_Salidas();    // prints Boletas Salidas
     void CheckBrutoTara();
-    virtual void closeEvent(QCloseEvent *event) override;  // old exit program
+    //virtual void closeEvent(QCloseEvent *event) override;  // old exit program
    
     
    // virtual void mousePressEvent(QMouseEvent *evento) override;  // el evento del click es llamado por la misma aplicacion Qt
 
 private:
     Ui::Pantalla_Principal widget_PP;
-   // void closeEvent(QCloseEvent*);
+ 
 };
 #endif /* _PANTALLA_PRINCIPAL_H */
