@@ -40,8 +40,10 @@
 #include <QVector>
 #include <QDoubleValidator>
 #include <QLineEdit>
+#include <QColor>
 
-#include "ui_Pantalla_Principal V2.5.h"
+#include "ui_Pantalla_Principal V2.6.h"
+//#include "ui_Pantalla_Principal V2.5.h"
 //#include "ui_Pantalla_Principal V2.4.h"
 //#include "ui_Pantalla_Principal V2.3.h"
 //#include "ui_Pantalla_Principal V2.2.h"
@@ -74,36 +76,39 @@ class Silo : public QMainWindow {
 
 public:
     Silo();
-    virtual ~Silo();
-    void InitSilo(QString);
-    void InitDb(QString);
-    void Log(QString save); // dejar una sola funcion
-    void LogData(QString);
-    void Ciclo();
-    void Contrasenas();
-    void Creditos();
-    void Dry_n_Wet();
-    void CreateConfigFile(QString, QString);
-    void CrearDB(QString, QString);
-    bool ChecarDB(QString, QString);    
+    virtual ~Silo();                        // main wrapper
+    void InitSilo(QString);                 // initiated the main window
+    void InitDb(QString);                   // initiated all the databases
+    void Log(QString save);                 // program log
+    void LogData(QString);                  // crates a log for the inserted data
+    void Ciclo();                           // manage currten cicle
+    void Contrasenas();                     // users
+    void Creditos();                        // credits
+    void Dry_n_Wet();                       // dry and wet tables
+    void CreateConfigFile(QString, QString);   //creates de config file
+    void CrearDB(QString, QString);      // creates and open the database
+    void KillDB();//(QString);                // kills the open conecction
+    bool ChecarDB(QString, QString);     // checks if the database exists
+    void Tabla_Boletas_Entradas();          // populates the table with the last inserted records, boletas entradas
+    
     void Productores_Lista();
     void Compradores_Lista();
     void PopuAdeudos();
-    //void RetencionesLiquidacion();
-    //void CalculoExcedentes();
-    //void CalculoPrima();
-    //void AdeudosSemilla();
-    //void AnticiposSorgo();
-    void RegistroInd();
-    void RegistroGeneral();
+    void Reg_Individual_CB_Ciclo();
+    void RegistroGeneral_CB();
     void RS232();
-    void listaBoletasProd();
-    void show_Liquidacion();
+    void Entradas_CB_Productor();        // populates the CB Productor in Entradas
+    void Salidas_CB_Comprador();         // populates the CB Razon Social in Salidas
+    void Liquidaciones_Show();
+    //void Liquidaciones_Show_Comp();
     void Popup_DrynWet_CB1();
     void Popup_DrynWet_CB2();
     void Popup_DrynWet_CB3();
     void Arrows();
     void ShowDeduc();
+    void Opciones();
+    float comprador_Precio();
+    void setColortoRow(int,int,QColor);
    
     QStringList buscarArchivos(QStringList, QString);
   
@@ -118,40 +123,51 @@ public:
     
 public slots:
     void About();
-    void C_Ent();               // Boletas de entrada
+    void C_Ent();                           // Boletas de entrada
     void C_Reg();               // Registros
     //void C_Ade();   // eliminado adeudos
     void C_Pro();               // Productores
     void C_Comp();              // Compradores
     void C_Liq();               // Liquidaciones
-    void C_Opc();               // opciones del Programa
-    void Salidas();             // Boletas de Salidas
-    void Silos();               //  Silos
-    void C_HumySec1();          //  Primera ventana de tablas Humedad y secado
-    void C_HumySec2();          //  Segunda ventana tablas
-    void TablasDeduc1();        // llena los valores de las tablas de secado
+    void C_Opc();                           // opciones del Programa
+    void Salidas();                         // Boletas de Salidas
+    void Silos();                           //  Silos
+    void C_HumySec1();                      //  Primera ventana de tablas Humedad y secado
+    void C_HumySec2();                      //  Segunda ventana tablas
+    void TablasDeduc1();                    // llena los valores de las tablas de secado
     void TablasDeduc2();
     void TablasDeduc3();
-    void Salir();                // exit program
-    void Boleta_New();           // crea una nueva boleta
-    void Productor_New();        // crea un nuevo productor
-    void Productor_Erase();      //  borra el registro de Productor
-    void Produ_Limpiar();        // limpia los campos en productor
-    void Comprador_New();        //  Crea un registro en los compradores
-    void Comprador_Limpiar();    // limpia los campos en comprador
-    void Comprador_Borrar();     // borra el registro del comprador
-    void RegIndProd(QString);    // comboBox de los productores
-    void TablaRegInd(QString);   // Registro Individual, Muestra las boletas de cada Productor de forma individual
-    void TablaRegGen(QString);   // Registro general, muestra el total de todas las boletas X productor
-    void NumProdu(QString);
+    void Salir();                           // exit program
+    void Entradas_Boleta_New();             //  creates a new boleta for new truck
+    void Entradas_Boletas_Borrar();         //  erase the current boleta
+    void Entradas_Boletas_Update();         //  Update the current record
+    void Entradas_Boletas_Limpiar();        //  erase the current fields
+    void Boleta_Salidas_New();              //  creates a new boleta for exit truck
+    void Salidas_Boletas_Update();
+    void Salidas_Boletas_Borrar();
+    void Salidas_Boletas_Limpiar();         //  clear all the field in Boletas Entradas new
+    //void Tabla_Boletas_Entradas();          // populates the table with the last inserted records, boletas entradas
+    void Tabla_Boletas_Salidas();           // populates the table with the last inserted records, boletas salidas
+    void Productor_New();                   // crea un nuevo productor
+    void Productor_Erase();                 //  borra el registro de Productor
+    void Produ_Limpiar();                   // limpia los campos en productor
+    void Comprador_New();                   //  Crea un registro en los compradores
+    void Comprador_Limpiar();               // limpia los campos en comprador
+    void Comprador_Borrar();                // borra el registro del comprador
+    void Reg_Individual_CB_Prod(QString);               // comboBox de los productores
+    void Tabla_Reg_Individual(QString);              // Registro Individual, Muestra las boletas de cada Productor de forma individual
+    void Tabla_Reg_Generales(QString);              // Registro general, muestra el total de todas las boletas X productor
+    void Entradas_NumProdu(QString);        // Set the number of Productor in Boletas Entradas
+    void Salidas_NumComprador(QString);         // Set the number of Productor in Boletas Salidas
     void mostrar_Produc(int, int);          // carga la informacion de los productores y la muestra
     void mostrar_Compra(int, int);          //  Muestra la informacion de cada Comprador y la muestra
     void Liquidaciones_Data(QString);       // Recuadro Boletas dentro de Liquidacion
     void Liquidaciones(int, int);           // Muestra la info de la boleta dentro de Liquidaciones
-    void AdeudosProdu(QString ComboBox);    // Manejo de Adeudos, se agregara en otra actualizacion
+    //void AdeudosProdu(QString ComboBox);    // Manejo de Adeudos, se agregara en otra actualizacion
     void Imp_Liquida();                     // prints liquidacines
     void Imp_Salidas();                     // prints Boletas Salidas
-    void CheckBrutoTara();
+    void Entradas_CheckBrutoTara();
+    void CheckBrutoTara_Salida();
     //virtual void closeEvent(QCloseEvent *event) override;  // old exit program
    
     

@@ -27,6 +27,7 @@ Login::Login(){ //(QString appDir, QApplication app) {
     widget_Login.setupUi(this);
     QObject::connect(widget_Login.Serial_edit, SIGNAL(returnPressed()), this, SLOT(Check()));  // senal de enter al introducir el serial
     QObject::connect(widget_Login.Aceptar, SIGNAL(clicked()), this, SLOT(BotonAceptar()));  // boton de Aceptar
+    QObject::connect(widget_Login.Cancelar, SIGNAL(clicked()), this, SLOT(close()));
 }
 
 Login::~Login() {
@@ -135,23 +136,6 @@ bool Login::SortMAC(const QStringList &sort, QString serial){  // compara el ser
     }
     return ready;
 }
-
-/*void Login::showMainWindow(){
-   
-    
-    Silo* silo = new Silo();
-
-    FramelessWindow winPrin;
-    winPrin.setStyle(new DarkStyle);
-    winPrin.setContent(silo);
-    winPrin.setFixedSize(1920,1080);
-    winPrin.setWindowState(Qt::WindowMaximized);
-    winPrin.setWindowTitle("SAAS");
-    winPrin.setWindowIcon(QIcon("images/Icono_App_Silo_1.png"));
-    winPrin.show();  // muestra la pantalla principal
-   
-}
-*/
 
 void Login::BotonAceptar(){
    /* QMessageBox MBox;

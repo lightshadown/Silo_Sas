@@ -44,7 +44,7 @@ void Launcher::Init(QString App){
 void Launcher::ShowMainWindow(QString App){
     //********** Muestra la pantalla Principal del sistema*****//  
     
-    Silo* base = new Silo;
+    Silo *base = new Silo();
     
     base->setMinimumSize(1280, 800);
     base->setFixedSize(1920,1080);
