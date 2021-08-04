@@ -38,7 +38,9 @@
 #include <QPushButton>
 #include <QHash>
 #include <QVector>
-#include <QDoubleValidator>
+#include <QDoubleValidator>   // Validadores de float
+#include <QIntValidator>      // validadores de Int
+#include <QRegExpValidator>   // validadores de Expresiones regulares (RegExp)
 #include <QLineEdit>
 #include <QColor>
 
@@ -90,7 +92,7 @@ public:
     void KillDB();//(QString);                // kills the open conecction
     bool ChecarDB(QString, QString);     // checks if the database exists
     void Tabla_Boletas_Entradas();          // populates the table with the last inserted records, boletas entradas
-    
+    void Tabla_Boletas_Salidas();           // populates the table with the last inserted records, boletas salidas
     void Productores_Lista();
     void Compradores_Lista();
     void PopuAdeudos();
@@ -99,14 +101,23 @@ public:
     void RS232();
     void Entradas_CB_Productor();        // populates the CB Productor in Entradas
     void Salidas_CB_Comprador();         // populates the CB Razon Social in Salidas
-    void Liquidaciones_Show();
+    void Liquidaciones_CB_Comp();
+    void Liquidaciones_CB_Prod();
     //void Liquidaciones_Show_Comp();
     void Popup_DrynWet_CB1();
     void Popup_DrynWet_CB2();
     void Popup_DrynWet_CB3();
     void Arrows();
     void ShowDeduc();
-    void Opciones();
+    void Options_Init();                     // set disable all the Qlineedits by default
+    void Opt_Sanidad_Load();
+    void Opt_Grano_Load();
+    void Opt_Modulo_Load();
+    void Validadores_Boletas_New();         // validadores tipo de caracteres
+    void Validadores_Boletas_Salidas();
+    void Validadores_Productores();
+    void Validadores_Compradores();
+    void Validadores_Opciones();
     float comprador_Precio();
     void setColortoRow(int,int,QColor);
    
@@ -124,7 +135,8 @@ public:
 public slots:
     void About();
     void C_Ent();                           // Boletas de entrada
-    void C_Reg();               // Registros
+    void C_Reg_Ind();               // Registros
+    void C_Reg_Gen();
     //void C_Ade();   // eliminado adeudos
     void C_Pro();               // Productores
     void C_Comp();              // Compradores
@@ -146,8 +158,6 @@ public slots:
     void Salidas_Boletas_Update();
     void Salidas_Boletas_Borrar();
     void Salidas_Boletas_Limpiar();         //  clear all the field in Boletas Entradas new
-    //void Tabla_Boletas_Entradas();          // populates the table with the last inserted records, boletas entradas
-    void Tabla_Boletas_Salidas();           // populates the table with the last inserted records, boletas salidas
     void Productor_New();                   // crea un nuevo productor
     void Productor_Erase();                 //  borra el registro de Productor
     void Produ_Limpiar();                   // limpia los campos en productor
@@ -163,11 +173,23 @@ public slots:
     void mostrar_Compra(int, int);          //  Muestra la informacion de cada Comprador y la muestra
     void Liquidaciones_Data(QString);       // Recuadro Boletas dentro de Liquidacion
     void Liquidaciones(int, int);           // Muestra la info de la boleta dentro de Liquidaciones
+    
     //void AdeudosProdu(QString ComboBox);    // Manejo de Adeudos, se agregara en otra actualizacion
     void Imp_Liquida();                     // prints liquidacines
     void Imp_Salidas();                     // prints Boletas Salidas
     void Entradas_CheckBrutoTara();
     void CheckBrutoTara_Salida();
+    void Usuarios(int);
+    void Usuarios_Borrar(int);
+    void Cuotas_Sanidad(int);
+    void Cuotas_Modulo(int);
+    void Cuotas_Grano(int);
+    void Opt_Sanidad();
+    void Opt_Grano();
+    void Opt_Modulo();
+    void Opt_TonsSocios();
+    void Actualizacion(int);
+    void Usuarios_New();
     //virtual void closeEvent(QCloseEvent *event) override;  // old exit program
    
     

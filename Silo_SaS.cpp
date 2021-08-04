@@ -48,7 +48,7 @@ Silo::Silo() {
     //************ Botonera Principal *********//
     
     QObject::connect(widget_PP.push_Boletas, SIGNAL(clicked()), this, SLOT(C_Ent()));                // boletas
-    QObject::connect(widget_PP.push_Registros, SIGNAL(clicked()), this, SLOT(C_Reg()));              //  Registros
+    QObject::connect(widget_PP.push_Registros, SIGNAL(clicked()), this, SLOT(C_Reg_Ind()));              //  Registros
     //QObject::connect(widget_PP.push_Adeudos, SIGNAL(clicked()), this, SLOT(C_Ade()));              // Adeudos, eliminado no debe usarse
     QObject::connect(widget_PP.push_Productores, SIGNAL(clicked()), this, SLOT(C_Pro()));            //productores
     QObject::connect(widget_PP.push_Compradores, SIGNAL(clicked()), this, SLOT(C_Comp()));           // Compradores
@@ -69,27 +69,40 @@ Silo::Silo() {
     QObject::connect(widget_PP.Comp_Limpiar, SIGNAL(clicked()), this, SLOT(Comprador_Limpiar()));                    //  limpia los campos de comprador
     QObject::connect(widget_PP.Comp_Borrar, SIGNAL(clicked()), this, SLOT(Comprador_Borrar()));                      // delete the user comprador
     QObject::connect(widget_PP.Comp_Guardar, SIGNAL(clicked()), this, SLOT(Comprador_New()));                        // Creates new user comprador
+    QObject::connect(widget_PP.push_Entrada_Borrar, SIGNAL(clicked()), this, SLOT(Entradas_Boletas_Borrar()));       // Entradas_Boletas_Borrar()
+    QObject::connect(widget_PP.push_Salidas_Borrar, SIGNAL(clicked()), this, SLOT(Salidas_Boletas_Borrar()));       //  Salidas_Boletas_Borrar
+    QObject::connect(widget_PP.User_Add_Push, SIGNAL(clicked()), this, SLOT(Usuarios_New()));        //  Usuarios_New()
+    // ************* ComboBox  y Checkbox **************************//
    
-    //************* ComboBox  **************************//
-   
-    QObject::connect(widget_PP.RegInd_Ciclo_CB, SIGNAL(currentIndexChanged(const QString)), this, SLOT(Reg_Individual_CB_Prod(QString)));  // Registros Individual 
-    QObject::connect(widget_PP.RegInd_Prod_CB, SIGNAL(currentIndexChanged(const QString)), this, SLOT(Tabla_Reg_Individual(QString)));  // Registros Individual 
-    QObject::connect(widget_PP.RegGen_Ciclo_CB, SIGNAL(currentIndexChanged(const QString)), this, SLOT(Tabla_Reg_Generales(QString)));  // Registros Generales 
-    QObject::connect(widget_PP.Liq_Prod_CB, SIGNAL(currentIndexChanged(const QString)), this, SLOT(Liquidaciones_Data(QString))); // Liquidaciones
-    //QObject::connect(widget_PP.Prod_sal_CB, SIGNAL(currentIndexChanged(const QString)), this, SLOT(AdeudosProdu(QString))); // Adeudos  -- Borrado
-    QObject::connect(widget_PP.Prod_ComboBox, SIGNAL(currentIndexChanged(const QString)), this, SLOT(Entradas_NumProdu(QString))); // Num Productor Entradas
-    QObject::connect(widget_PP.Salida_Razon_Social_edit, SIGNAL(currentIndexChanged(const QString)), this, SLOT(Salidas_NumComprador(QString))); //  Num Comprador Salidas
+    QObject::connect(widget_PP.RegInd_Ciclo_CB, SIGNAL(currentIndexChanged(const QString)), this, SLOT(Reg_Individual_CB_Prod(QString)));           // Registros Individual 
+    QObject::connect(widget_PP.RegInd_Prod_CB, SIGNAL(currentIndexChanged(const QString)), this, SLOT(Tabla_Reg_Individual(QString)));              // Registros Individual 
+    QObject::connect(widget_PP.RegGen_Ciclo_CB, SIGNAL(currentIndexChanged(const QString)), this, SLOT(Tabla_Reg_Generales(QString)));              // Registros Generales 
+    QObject::connect(widget_PP.Liq_Prod_CB, SIGNAL(currentIndexChanged(const QString)), this, SLOT(Liquidaciones_Data(QString)));                   // Liquidaciones
+    //QObject::connect(widget_PP.Prod_sal_CB, SIGNAL(currentIndexChanged(const QString)), this, SLOT(AdeudosProdu(QString)));  // Adeudos  -- Borrado
+    QObject::connect(widget_PP.Prod_ComboBox, SIGNAL(currentIndexChanged(const QString)), this, SLOT(Entradas_NumProdu(QString)));                  //  Num Productor Entradas
+    QObject::connect(widget_PP.Salida_Razon_Social_edit, SIGNAL(currentIndexChanged(const QString)), this, SLOT(Salidas_NumComprador(QString)));    //  Num Comprador Salidas
+    QObject::connect(widget_PP.Cuotas_Sanidad, SIGNAL(stateChanged(int)), this, SLOT(Cuotas_Sanidad(int)));                                         //  Num Comprador Salidas
+    QObject::connect(widget_PP.Cuotas_Grano, SIGNAL(stateChanged(int)), this, SLOT(Cuotas_Grano(int)));                                             //  Num Comprador Salidas
+    QObject::connect(widget_PP.Cuotas_Modulo, SIGNAL(stateChanged(int)), this, SLOT(Cuotas_Modulo(int)));                                           //  Num Comprador Salidas
+    QObject::connect(widget_PP.User_Add, SIGNAL(stateChanged(int)), this, SLOT(Usuarios(int)));                                                     //  Usuarios(int)
+    QObject::connect(widget_PP.User_Del, SIGNAL(stateChanged(int)), this, SLOT(Usuarios_Borrar(int)));                                              //  Usuarios_Borrar(int)
+    QObject::connect(widget_PP.Actual, SIGNAL(stateChanged(int)), this, SLOT(Actualizacion(int)));                                                  //  Actualizacion(int)
     
-    //******************* Senales de enter *****************************//
+    // ******************* Senales de enter *****************************//
     
-    QObject::connect(widget_PP.Liq_Boletas_Lista, SIGNAL(cellClicked(int,int)), this, SLOT(Liquidaciones(int, int))); // Liquidaciones Data
-    QObject::connect(widget_PP.Productores_Lista, SIGNAL(cellClicked(int,int)), this, SLOT(mostrar_Produc(int, int))); // Productores
-    QObject::connect(widget_PP.Compradores_Lista, SIGNAL(cellClicked(int,int)), this, SLOT(mostrar_Compra(int, int))); // Compradores 
-    QObject::connect(widget_PP.HumSec_CB1_edit, SIGNAL(returnPressed()), this, SLOT(TablasDeduc1()));  // senal de enter al introducir el valor para las tablas de secado
-    QObject::connect(widget_PP.HumSec_CB2_edit, SIGNAL(returnPressed()), this, SLOT(TablasDeduc2()));  // senal de enter al introducir el valor para las tablas de secado
-    QObject::connect(widget_PP.HumSec_CB3_edit, SIGNAL(returnPressed()), this, SLOT(TablasDeduc3()));  // senal de enter al introducir el valor para las tablas de secado    
-    QObject::connect(widget_PP.Peso_Tara_edit, SIGNAL(returnPressed()), this, SLOT(Entradas_CheckBrutoTara()));  // senal de enter de tara  
-    QObject::connect(widget_PP.Salidas_Tara_edit, SIGNAL(returnPressed()), this, SLOT(CheckBrutoTara_Salida()));  // senal de enter de tara    CheckBrutoTara_Salida
+    QObject::connect(widget_PP.Liq_Boletas_Lista, SIGNAL(cellClicked(int,int)), this, SLOT(Liquidaciones(int, int)));            // Liquidaciones Data
+    QObject::connect(widget_PP.Productores_Lista, SIGNAL(cellClicked(int,int)), this, SLOT(mostrar_Produc(int, int)));           // Productores
+    QObject::connect(widget_PP.Compradores_Lista, SIGNAL(cellClicked(int,int)), this, SLOT(mostrar_Compra(int, int)));           // Compradores 
+    QObject::connect(widget_PP.HumSec_CB1_edit, SIGNAL(returnPressed()), this, SLOT(TablasDeduc1()));                            // senal de enter al introducir el valor para las tablas de secado
+    QObject::connect(widget_PP.HumSec_CB2_edit, SIGNAL(returnPressed()), this, SLOT(TablasDeduc2()));                            // senal de enter al introducir el valor para las tablas de secado
+    QObject::connect(widget_PP.HumSec_CB3_edit, SIGNAL(returnPressed()), this, SLOT(TablasDeduc3()));                            // senal de enter al introducir el valor para las tablas de secado    
+    QObject::connect(widget_PP.Peso_Tara_edit, SIGNAL(returnPressed()), this, SLOT(Entradas_CheckBrutoTara()));                  // senal de enter de tara  
+    QObject::connect(widget_PP.Salidas_Tara_edit, SIGNAL(returnPressed()), this, SLOT(CheckBrutoTara_Salida()));                 // senal de enter de tara    CheckBrutoTara_Salida
+    QObject::connect(widget_PP.Cuotas_Sanidad_edit, SIGNAL(returnPressed()), this, SLOT(Opt_Sanidad()));                         //  Opt_Sanidad()
+    QObject::connect(widget_PP.Cuotas_Grano_edit, SIGNAL(returnPressed()), this, SLOT(Opt_Grano()));                             //  Opt_Grano()
+    QObject::connect(widget_PP.Cuotas_Modulo_edit, SIGNAL(returnPressed()), this, SLOT(Opt_Modulo()));                           //  Opt_Modulo()
+    QObject::connect(widget_PP.Socios_TonsxSocio_edit, SIGNAL(returnPressed()), this, SLOT(Opt_TonsSocios()));                   // Opt_TonsSocios()
+    
     
     //************* Menu ************//
     
@@ -99,7 +112,8 @@ Silo::Silo() {
     QObject::connect(widget_PP.actionHumedad_y_secado, SIGNAL(triggered()), this, SLOT(C_HumySec1()));    // Menu Humedad y secado 1
     QObject::connect(widget_PP.actionSalir, SIGNAL(triggered()), this, SLOT(Salir()));                    //closeEvent()));  // cerrar programa
     QObject::connect(widget_PP.actionEntradas, SIGNAL(triggered()), this, SLOT(C_Ent()));                 // Menu Boletas
-    QObject::connect(widget_PP.actionIndividuales, SIGNAL(triggered()), this, SLOT(C_Reg()));             // Menu Registros
+    QObject::connect(widget_PP.actionIndividuales, SIGNAL(triggered()), this, SLOT(C_Reg_Ind()));             // Menu Registros
+    QObject::connect(widget_PP.actionGenerales, SIGNAL(triggered()), this, SLOT(C_Reg_Gen()) );  // Menu Registros Generales
     QObject::connect(widget_PP.actionProductores, SIGNAL(triggered()), this, SLOT(C_Pro()));              // Menu Productores
     QObject::connect(widget_PP.actionCompradores, SIGNAL(triggered()), this, SLOT(C_Comp()));             // Menu Compradores
     QObject::connect(widget_PP.actionSalidas, SIGNAL(triggered()), this, SLOT(C_Liq()));                  // Menu Liquidaciones
@@ -288,7 +302,7 @@ QString Silo::ciclo_actual()
         
     std::time_t ahora = time(0); // sem MES DD hh:mm:ss YYYY
     std::string date = ctime(&ahora);  // carga la fecha actual, formato:  www MMM DD hh:mm:ss YYYY  
-    QString ciclo;
+    QString ciclo{"none"};
     int ano2{0}, mes{0}, ano2_ant{0};
     //meses mes2;
     //std::string day(date.begin() + DAY_OFFSET, date.begin() + DAY_OFFSET + DAY_LENGTH); // el primer argumento pone el cursor al principio de donde quiero leer
@@ -299,6 +313,8 @@ QString Silo::ciclo_actual()
    
     ano2 = stoi(year);   // stoi combierte de string a int  
    
+    //Log("fecha: " + QString::fromStdString(date) + " ,mes: " + QString::fromStdString(month));
+    
     if (month == "Jan"){mes = 1; /*mes2 = Jan;*/}
     if (month == "Feb"){mes = 2;}
     if (month == "Mar"){mes = 3;}
@@ -306,7 +322,7 @@ QString Silo::ciclo_actual()
     if (month == "May"){mes = 5;}
     if (month == "Jun"){mes = 6;}
     if (month == "Jul"){mes = 7;}
-    if (month == "Agu"){mes = 8;}
+    if (month == "Aug"){mes = 8;}
     if (month == "Sep"){mes = 9;}
     if (month == "Oct"){mes = 10;}
     if (month == "Nov"){mes = 11;}
@@ -501,8 +517,64 @@ void Silo::Entradas_Boleta_New(){
     //KillDB();
 }
 
+// revisar https://stackoverflow.com/questions/8478317/netbeans-and-mingw-w64 sobre como configurar mingw 64 bits
+//  crashea si no esta seleccionado ningun registro o la tabla esta vacia
 void Silo::Entradas_Boletas_Borrar(){       // Select the current record and erase it
+    int fila;
+    QString BoletaName, BoletaNum, Celda;
+    QTableWidgetItem *item;
     
+    std::wstring DirFile;
+    TCHAR buffer[MAX_PATH] = {0};
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
+    DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
+    
+    QMessageBox MBox;
+    QPushButton *boton_OK = MBox.addButton("Ok", QMessageBox::AcceptRole);
+    MBox.setDefaultButton(boton_OK);
+    MBox.setWindowIcon(QPixmap("images/Icono_App_Silo_1.png"));
+    
+    CrearDB(QString::fromStdWString(DirFile), ciclo_actual());
+    QSqlQuery valor(QSqlDatabase::database(ciclo_actual()));
+    
+    valor.exec("SELECT a.Prod_Nombre, a.Prod_Apellidos, b.* FROM Productores AS a "
+                "JOIN Boletas_Entradas AS b ON a.Prod_Num=b.Prod_Num GROUP BY b.Folio ORDER BY Fecha DESC");
+    if(valor.lastError().isValid()){
+        Log("No se puede hacer el query en Boletas Borrar \n" + valor.lastQuery() + "\n" + valor.lastError().text());
+    }
+    
+    fila = widget_PP.Tabla_Entradas_Folios->currentRow();   // index de la fila actual
+    item = widget_PP.Tabla_Entradas_Folios->item(fila,0);   // celda en fila y columna, obtener el folio de boleta
+    Celda = item->text();  // obtienes el contenido de la celda
+    valor.first();
+
+      do{
+        //BoletaName = valor.value("Prod_Nombre").toString() + " " + valor.value("Prod_Apellidos").toString();
+        BoletaNum = valor.value("Folio").toString();
+        if(Celda == BoletaNum){
+            valor.prepare("DELETE FROM Boletas_Entradas WHERE Folio = :folio ");    // borrar el registro
+            valor.bindValue(":folio", BoletaNum);
+            valor.exec();
+
+         if(valor.lastError().isValid()) {
+            Log("Error al borrar registros \n" + valor.executedQuery() + "\n" + valor.lastError().text());
+            MBox.setWindowTitle("Error");
+            MBox.setText("Hubo un problema al borrar el Registro\n" + valor.lastError().text());
+            MBox.exec();
+            return;
+         }else {
+            Log("Registro borrado boleta de Productor");
+            widget_PP.Tabla_Entradas_Folios->removeRow(fila);  // elimina la fila seleccionada 
+            MBox.setWindowTitle("Registro");
+            MBox.setText("Se borro el Registro con exito");
+            MBox.exec();
+        }
+        }
+
+      }while(valor.next());
+   
+    valor.finish();
 }
 
 void Silo::Entradas_Boletas_Update(){       // Update the current record
@@ -638,29 +710,6 @@ void Silo::Entradas_NumProdu(QString ComboBox){   // poner el numero del socio b
    
     busq.finish();
     //KillDB();
-}
-
-void Silo::Salidas_Boletas_Borrar(){
-    
-}
-
-void Silo::Salidas_Boletas_Update(){
-    
-}
-
-void Silo::Salidas_Boletas_Limpiar(){
-    widget_PP.Folio_Salida_edit->clear();
-    widget_PP.Salidas_Destino_edit->clear();
-    widget_PP.Salidas_Chofer_Nombre_edit->clear();
-    widget_PP.Salidas_Chofer_Apellidos_edit->clear();
-    widget_PP.Salidas_Placas_edit->clear();
-    widget_PP.Salidas_Color_edit->clear();
-    widget_PP.Salidas_Tipo_edit->clear();
-    widget_PP.Salidas_Neto_edit->clear();
-    widget_PP.Salidas_Bruto_edit->clear();
-    widget_PP.Salidas_Tara_edit->clear();
-    widget_PP.Salidas_Humedad_edit->clear();
-    widget_PP.Salidas_Espe_edit->clear();
 }
 
 /// Boletas Salidas
@@ -824,6 +873,82 @@ void Silo::CheckBrutoTara_Salida(){
         }
     }
 
+void Silo::Salidas_Boletas_Borrar(){  // borra las boletas de salidas
+    int fila;
+    QString BoletaName, BoletaNum, Celda;
+    QTableWidgetItem *item;
+    
+    std::wstring DirFile;
+    TCHAR buffer[MAX_PATH] = {0};
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
+    DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
+    
+    QMessageBox MBox;
+    QPushButton *boton_OK = MBox.addButton("Ok", QMessageBox::AcceptRole);
+    MBox.setDefaultButton(boton_OK);
+    MBox.setWindowIcon(QPixmap("images/Icono_App_Silo_1.png"));
+    
+    CrearDB(QString::fromStdWString(DirFile), ciclo_actual());
+    QSqlQuery valor(QSqlDatabase::database(ciclo_actual()));
+    
+    valor.exec("SELECT a.Razon_Social, b.* FROM Compradores AS a "
+                "JOIN Boletas_Salidas AS b ON a.Comp_Num=b.Comp_Num GROUP BY Folio ORDER BY Fecha DESC");
+    if(valor.lastError().isValid()){
+        Log("No se puede hacer el query en Boletas Salidas Borrar \n" + valor.lastQuery() + "\n" + valor.lastError().text());
+    }
+    
+    fila = widget_PP.Tabla_Salidas_Folios->currentRow();   // index de la fila actual
+    item = widget_PP.Tabla_Salidas_Folios->item(fila,0);   // celda en fila y columna, obtener el folio de boleta
+    Celda = item->text();  // obtienes el contenido de la celda
+    valor.first();
+
+      do{
+        //BoletaName = valor.value("Prod_Nombre").toString() + " " + valor.value("Prod_Apellidos").toString();
+        BoletaNum = valor.value("Folio").toString();
+        if(Celda == BoletaNum){
+            valor.prepare("DELETE FROM Boletas_Salidas WHERE Folio = :folio ");    // borrar el registro
+            valor.bindValue(":folio", BoletaNum);
+            valor.exec();
+
+         if(valor.lastError().isValid()) {
+            Log("Error al borrar registros Boletas de Salidas \n" + valor.executedQuery() + "\n" + valor.lastError().text());
+            MBox.setWindowTitle("Error");
+            MBox.setText("Hubo un problema al borrar el Registro\n" + valor.lastError().text());
+            MBox.exec();
+            return;
+         }else {
+            Log("Registro borrado boleta de Compradores");
+            widget_PP.Tabla_Salidas_Folios->removeRow(fila);  // elimina la fila seleccionada 
+            MBox.setWindowTitle("Registro");
+            MBox.setText("Se borro el Registro con exito");
+            MBox.exec();
+        }
+        }
+
+      }while(valor.next());
+   
+    valor.finish();
+}
+
+void Silo::Salidas_Boletas_Update(){
+    
+}
+
+void Silo::Salidas_Boletas_Limpiar(){
+    widget_PP.Folio_Salida_edit->clear();
+    widget_PP.Salidas_Destino_edit->clear();
+    widget_PP.Salidas_Chofer_Nombre_edit->clear();
+    widget_PP.Salidas_Chofer_Apellidos_edit->clear();
+    widget_PP.Salidas_Placas_edit->clear();
+    widget_PP.Salidas_Color_edit->clear();
+    widget_PP.Salidas_Tipo_edit->clear();
+    widget_PP.Salidas_Neto_edit->clear();
+    widget_PP.Salidas_Bruto_edit->clear();
+    widget_PP.Salidas_Tara_edit->clear();
+    widget_PP.Salidas_Humedad_edit->clear();
+    widget_PP.Salidas_Espe_edit->clear();
+}
 
 void Silo::Salidas_CB_Comprador(){  // llenar el combo box Razon Social Salidas
     int dos{0};
@@ -936,9 +1061,9 @@ void Silo::Tabla_Boletas_Entradas(){   // populates the table with the last inse
     QSqlQuery boleta(QSqlDatabase::database(ciclo_actual()));  // haces la busqueda de boletas
     
     boleta.exec("SELECT a.Prod_Nombre, a.Prod_Apellidos, b.* FROM Productores AS a "
-                "JOIN Boletas_Entradas AS b ON a.Prod_Num=b.Prod_Num ORDER BY Fecha DESC");
+                "JOIN Boletas_Entradas AS b ON a.Prod_Num=b.Prod_Num GROUP BY b.Folio ORDER BY Fecha DESC");
     if(boleta.lastError().isValid()){
-        
+        Log("Error no se puede leer la tabla, tabla boletas de entrada \n" + boleta.executedQuery() + "\n" + boleta.lastError().text() );
     }
     // ***************** borrar los valores en pantalla****************
     widget_PP.Tabla_Entradas_Folios->clear();
@@ -967,8 +1092,10 @@ void Silo::Tabla_Boletas_Entradas(){   // populates the table with the last inse
         //std::string year(Hora.begin() + YEAR_OFFSET, Hora.begin() + YEAR_OFFSET + YEAR_LENGTH); 
         Hora = QString::fromStdString(dayNumber) + " " + QString::fromStdString(month) + " " + QString::fromStdString(hours);
         
-        if (Folio != ""){
-            widget_PP.Tabla_Entradas_Folios->setRowCount(widget_PP.Tabla_Entradas_Folios->rowCount() + 1);
+        if (Folio == ""){
+           
+        } else{
+             widget_PP.Tabla_Entradas_Folios->setRowCount(widget_PP.Tabla_Entradas_Folios->rowCount() + 1);
             filas = widget_PP.Tabla_Entradas_Folios->rowCount() - 1;
 
             //Log("Fila: " + QString::number(filas) + " --- " + Folio + " --- " + Prod + " --- " + Chofer + " --- " + Hora);
@@ -997,7 +1124,7 @@ void Silo::Tabla_Boletas_Entradas(){   // populates the table with the last inse
 
 void Silo::Tabla_Boletas_Salidas(){       // populates the table with the last inserted records, boletas salidas
  
-    int filas{0};
+//    int filas{0};
     QString Folio, Prod, Chofer, Hora;
     std::string date;
     
@@ -1007,14 +1134,14 @@ void Silo::Tabla_Boletas_Salidas(){       // populates the table with the last i
     std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
     DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual
     
-    Log("Tabla de boletas Salidas");
+    //Log("Tabla de boletas Salidas");
     CrearDB(QString::fromStdWString(DirFile), ciclo_actual());
     QSqlQuery boleta(QSqlDatabase::database(ciclo_actual()));  // haces la busqueda de boletas
     
     boleta.exec("SELECT a.Razon_Social, b.* FROM Compradores AS a "
-                "JOIN Boletas_Salidas AS b ON a.Comp_Num=b.Comp_Num ORDER BY Fecha DESC");
+                "JOIN Boletas_Salidas AS b ON a.Comp_Num=b.Comp_Num GROUP BY Folio ORDER BY Fecha DESC");
     if(boleta.lastError().isValid()){
-        
+        Log("Error no se puede leer la tabla, tabla boletas de salida \n" + boleta.executedQuery() + "\n" + boleta.lastError().text() );
     }
     // ***************** borrar los valores en pantalla****************
     widget_PP.Tabla_Salidas_Folios->clear();
@@ -1047,7 +1174,7 @@ void Silo::Tabla_Boletas_Salidas(){       // populates the table with the last i
             widget_PP.Tabla_Salidas_Folios->setRowCount(widget_PP.Tabla_Salidas_Folios->rowCount() + 1);
             int filas = widget_PP.Tabla_Salidas_Folios->rowCount() - 1;
 
-            Log("Fila: " + QString::number(filas) + " --- " + Folio + " --- " + Prod + " --- " + Chofer + " --- " + Hora);
+            //Log("Fila: " + QString::number(filas) + " --- " + Folio + " --- " + Prod + " --- " + Chofer + " --- " + Hora);
        
               QTableWidgetItem *obj0 = new QTableWidgetItem;
               obj0->setText(Folio);
@@ -1415,7 +1542,8 @@ void Silo::Reg_Individual_CB_Ciclo(){    // comboBox del Ciclo
     */
     QStringList ciclos = buscarArchivos(filename, "Data");
     widget_PP.RegInd_Ciclo_CB->clear();
-    widget_PP.RegInd_Prod_CB->clear();
+    //widget_PP.RegInd_Prod_CB->clear();
+    widget_PP.RegInd_Ciclo_CB->setEditable(false);
   
     if (ciclos.size() <= 0){
         Log("Registros Individual, No se Pueden Encontrar los archivos: " + filename.at(0) );//QString::number(ciclos.size()));
@@ -1440,7 +1568,7 @@ void Silo::Reg_Individual_CB_Prod(QString ComboBox){  // comboBox de los product
     widget_PP.RegInd_Prod_CB->clear();
     CrearDB(QString::fromStdWString(DirFile), ComboBox);
     QSqlQuery reg(QSqlDatabase::database(ComboBox)); // usar buscarArchivos() para usar la db seleccionada en el combobox
-    reg.exec("SELECT Prod_Apellidos, Prod_Nombre FROM Productores");
+    reg.exec("SELECT Prod_Apellidos, Prod_Nombre FROM Productores GROUP BY Prod_Num");
     if(reg.lastError().isValid()){
          Log( "No se puede leer la tabla Productores, en Registros Individual \n" + reg.executedQuery() + "\n" + reg.lastError().text());
     }
@@ -1462,21 +1590,12 @@ void Silo::Reg_Individual_CB_Prod(QString ComboBox){  // comboBox de los product
 
 void Silo::Tabla_Reg_Individual(QString ComboBox){  // Muestra las boletas de cada Productor de forma individual
     
-    int contador = 0;  // super importante NO BORRAR!!!!!!!!!!!!!!!
+    auto contador = 0;  // super importante NO BORRAR!!!!!!!!!!!!!!!
     QString info;  // hace las comparacions contra el ComboBox
-    QString folioNum;
+    QString folioNum, Chofer, C_Apellidos, Placas, Color, Tipo, Silo;\
+    auto Bruto{0.0}, Tara{0.0}, Neto{0.0}, Humedad{0.0};
 //  QString Prod_Num = registros.value("Prod_Num").toString();
-    QString Chofer;
-    QString C_Apellidos;
-    QString Placas;
-    QString Color;
-    QString Tipo;
-    QString Humedad;
-    QString Bruto;
-    QString Tara;
-    QString Neto;
-    QString Silo;
-    
+
     std::wstring DirFile;
     TCHAR buffer[MAX_PATH] = {0};
     GetModuleFileName(NULL, buffer, MAX_PATH);
@@ -1489,7 +1608,7 @@ void Silo::Tabla_Reg_Individual(QString ComboBox){  // Muestra las boletas de ca
     QSqlQuery prod(QSqlDatabase::database(Db));  // haces la busqueda de boletas
     // filtrar solo por el nombre y apellido del productor
     //Log(ComboBox + "\n" + Db);
-    prod.exec("SELECT a.Prod_Nombre, a.Prod_Apellidos, b.* FROM Productores AS a JOIN Boletas_Entradas AS b ON a.Prod_Num=b.Prod_Num");
+    prod.exec("SELECT a.Prod_Nombre, a.Prod_Apellidos, b.* FROM Productores AS a JOIN Boletas_Entradas AS b ON a.Prod_Num=b.Prod_Num GROUP BY Folio");
     if(prod.lastError().isValid()){
         Log("Lectura Tabla Registros Individual \n" + prod.executedQuery() + "\n" + prod.lastError().text() ); 
     }
@@ -1497,6 +1616,11 @@ void Silo::Tabla_Reg_Individual(QString ComboBox){  // Muestra las boletas de ca
     widget_PP.Registros_Ind->setRowCount(0);
     //widget_PP.Liq_Boletas_Lista->setColumnCount(3);
     widget_PP.Registros_Ind->horizontalHeader()->hide();
+    widget_PP.Registros_Ind->horizontalHeader()->resizeSection(1,200);
+    widget_PP.Registros_Ind->horizontalHeader()->resizeSection(7,180);
+    widget_PP.Registros_Ind->horizontalHeader()->resizeSection(6,180);
+    widget_PP.Registros_Ind->horizontalHeader()->resizeSection(7,180);
+    widget_PP.Registros_Ind->horizontalHeader()->resizeSection(8,180);
     //widget_PP.Liq_Boletas_Lista->horizontalHeader()->setDefaultSectionSize(200);
     widget_PP.Registros_Ind->verticalHeader()->hide();
     widget_PP.Registros_Ind->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -1523,10 +1647,10 @@ void Silo::Tabla_Reg_Individual(QString ComboBox){  // Muestra las boletas de ca
               Placas = prod.value("Placas").toString();
               Color = prod.value("Color").toString();
               Tipo = prod.value("Tipo").toString();
-              Humedad = prod.value("Humedad").toString();
-              Bruto = prod.value("Bruto").toString();
-              Tara = prod.value("Tara").toString();
-              Neto = prod.value("Neto").toString();
+              Humedad = prod.value("Humedad").toFloat();
+              Bruto = prod.value("Bruto").toFloat() / 1000;
+              Tara = prod.value("Tara").toFloat() / 1000;
+              Neto = prod.value("Neto").toFloat() / 1000;
               //Silo = prod.value("Silo").toString();
           //  QString foto1 = registros.value("foto_Cam1").toString();
           //  QString foto2 = registros.value("foto_Cam2").toString();
@@ -1561,54 +1685,63 @@ void Silo::Tabla_Reg_Individual(QString ComboBox){  // Muestra las boletas de ca
               QLineEdit *edit0 = new QLineEdit(widget_PP.Registros_Ind);   // FolioNum
               //edit0->setValidator(new QDoubleValidator(1, 2, 2,edit5));   
               edit0->setText(folioNum);
+              edit0->setReadOnly(true);
               edit0->setStyleSheet("border-width:0px; padding-left:65px");
               widget_PP.Registros_Ind->setCellWidget(filas,0,edit0);
               
               QLineEdit *edit1 = new QLineEdit(widget_PP.Registros_Ind);   // Chofer
               //edit1->setValidator(new QDoubleValidator(1, 2, 2,edit1));   
               edit1->setText(Chofer);
-              edit1->setStyleSheet("border-width:0px;");
+              edit1->setReadOnly(true);
+              edit1->setStyleSheet("border-width:0px; padding-left:45px");
               widget_PP.Registros_Ind->setCellWidget(filas,1,edit1);
               
               QLineEdit *edit2 = new QLineEdit(widget_PP.Registros_Ind);   // Placas
               //edit2->setValidator(new QDoubleValidator(1, 2, 2,edit2));   
               edit2->setText(Placas);
+              edit2->setReadOnly(true);
               edit2->setStyleSheet("border-width:0px; padding-left:35px");
               widget_PP.Registros_Ind->setCellWidget(filas,2,edit2);
               
               QLineEdit *edit3 = new QLineEdit(widget_PP.Registros_Ind);   // Color
               //edit3->setValidator(new QDoubleValidator(1, 2, 2,edit3));   
               edit3->setText(Color);
+              edit3->setReadOnly(true);
               edit3->setStyleSheet("border-width:0px; padding-left:45px");
               widget_PP.Registros_Ind->setCellWidget(filas,3,edit3);
               
               QLineEdit *edit4 = new QLineEdit(widget_PP.Registros_Ind);   // Tipo
               //edit4->setValidator(new QDoubleValidator(1, 2, 2,edit4));   
               edit4->setText(Tipo);
+              edit4->setReadOnly(true);
               edit4->setStyleSheet("border-width:0px; padding-left:45px");
               widget_PP.Registros_Ind->setCellWidget(filas,4,edit4);
               
               QLineEdit *edit5 = new QLineEdit(widget_PP.Registros_Ind);   // Humedad
               edit5->setValidator(new QDoubleValidator(1, 2, 2,edit5));   
-              edit5->setText(Humedad);
+              edit5->setText(QString::number(Humedad, 'f', 1));
+              edit5->setReadOnly(true);
               edit5->setStyleSheet("border-width:0px; padding-left:70px");
               widget_PP.Registros_Ind->setCellWidget(filas,5,edit5);
               
               QLineEdit *edit6 = new QLineEdit(widget_PP.Registros_Ind);   // Bruto
               edit6->setValidator(new QDoubleValidator(1, 5, 3, edit6));
-              edit6->setText(Bruto);
+              edit6->setText(QString::number(Bruto, 'f', 3));
+              edit6->setReadOnly(true);
               edit6->setStyleSheet("border-width:0px; padding-left:57px");
               widget_PP.Registros_Ind->setCellWidget(filas,6,edit6);
               
               QLineEdit *edit7 = new QLineEdit(widget_PP.Registros_Ind);   // Tara
               edit7->setValidator(new QDoubleValidator(1, 5, 3, edit7));
-              edit7->setText(Tara);
+              edit7->setText(QString::number(Tara, 'f', 3));
+              edit7->setReadOnly(true);
               edit7->setStyleSheet("border-width:0px; padding-left:57px");
               widget_PP.Registros_Ind->setCellWidget(filas,7,edit7);
               
               QLineEdit *edit8 = new QLineEdit(widget_PP.Registros_Ind);   // Neto
               edit8->setValidator(new QDoubleValidator(1, 5, 3, edit8));
-              edit8->setText(Neto);
+              edit8->setText(QString::number(Neto, 'f', 3));
+              edit8->setReadOnly(true);
               edit8->setStyleSheet("border-width:0px; padding-left:57px");
               widget_PP.Registros_Ind->setCellWidget(filas,8,edit8);
               
@@ -1636,6 +1769,7 @@ void Silo::RegistroGeneral_CB(){
     //Log("Registros Generales");
     
     widget_PP.RegGen_Ciclo_CB->clear();
+    widget_PP.RegGen_Ciclo_CB->setEditable(false);
     //widget_PP.RegGen_Ciclo_CB->addItem(ciclo_actual());
     
      if (ciclos.size() <= 0){
@@ -1654,8 +1788,8 @@ void Silo::RegistroGeneral_CB(){
 void Silo::Tabla_Reg_Generales(QString ComboBox){  // Registro general, muestra el total de todas las boletas X productor
   
     QString Productor;
-    int counter{0};
-    float Neto{0.0}, Analizado{0.0}, Secado{0.0}, Cuota_Grano{0.0}, Sanidad{0.0}, Total{0};
+    auto counter{0}, filas{0};
+    float Neto{0.0}, Analizado{110.0}, Secado{20.0}, Cuota_Grano{0.0}, Sanidad{0.0}, Total{50};
 
     std::wstring DirFile;
     TCHAR buffer[MAX_PATH] = {0};
@@ -1665,14 +1799,20 @@ void Silo::Tabla_Reg_Generales(QString ComboBox){  // Registro general, muestra 
     
     //QString Db = widget_PP.RegGen_Ciclo_CB->currentText();
     CrearDB(QString::fromStdWString(DirFile), ComboBox);
+    CrearDB(QString::fromStdWString(DirFile), "Config.db");
     //Log("TablaRegGen, Antes del query " + ComboBox);
     QSqlQuery rows(QSqlDatabase::database(ComboBox));  // haces la busqueda de boletas
-    
+    QSqlQuery Cnf(QSqlDatabase::database("Config.db"));
     // filtrar solo por el nombre y apellido del productor
     // rows selecciona todos los productores
-    rows.exec("SELECT a.Prod_Num ,a.Neto, b.Prod_Nombre, b.Prod_Apellidos FROM Boletas_Entradas AS a JOIN Productores AS b ON a.Prod_Num=b.Prod_Num ORDER BY b.Prod_Num");
+    rows.exec("SELECT b.Prod_Nombre, b.Prod_Apellidos, a.Neto FROM Boletas_Entradas AS a JOIN Productores AS b ON a.Prod_Num=b.Prod_Num ORDER BY b.Prod_Num");
     if(rows.lastError().isValid()){
         Log( "Fallo Lectura Tabla Registros Generales \n" + rows.executedQuery() + "\n" + rows.lastError().text() ); 
+    }
+    
+    Cnf.exec("SELECT * FROM Config");
+    if(Cnf.lastError().isValid()){
+        Log("No se puede leer el Config");
     }
     
     widget_PP.Registros_General->clear();
@@ -1681,11 +1821,16 @@ void Silo::Tabla_Reg_Generales(QString ComboBox){  // Registro general, muestra 
     widget_PP.Registros_General->setColumnCount(9);
     widget_PP.Registros_General->horizontalHeader()->hide();
     widget_PP.Registros_General->horizontalHeader()->setDefaultSectionSize(200);
+    widget_PP.Registros_General->horizontalHeader()->resizeSection(0,320);
     //widget_PP.Liq_Boletas_Lista->setHorizontalHeaderLabels(list);
     widget_PP.Registros_General->verticalHeader()->hide();
     widget_PP.Registros_General->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     
     //Log( "TablaRegGen dentro del ciclo \n" + ComboBox);
+    
+    Cnf.first();
+    Sanidad = Cnf.value("Sanidad").toFloat();
+    Cuota_Grano = Cnf.value("Cuota").toFloat();
     
     rows.first();   // pone el puntero en el primer registor
     do{
@@ -1693,7 +1838,6 @@ void Silo::Tabla_Reg_Generales(QString ComboBox){  // Registro general, muestra 
         }while(rows.next());
     
     rows.first();   // reinicia los registros
-    
     while(rows.next()){     // este while pone cada productor en una fila cada uno
    /*
         for( int i =0; i<=counter ; ){
@@ -1712,82 +1856,83 @@ void Silo::Tabla_Reg_Generales(QString ComboBox){  // Registro general, muestra 
        rows.first();  //  poner para  
        */
        widget_PP.Registros_General->setRowCount(widget_PP.Registros_General->rowCount() + 1);
-       int filas = widget_PP.Registros_General->rowCount() - 1;
+       filas = widget_PP.Registros_General->rowCount() - 1;
         
        Productor = rows.value("Prod_Nombre").toString() + " " + rows.value("Prod_Apellidos").toString();
-            
+       Neto = rows.value("Neto").toFloat() / 1000;
+       
         // Modo Viejo
-        /*    QTableWidgetItem *obj0 = new QTableWidgetItem;
-              obj0->setText(Productor);
-              widget_PP.Registros_General->setItem(filas,0,obj0);
-              QTableWidgetItem *obj1 = new QTableWidgetItem;
-              obj1->setText(Num_Contrato);
-              widget_PP.Registros_General->setItem(filas,1,obj1);
-              QTableWidgetItem *obj2 = new QTableWidgetItem;
-              obj2->setText(Tons_Contrato);
-              widget_PP.Registros_General->setItem(filas,2,obj2);
-              QTableWidgetItem *obj3 = new QTableWidgetItem;
-              obj3->setText(Tons_Entregado);
-              widget_PP.Registros_General->setItem(filas,3,obj3);
-              QTableWidgetItem *obj4 = new QTableWidgetItem;
-              obj4->setText(Precio_Contrato);
-              widget_PP.Registros_General->setItem(filas,4,obj4);
-              QTableWidgetItem *obj5 = new QTableWidgetItem;
-              obj5->setText(Precio_Fix);
-              widget_PP.Registros_General->setItem(filas,5,obj5);    
-              QTableWidgetItem *obj6 = new QTableWidgetItem;
-              obj6->setText(Precio_Ton);
-              widget_PP.Registros_General->setItem(filas,6,obj6);
-              QTableWidgetItem *obj7 = new QTableWidgetItem;
-              obj7->setText(Descuentos);
-              widget_PP.Registros_General->setItem(filas,7,obj7);
-              QTableWidgetItem *obj8 = new QTableWidgetItem;
-              obj8->setText(Total);
-              widget_PP.Registros_General->setItem(filas,8,obj8);
-             */
-              
+//              QTableWidgetItem *obj0 = new QTableWidgetItem;   // Productor
+//              obj0->setText(Productor);
+//              widget_PP.Registros_General->setItem(filas,0,obj0);
+//              QTableWidgetItem *obj1 = new QTableWidgetItem;   // Neto
+//              obj1->setText(QString::number(Neto, 'f', 2));
+//              widget_PP.Registros_General->setItem(filas,1,obj1);
+//              QTableWidgetItem *obj2 = new QTableWidgetItem;   // Analizado
+//              obj2->setText(QString::number(Analizado, 'f', 3));
+//              widget_PP.Registros_General->setItem(filas,2,obj2);
+//              QTableWidgetItem *obj3 = new QTableWidgetItem;   // Secado
+//              obj3->setText(QString::number(Secado, 'f', 3));
+//              widget_PP.Registros_General->setItem(filas,3,obj3);
+//              QTableWidgetItem *obj4 = new QTableWidgetItem;   // Cuota Grano
+//              obj4->setText(QString::number(Cuota_Grano, 'f', 3));  
+//              widget_PP.Registros_General->setItem(filas,4,obj4);
+//              QTableWidgetItem *obj5 = new QTableWidgetItem;   // Sanidad vegetal
+//              obj5->setText(QString::number(Sanidad, 'f', 3));
+//              widget_PP.Registros_General->setItem(filas,5,obj5);    
+//              QTableWidgetItem *obj6 = new QTableWidgetItem;   // Total
+//              obj6->setText(QString::number(Total, 'f', 3));
+//              widget_PP.Registros_General->setItem(filas,6,obj6);           
+//              
               QLineEdit *edit0 = new QLineEdit(widget_PP.Registros_General);   // Productor
               //edit0->setValidator(new QDoubleValidator(1, 2, 2,edit5));   
               edit0->setText(Productor);
-              edit0->setStyleSheet("border-width:0px; padding-left:65px");
+              edit0->setReadOnly(true);
+              edit0->setStyleSheet("border-width:0px; padding-left:20px");
               widget_PP.Registros_General->setCellWidget(filas,0,edit0);
-              
+             
               QLineEdit *edit1 = new QLineEdit(widget_PP.Registros_General);   // Neto
               //edit1->setValidator(new QDoubleValidator(1, 2, 2,edit1));   
               edit1->setText(QString::number(Neto, 'f', 3));
-              edit1->setStyleSheet("border-width:0px; padding-left:65px");
+              edit1->setReadOnly(true);
+              edit1->setStyleSheet("border-width:0px; padding-left:50px");
               widget_PP.Registros_General->setCellWidget(filas,1,edit1);
               
               QLineEdit *edit2 = new QLineEdit(widget_PP.Registros_General);   // Analizado
               //edit2->setValidator(new QDoubleValidator(1, 2, 2,edit2));   
               edit2->setText(QString::number(Analizado, 'f', 3));
+              edit2->setReadOnly(true);
               edit2->setStyleSheet("border-width:0px; padding-left:65px");
-              widget_PP.Registros_General->setCellWidget(filas,0,edit2);
-              
+              widget_PP.Registros_General->setCellWidget(filas,2,edit2);
+             
               QLineEdit *edit3 = new QLineEdit(widget_PP.Registros_General);   // Secado
               //edit3->setValidator(new QDoubleValidator(1, 2, 2,edit3));   
               edit3->setText(QString::number(Secado, 'f', 3));
+              edit3->setReadOnly(true);
               edit3->setStyleSheet("border-width:0px; padding-left:65px");
-              widget_PP.Registros_General->setCellWidget(filas,0,edit3);
+              widget_PP.Registros_General->setCellWidget(filas,3,edit3);
               
               QLineEdit *edit4 = new QLineEdit(widget_PP.Registros_General);   // Cuota Grano
               //edit4->setValidator(new QDoubleValidator(1, 2, 2,edit4));   
-              edit4->setText(QString::number(Cuota_Grano, 'f', 3));
+              edit4->setText(QString::number(Cuota_Grano, 'f', 1));
+              edit4->setReadOnly(true);
               edit4->setStyleSheet("border-width:0px; padding-left:65px");
-              widget_PP.Registros_General->setCellWidget(filas,0,edit4);
+              widget_PP.Registros_General->setCellWidget(filas,4,edit4);
               
               QLineEdit *edit5 = new QLineEdit(widget_PP.Registros_General);   // Sanidad
               //edit5->setValidator(new QDoubleValidator(1, 2, 2,edit5));   
-              edit5->setText(QString::number(Sanidad, 'f', 3));
+              edit5->setText(QString::number(Sanidad, 'f', 1));
+              edit5->setReadOnly(true);
               edit5->setStyleSheet("border-width:0px; padding-left:65px");
-              widget_PP.Registros_General->setCellWidget(filas,0,edit5);
+              widget_PP.Registros_General->setCellWidget(filas,5,edit5);
               
               QLineEdit *edit6 = new QLineEdit(widget_PP.Registros_General);   // Total
               //edit6->setValidator(new QDoubleValidator(1, 2, 2,edit6));   
               edit6->setText(QString::number(Total, 'f', 3));
+              edit6->setReadOnly(true);
               edit6->setStyleSheet("border-width:0px; padding-left:65px");
-              widget_PP.Registros_General->setCellWidget(filas,0,edit6);
-              
+              widget_PP.Registros_General->setCellWidget(filas,6,edit6);
+         
     } 
    /*     
       if( contador >= 5){
@@ -1817,8 +1962,10 @@ void Silo::Productores_Lista(){   // Lista de Productores
     }
     widget_PP.Productores_Lista->clear();
     widget_PP.Productores_Lista->setColumnCount(1);
-    widget_PP.Productores_Lista->setColumnWidth(0,350);
     widget_PP.Productores_Lista->setRowCount(0);
+    widget_PP.Productores_Lista->horizontalHeader()->hide();
+    widget_PP.Productores_Lista->horizontalHeader()->resizeSection(0,700);
+    widget_PP.Productores_Lista->verticalHeader()->hide();
     
     while (registros.next()){
        widget_PP.Productores_Lista->setRowCount(widget_PP.Productores_Lista->rowCount() + 1);
@@ -1928,8 +2075,11 @@ void Silo::Compradores_Lista(){  // Lista de compradores
     }
     widget_PP.Compradores_Lista->clear();
     widget_PP.Compradores_Lista->setColumnCount(1);
-    widget_PP.Compradores_Lista->setColumnWidth(0,350);
     widget_PP.Compradores_Lista->setRowCount(0);
+    widget_PP.Compradores_Lista->horizontalHeader()->hide();
+    widget_PP.Compradores_Lista->horizontalHeader()->resizeSection(0,700);
+    widget_PP.Compradores_Lista->verticalHeader()->hide();
+    
     
     while (registros.next()) {
       widget_PP.Compradores_Lista->setRowCount(widget_PP.Compradores_Lista->rowCount() + 1);
@@ -1988,7 +2138,8 @@ void Silo::mostrar_Compra(int fila, int columna){   // Carga la info de los prod
         LogData("Ciudad -- " + reg.value("Ciudad").toString());
          widget_PP.Estado_edit->setText(reg.value("Estado").toString());
         LogData("Estado -- " + reg.value("Estado").toString());
-        
+         widget_PP.Precio_Ton_edit->setText(reg.value("Precio_Ton").toString());
+        LogData("Precio Tonelada -- " + reg.value("Precio_Ton").toString());
         correcto = true;
      }
     else 
@@ -2006,187 +2157,8 @@ void Silo::mostrar_Compra(int fila, int columna){   // Carga la info de los prod
     reg.finish();
     //KillDB();
 }
-/*
-void Silo::PopuAdeudos(){
-    
-    std::wstring DirFile;
-    TCHAR buffer[MAX_PATH] = {0};
-    GetModuleFileName(NULL, buffer, MAX_PATH);
-    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
-    DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
-    
-    //QString Db = widget_PP.RegGen_Ciclo_CB->currentText();
-    CrearDB(QString::fromStdWString(DirFile), ciclo_actual());
-    
-    widget_PP.Prod_sal_CB->clear();
-    widget_PP.Ciclo_Sal_CB->clear();
-    QSqlQuery prod(QSqlDatabase::database(ciclo_actual()));
-    prod.exec("SELECT Prod_Apellidos, Prod_Nombre FROM Productores");
-    if(prod.lastError().isValid()){
-        Log( "llenado QcomboBox lista productores adeudos \n" + prod.executedQuery() + "\n" + prod.lastError().text() );
-    }
-    widget_PP.Ciclo_Sal_CB->addItem(ciclo_actual()); // populates a combo box for the cicle 
-    while (prod.next()){
-      widget_PP.Prod_sal_CB->addItem(prod.value("Prod_Apellidos").toString() + ", " + prod.value("Prod_Nombre").toString()); //populates the combobox for users, this is one i need to know who is selected
-    }
-    prod.finish();
-    KillDB(ciclo_actual());
-}
-*/
 
-/*
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-variable"
-void Silo::AdeudosProdu(QString ComboBox){              // Manejo de Adeudos, se agregara en otra actualizacion
-    
-    std::wstring DirFile;
-    TCHAR buffer[MAX_PATH] = {0};
-    GetModuleFileName(NULL, buffer, MAX_PATH);
-    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
-    DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
-    
-    //QString Db = widget_PP.RegGen_Ciclo_CB->currentText();
-    CrearDB(QString::fromStdWString(DirFile), ciclo_actual());
-    
-    QSqlQuery prod(QSqlDatabase::database(ciclo_actual()));
-    //QSqlQuery adeudos(QSqlDatabase::database(users()));
-    
-    prod.exec("SELECT a.Prod_Num, a.Prod_Apellidos, a.Prod_Nombre, a.Num_Acciones, b.Sorgo_Contrato, b.Sorgo_Entregado"
-              " FROM Productores AS a JOIN Contrato AS b"
-              " ON a.Prod_Num = b.Prod_Num");
 
-   // adeudos.exec("SELECT * FROM Semilla");  //  query sobre los adeudos y creditos
-    
-    if(prod.lastError().isValid()){
-        Log("Manejo de Adeudos \n" + prod.executedQuery() + "\n" + prod.lastError().text() );
-    }
-    int contador = 0;  // super importante NO BORRAR!!!!!!!!!!!!!!!
-    QString info;
-    bool check = false;
-    float ton_contrato, ton_entregada, ton_derecho, excedente, Conser, Patronato, Modulo, prima_Monto, prima_Importe, exced_Pagar ;
-   
-    do{
-        // llenado Num acciones
-        info = prod.value("Prod_Apellidos").toString() + ", " + prod.value("Prod_Nombre").toString();
-        if(info == ", "){
-            Log("Adeudos \n" + info + "\n" + ComboBox);
-        }
-        //QStringList lista = ComboBox.split(',',QString::SkipEmptyParts);
- 
-           if(ComboBox == info){
-           // Calculo de los excedentes del ciclo
-           // revisar bien la ecuacion del excedente, ton_contrato
-            
-            /*    calculo Cuota de Conservacion de GRanos
-             *    cuota del Patronato
-             *    Mod San Fernando Sur
-             *
-             */   
-               
-/*
-            Conser = ton_entregada * 0.8;   // cuota de conservacion del grano es el 8% al millar
-            //QString conser;
-            //conser = conser.setNum(float,Conser,3);
-            ton_derecho = prod.value("Num_Acciones").toFloat() * TonsXaccion; // Num_Acciones * TonsXaccion  sacar tonsxaccion de config
-            ton_entregada = prod.value("Sorgo_Entregado").toFloat();  // viene del total de boletas entregadas
-            ton_contrato = prod.value("Sorgo_Contrato").toFloat();
-        
-            if (ton_entregada > ton_derecho){ // Execedentes de ciclo si lo hai
-                excedente = ton_entregada - ton_derecho ;
-                widget_PP.Exced_TonsExce_edit->setText(QString::number(excedente));
-                Log("Calculo de Excedentes \n" + prod.executedQuery() + "\n" + prod.lastError().text());
-            }else{Log("no se calculo el excedente");}
-        
-            // Calculo de Prima
-            float CostoPrima = 11.47; // precio en dollars, mayo 21
-
-            widget_PP.NoAcciones_edit->setText(prod.value("Num_Acciones").toString());
-            widget_PP.RetenLiquidaTotal_edit->setText("XX");
-            widget_PP.ExcedentedeCiclo_edit->setText("XX");
-            widget_PP.PrimaCobertura_edit->setText("XX");
-            widget_PP.AnticipoPagoSorgo_edit->setText("XX");
-            widget_PP.PagoSemilla_edit->setText("XX");
-            widget_PP.TotalRetenAdeudos_edit->setText("XX");
-            
-            widget_PP.RetenCuotaConservacion_edit->setNum(Conser);//setText(Conser);  
-            widget_PP.RetenSecado_edit->setText("XX");
-            widget_PP.RetenPIFSV_edit->setText("XX");
-            widget_PP.RetenModSanFer_edit->setText("XX");
-            widget_PP.RetenTotal_edit->setText("XX");
-            
-            // widget_PP.ExcedPagar_edit->setText();   // Falta calcular el total a pagar por los excedentes
-            widget_PP.Exced_TonsEntregada_edit->setText(QString::number(ton_entregada));
-            widget_PP.ExcedNoProd_edit->setText(prod.value("Prod_Num").toString());
-            widget_PP.Exced_TonsDerecho_edit->setText(QString::number(ton_derecho));
-            widget_PP.Exced_Pagar_edit->setText("XX");
-            
-            widget_PP.PrimaCalculoCobertura_edit->setText(QString::number(CostoPrima)); // el valor de la prima es en base a una tabla que da aserca son los PUT y CALL
-            widget_PP.PrimaTonsCont_edit->setText(QString::number(ton_contrato));
-            widget_PP.PrimaMontoTon_edit->setText("XX");   //  monto total
-            widget_PP.PrimaImporte_edit->setText("XX");    //  importe
-            widget_PP.PrimaPagar_edit->setText("XX");      //  total a pagar
-         
-            check = true;}
-            else {
-               if (info.trimmed() == ","){contador++;}
-               prod.next();
-            }
-        
-        if( contador >= 5){
-            QMessageBox::warning( this, "Error", " No Existe ese Usuario");
-            //Borro los valores del registro anterior
-        /*  widget_PP.ExcedTonsEntregada_edit->setNum(0);
-            widget_PP.NoAcciones_edit->setNum(0);
-            widget_PP.ExcedNoProd_edit->setNum(0);
-            widget_PP.ExcedTonsDerecho_edit->setText(QString::number(0));
-            widget_PP.PrimaCalculoCobertura_edit->setNum(0); 
-            widget_PP.PrimaTonsCont_edit->setText(QString::number(0));            
-        */
-/*
-            widget_PP.NoAcciones_edit->setText(QString::number(0));
-            
-            widget_PP.RetenCuotaConservacion_edit->setText(QString::number(0));
-            widget_PP.RetenSecado_edit->setText(QString::number(0));
-            widget_PP.RetenPIFSV_edit->setText(QString::number(0));
-            widget_PP.RetenModSanFer_edit->setText(QString::number(0));
-            widget_PP.RetenTotal_edit->setText(QString::number(0));
-            
-            widget_PP.Exced_Pagar_edit->setText(QString::number(0));
-            widget_PP.Exced_TonsEntregada_edit->setText(QString::number(0));
-            widget_PP.ExcedNoProd_edit->setText(QString::number(0));
-            widget_PP.Exced_TonsDerecho_edit->setText(QString::number(0));
-            widget_PP.Exced_Pagar_edit->setText(QString::number(0));
-            
-            widget_PP.PrimaCalculoCobertura_edit->setText(QString::number(0));
-            widget_PP.PrimaTonsCont_edit->setText(QString::number(0));
-            widget_PP.PrimaMontoTon_edit->setText(QString::number(0)); 
-            widget_PP.PrimaImporte_edit->setText(QString::number(0));
-            widget_PP.PrimaPagar_edit->setText(QString::number(0)); 
-
-            check = true;
-        }   
-        
-    }while (check == false);
-    
-    // retenciones de liquidacion
-//    RetencionesLiquidacion();
-   
-    // Anticipo de Sorgo, si lo hay
-//    AdeudosSemilla();
-    // Descuento por Semilla, si lo hay
-//    AnticiposSorgo();
-    
-    // <<<---- Totales ---->>>
-    // Liquidacion general del sorgo
-    // Total de Retenciones y adeudos
-    // y el total Neto a pagar
-    
-    //Log("llenado Adeudos"); 
-    prod.finish();
-    KillDB(ciclo_actual());
-}
-#pragma GCC diagnostic pop
-*/
 
 void Silo::RS232(){
     
@@ -2201,37 +2173,39 @@ void Silo::RS232(){
     // cuota de conservacion de grano, secado total , cuota del patronato y del modulo (si aplica)
 }
 
-/*void Silo::RetencionesLiquidacion(){
+void Silo::Liquidaciones_CB_Prod(){  // comboBox de los productores
+    int sice{0};
+    std::wstring DirFile;
+    TCHAR buffer[MAX_PATH] = {0};
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
+    DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual
     
-}
-void Silo::CalculoExcedentes(){
-   
-}
-
-void Silo::CalculoPrima(){
-    // Calcular la prima de cobertura, el monto por toneladas y el total
-}
-
-void Silo::AdeudosSemilla(){
-    // poner el # de orden, la variedad, marca, cantidad de bolsas, el precio y el total a pagar
-}
-
-void Silo::AnticiposSorgo(){
-    // # de cheque pagado, fecha, Nombre del Beneficiario y valor del cheque
-}
-*/
-/*
-virtual void Silo::mousePressEvent(QMouseEvent *evento) override{
- *  Hacer aqui todo lo que se necesite cuando den click, solo para situaciones especificas 
- * 
- * 
- *     QMainWindow::mousePressEvent(Evento); 
-}
-*/
-
-void Silo::Liquidaciones_Show(){   // llenado del CB productor y comprador en Liquidaciones
-//    int sice{0};
+    widget_PP.Liq_Prod_CB->clear();
+    CrearDB(QString::fromStdWString(DirFile), ciclo_actual());
+    QSqlQuery reg(QSqlDatabase::database(ciclo_actual())); // usar buscarArchivos() para usar la db seleccionada en el combobox
+    reg.exec("SELECT Prod_Apellidos, Prod_Nombre FROM Productores GROUP BY Prod_Num");
+    if(reg.lastError().isValid()){
+         Log( "No se puede leer la tabla Productores, en Liquidaciones Productor \n" + reg.executedQuery() + "\n" + reg.lastError().text());
+    }
     
+    reg.first();
+    do{
+        sice++;
+    }while(reg.next());
+    
+    reg.first();
+    for(int i = 0; i<sice; ){
+       widget_PP.Liq_Prod_CB->addItem(reg.value("Prod_Apellidos").toString() + ", " + reg.value("Prod_Nombre").toString()); //populates the combobox for users, this is one i need to know who is selected
+       reg.next();
+       i++;
+    }
+    reg.finish(); 
+    //KillDB();
+}
+
+void Silo::Liquidaciones_CB_Comp(){   // llenado del CB productor y comprador en Liquidaciones
+
     std::wstring DirFile;
     TCHAR buffer[MAX_PATH] = {0};
     GetModuleFileName(NULL, buffer, MAX_PATH);
@@ -2239,55 +2213,10 @@ void Silo::Liquidaciones_Show(){   // llenado del CB productor y comprador en Li
     DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
   
     CrearDB(QString::fromStdWString(DirFile), ciclo_actual());
-    QSqlQuery Liq(QSqlDatabase::database(ciclo_actual()));  // haces la busqueda de boletas
-    
-    //   Llenado de Productor en Liquidaciones
-    
-    Liq.exec("SELECT * FROM Productores");
-    if(Liq.lastError().isValid()){
-        Log("Error en Liquidaciones \n" + Liq.lastQuery() + "\n" + Liq.lastError().text() );
-    }
-    /*
-    widget_PP.Liq_Prod_CB->clear();
-    Liq.first();
-    do{
-        sice++;
-    }while(Liq.next());
-    
-    Liq.first();
-    for(int i{0} ; i<sice; ){
-       Log(Liq.value("Prod_Apellidos").toString() + ", " + Liq.value("Prod_Nombre").toString());
-       //if (Liq.value("Prod_Apellidos").toString() + ", " + Liq.value("Prod_Nombre").toString() == ", "){
-           
-       //}else{
-          widget_PP.Liq_Prod_CB->addItem(Liq.value("Prod_Apellidos").toString() + ", " + Liq.value("Prod_Nombre").toString());
-       //}
-       Liq.next();
-      i++;  
-    }
-    Liq.finish();
-    */
-    //////////////////////////////////////////////
-    
-    Liq.exec("SELECT Prod_Apellidos, Prod_Nombre FROM Productores");
-    if(Liq.lastError().isValid()){
-        Log("Error en Liquidaciones \n" + Liq.lastQuery() + "\n" + Liq.lastError().text() );
-    }
-    widget_PP.Liq_Prod_CB->clear();
-    Liq.first();
-    do{
-        //if (Liq.value("Prod_Apellidos").toString() + ", " + Liq.value("Prod_Nombre").toString() == ", "){
-           
-       //}else{
-          widget_PP.Liq_Prod_CB->addItem(Liq.value("Prod_Apellidos").toString() + ", " + Liq.value("Prod_Nombre").toString());
-       //}
-    }while(Liq.next());
-    Liq.finish();
-    /////////////////////////////////////////////
     
     //  Llenado de Comprador en Liquidaciones
     QSqlQuery Comp(QSqlDatabase::database(ciclo_actual()));  // haces la busqueda de compradores
-    Comp.exec("SELECT * FROM Compradores");
+    Comp.exec("SELECT Razon_Social FROM Compradores GROUP BY Razon_Social");
     if(Comp.lastError().isValid()){
         Log("Error en Compradores \n" + Comp.lastQuery() + "\n" + Comp.lastError().text() );
     }
@@ -2312,7 +2241,9 @@ void Silo::Liquidaciones_Data(QString ComboBox){   // Recuadro Boletas dentro de
     std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
     DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
     
-    QString info, Folio, Fecha, Tons;
+    QString info, Folio, Fecha;
+    float Tons;
+    std::string date;
     
     QMessageBox MBox;
     QPushButton *boton_OK = MBox.addButton("Ok", QMessageBox::AcceptRole);
@@ -2332,7 +2263,7 @@ void Silo::Liquidaciones_Data(QString ComboBox){   // Recuadro Boletas dentro de
         MBox.exec();
     }
    
-    prod.exec("SELECT * FROM Boletas_Entradas AS a JOIN Productores AS b ON a.Prod_Num=b.Prod_Num ORDER BY Folio");
+    prod.exec("SELECT * FROM Boletas_Entradas AS a JOIN Productores AS b ON a.Prod_Num=b.Prod_Num GROUP BY Folio ORDER BY Folio");
     if(prod.lastError().isValid()){
         Log( "Lectura fallida \n" + prod.executedQuery() + "\n" + prod.lastError().text() ); 
         MBox.setWindowTitle("Error");
@@ -2345,6 +2276,8 @@ void Silo::Liquidaciones_Data(QString ComboBox){   // Recuadro Boletas dentro de
     widget_PP.Liq_Boletas_Lista->setColumnCount(3);
     widget_PP.Liq_Boletas_Lista->horizontalHeader()->hide();
     widget_PP.Liq_Boletas_Lista->horizontalHeader()->setDefaultSectionSize(170);
+    widget_PP.Productores_Lista->horizontalHeader()->resizeSection(0,200);
+    widget_PP.Productores_Lista->horizontalHeader()->resizeSection(1,400);
     //widget_PP.Liq_Boletas_Lista->setHorizontalHeaderLabels(list);
     widget_PP.Liq_Boletas_Lista->verticalHeader()->hide();
     widget_PP.Liq_Boletas_Lista->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -2355,6 +2288,7 @@ void Silo::Liquidaciones_Data(QString ComboBox){   // Recuadro Boletas dentro de
         //if (info == ", "){
         //    Log( "Liquidaciones\n" + info + "\n" + ComboBox);
         //}
+        
         if(ComboBox == info){
     
               //Log ("dentro del while");
@@ -2363,7 +2297,17 @@ void Silo::Liquidaciones_Data(QString ComboBox){   // Recuadro Boletas dentro de
               
               Folio = prod.value("Folio").toString();
               Fecha = prod.value("Fecha").toString();
-              Tons = prod.value("Neto").toString();
+              Tons = prod.value("Neto").toInt();
+              date = Fecha.toStdString();
+              
+              Tons = Tons / 1000;
+            // tomar la hora y parsearla
+            //std::string day(date.begin() + DAY_OFFSET, date.begin() + DAY_OFFSET + DAY_LENGTH); // el primer argumento pone el cursor al principio de donde quiero leer
+              std::string month(date.begin() + MONTH_OFFSET, date.begin() + MONTH_OFFSET + MONTH_LENGTH);  // el segundo argumento le dices asta que direccion de memoria 
+              std::string dayNumber(date.begin() + DAY_NUMBER_OFFSET, date.begin() + DAY_NUMBER_OFFSET + DAY_NUMBER_LENGTH); // vas a leer
+              std::string hours(date.begin() + HOUR_OFFSET, date.begin() + HOUR_OFFSET + HOUR_LENGTH); // inicializacion c++11/14
+            //std::string year(Hora.begin() + YEAR_OFFSET, Hora.begin() + YEAR_OFFSET + YEAR_LENGTH); 
+              Fecha = QString::fromStdString(dayNumber) + " " + QString::fromStdString(month) + " " + QString::fromStdString(hours);
               //Log("Valores boletas_Entradas: " + Fecha + " ....... " + Tons + " ...... " + filas);
               
               QTableWidgetItem *obj0 = new QTableWidgetItem;
@@ -2372,12 +2316,19 @@ void Silo::Liquidaciones_Data(QString ComboBox){   // Recuadro Boletas dentro de
               
               QTableWidgetItem *obj1 = new QTableWidgetItem; 
               obj1->setText(Fecha);
-             
               widget_PP.Liq_Boletas_Lista->setItem(filas,1,obj1);
               
               QTableWidgetItem *obj2 = new QTableWidgetItem;
-              obj2->setText(Tons);
+              obj2->setText(QString::number(Tons, 'f', 3));
               widget_PP.Liq_Boletas_Lista->setItem(filas,2,obj2);
+              
+//              si pongo en modo Qlineedit se quiebra liquidaciones
+//               QLineEdit *edit0 = new QLineEdit(widget_PP.Liq_Boletas_Lista);   // FolioNum
+//              //edit0->setValidator(new QDoubleValidator(1, 2, 2,edit5));   
+//              edit0->setText(Folio);
+//              edit0->setStyleSheet("border-width:0px; padding-left:65px");
+//              widget_PP.Liq_Boletas_Lista->setCellWidget(filas,0,edit0);
+              
         }         
     }while(prod.next()); 
     widget_PP.Liq_Boletas_Lista->sortItems(0,Qt::AscendingOrder);
@@ -2408,7 +2359,7 @@ float Silo::comprador_Precio(){
     
     CrearDB(QString::fromStdWString(DirFile), ciclo_actual());
     QSqlQuery Comp(QSqlDatabase::database(ciclo_actual()));      // query to table Comprador
-    Comp.exec("SELECT * FROM Compradores");
+    Comp.exec("SELECT Razon_Social, Precio_Ton FROM Compradores GROUP By Razon_Social");
     if (Comp.lastError().isValid()){
         Log( "Error en el precio del Comprador \n" + Comp.executedQuery() + "\n" + Comp.lastError().text());
     }
@@ -2421,7 +2372,7 @@ float Silo::comprador_Precio(){
     comp_CB = widget_PP.Liq_Comp_CB->currentText();  // get the current Buyer/Comprador
     Comp.first();
     for(int i{0} ; i<sice; ){
-       Log(comp_CB + "..." + Comp.value("Razon_Social").toString());
+       //Log(comp_CB + "..." + Comp.value("Razon_Social").toString());
        if (comp_CB == Comp.value("Razon_Social").toString()){
            Precio_Ton = Comp.value("Precio_Ton").toFloat();
            break;
@@ -2430,19 +2381,6 @@ float Silo::comprador_Precio(){
        }
       i++;  
     }
-    /*
-    do{  
-       Log(comp_CB + "..." + Comp.value("Razon_Social").toString());
-       if (comp_CB == Comp.value("Razon_Social").toString()){
-           Precio_Ton = Comp.value("Precio_Ton").toFloat();
-           
-       }else{
-             Comp.next();
-       }
-                
-    } while(Comp.last() = false);
-    */
-    Log("Precio de Comprador: " + QString::number( Precio_Ton, 'f', 2));
     Comp.finish();
     //KillDB();
     return Precio_Ton;
@@ -2452,7 +2390,7 @@ float Silo::comprador_Precio(){
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-variable"
 #pragma GCC diagnostic ignored "-Wunused-parameter"
-void Silo::Liquidaciones(int row, int col){  // Muestra la info de la boleta dentro de Liquidaciones
+void Silo::Liquidaciones(int row, int col){  // funcion principal, toma la info de la boleta dentro de Liquidaciones y la desglosa
     bool Ok;
     QMessageBox MBox;
     QPushButton *boton_OK = MBox.addButton("Ok", QMessageBox::AcceptRole);
@@ -2467,9 +2405,10 @@ void Silo::Liquidaciones(int row, int col){  // Muestra la info de la boleta den
     DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
     
     float DeduX_norma, Humd_Kilos, Merma_1Ciento;
-    float Total_Deduc, Peso_Anali, Tons_Exced, Total_Pagar, Secado;
+    float Total_Deduc, Peso_Anali, Total_Pagar, Secado;
     float Iva_Secado, Reten_Total, Tarifa, Precio_Ton;
     float Cuota_Cons, Sanidad;  // las cuotas viene de la DB Config.db
+    float Bruto, Tara, Neto;
     int rango{0};
     //QString comp_CB;
     
@@ -2525,19 +2464,34 @@ void Silo::Liquidaciones(int row, int col){  // Muestra la info de la boleta den
                 Log("Error de Kilos \n" + Hmd.executedQuery() + "\n" + Hmd.lastError().text());
             }
             Hmd.first();
-            do{    // Obtener kilos X Humedad
-                if(reg.value("Humedad")/*.toFloat()*/ == Hmd.value("Porcentaje")/*.toFloat()*/){  // compares decimal values for Humidity
+            
+            for(int i = 0 ; i<160;){
+                if(reg.value("Humedad").toFloat() == Hmd.value("Porcentaje").toFloat()){  // compares decimal values for Humidity
                     Humd_Kilos = Hmd.value("Kgs_Ton").toFloat();  // Kilos a restar por Ton
+                    //Log( "Kilos a restar: " + QString::number(Humd_Kilos, 'f', 2));
                     break;//correcto_Hum = true;
-                }else{
-                    Hmd.next();
                 }
                 if (reg.value("Humedad").toFloat() > 30.0){
                     Log("Error la humedad es mayor a 30.0");
                     return;
                 }
-                // Log("Dentro de Kilos X Humedad");
-            } while (Hmd.last() == false);
+                //Log("Dentro de Kilos X Humedad \nPorcentaje: " + QString::number(Hmd.value("Porcentaje").toFloat(), 'f', 2) + " ,Humedad: " + QString::number(reg.value("Humedad").toFloat(), 'f', 2 ));
+                Hmd.next();
+                i++;
+            }
+//            
+//            do{    // Obtener kilos X Humedad
+//                if(reg.value("Humedad").toFloat() == Hmd.value("Porcentaje").toFloat()){  // compares decimal values for Humidity
+//                    Humd_Kilos = Hmd.value("Kgs_Ton").toFloat();  // Kilos a restar por Ton
+//                    break;//correcto_Hum = true;
+//                }
+//                if (reg.value("Humedad").toFloat() > 30.0){
+//                    Log("Error la humedad es mayor a 30.0");
+//                    return;
+//                }
+//                Log("Dentro de Kilos X Humedad " + QString::number(Hmd.value("Porcentaje").toFloat(), 'f', 3));
+//                Hmd.next();
+//            } while (Hmd.last() == false);
             
             /////////////////////  RANGO   /////////////////////////////
             Hmd.exec("SELECT * FROM Secado");
@@ -2595,12 +2549,12 @@ void Silo::Liquidaciones(int row, int col){  // Muestra la info de la boleta den
             }
             
             Hmd.first();
-            do {// Obtener Tarifa x Humedad
+            
+            for (int i = 0; i<16 ; ){
                 if(rango == Hmd.value("Rango").toInt() ){  // usar los index de la tabla  0..15, no puede ser comparacion directab
                     Tarifa = Hmd.value("Tarifa").toFloat();
+                    //Log("Tarifa: " + QString::number(Hmd.value("Tarifa").toFloat(), 'f', 2) );
                     break;  //correcto_Tar = true;
-                }else{
-                    Hmd.next();
                 }
                 if (reg.value("Humedad").toFloat() > 30.0){   // Manejo de errores Humedad
                     Log("error el valor de humedad es mayor a 30.0 " + QString::number(reg.value("Humedad").toFloat()));
@@ -2611,30 +2565,47 @@ void Silo::Liquidaciones(int row, int col){  // Muestra la info de la boleta den
                     return;
                     //correcto_Tar == true;
                 }
-                //Log("Dentro de Tarifa X Humedad");
-            } while( Hmd.last() == false);   // correcto_Tar == true
+                //Log("Dentro de Tarifa X Humedad \nRango: " + QString::number(rango) + " , " + QString::number(Hmd.value("Rango").toInt()));
+                Hmd.next();
+                i++;
+            }
+            
+//            do {// Obtener Tarifa x Humedad
+//                if(rango == Hmd.value("Rango").toInt() ){  // usar los index de la tabla  0..15, no puede ser comparacion directab
+//                    Tarifa = Hmd.value("Tarifa").toFloat();
+//                    break;  //correcto_Tar = true;
+//                }else{
+//                    Hmd.next();
+//                }
+//                if (reg.value("Humedad").toFloat() > 30.0){   // Manejo de errores Humedad
+//                    Log("error el valor de humedad es mayor a 30.0 " + QString::number(reg.value("Humedad").toFloat()));
+//                    MBox.setWindowTitle("Error de Humedad");
+//                    MBox.setText("La humedad del sorgo no puede ser mayor a 30.0");
+//                    MBox.exec();
+//                    Tarifa = 0.0;
+//                    return;
+//                    //correcto_Tar == true;
+//                }
+//                //Log("Dentro de Tarifa X Humedad");
+//            } while( Hmd.last() == false);   // correcto_Tar == true
             ///////////////////////////////////////////////////////////
             //  1000kgs = 1 Ton
             //KilosxTon = Humd_Kilos / 1000; // los kilos a restar por Tonelada 
             DeduX_norma = (Humd_Kilos / 1000) * reg.value("Neto").toFloat(); // Kilos a restar al neto
+            //Log( "Kilos a restar: " + QString::number(Humd_Kilos, 'f', 3) + " ,Neto: " + reg.value("Neto").toString() + " ,Deducciones: " + QString::number(DeduX_norma, 'f', 3) );
             Merma_1Ciento = (reg.value("Neto").toFloat() - DeduX_norma) * 0.01;  // 1% merma de la boleta
             Total_Deduc = DeduX_norma + Merma_1Ciento;  // total de deducciones
-            Peso_Anali = reg.value("Neto").toFloat() - Total_Deduc ;  
+            Peso_Anali = (reg.value("Neto").toFloat() - Total_Deduc) / 1000 ;   // converts from Kgs to Ton
             
             // Calculo Retenciones de Liquidacion
             Cnf.exec("SELECT * FROM Config");
             if(Cnf.lastError().isValid()){
                 Log("Error de Config \n" + Cnf.executedQuery() + "\n" + Cnf.lastError().text());
             }
+            Cnf.first();
             Cuota_Cons = Cnf.value("Cuota").toFloat();
-            if (Cnf.lastError().isValid()){   // if Cuota_Cons cant be read
-                Log("Error no se puede leer el valor de la Cuota\n" + Cnf.lastError().text() + "\n" + Cnf.lastQuery());
-            }
             Sanidad = Cnf.value("Sanidad").toFloat();  // estos valores viene la DB Config.db, hacerla al iniciar el programa
-            if (Cnf.lastError().isValid()){    // if Sanidad its empty
-                Log("Error no se puede leer el valor de Sanidad\n" + Cnf.lastError().text() + "\n" + Cnf.lastQuery());
-            }
-            
+            //Log("Cuota Conservacion: " + QString::number(Cuota_Cons, 'f', 2) + " ,Sanidad:" + QString::number(Sanidad, 'f', 2));
             //  Subtotal y total
             Precio_Ton = comprador_Precio();
             
@@ -2646,11 +2617,16 @@ void Silo::Liquidaciones(int row, int col){  // Muestra la info de la boleta den
                 return;
             } else {   
                 Total_Pagar = Peso_Anali * Precio_Ton;
+                widget_PP.Liq_Total_PrecioTon_edit->setText(QString::number(Precio_Ton, 'f', 2));
             }
             
-            Secado = (Tarifa / 1000) * reg.value("Neto").toFloat();   // cambiar Precio_Ton por la tarifa de secado 
+            Secado = (Tarifa / 1000) * reg.value("Neto").toFloat();   
             Iva_Secado = Secado * 0.16;
             Reten_Total = Cuota_Cons + Sanidad + Secado + Iva_Secado;  // total de retenciones,  ver donde va
+            
+            Bruto = reg.value("Bruto").toFloat() / 1000;  // converts from Kgs to Tons
+            Tara = reg.value("Tara").toFloat() / 1000;
+            Neto = reg.value("Neto").toFloat() / 1000;
             
             //Info General Boleta
             widget_PP.Liq_Prod_Info_edit->setText(reg.value("Prod_Nombre").toString() + " " + reg.value("Prod_Apellidos").toString());         
@@ -2661,9 +2637,9 @@ void Silo::Liquidaciones(int row, int col){  // Muestra la info de la boleta den
             widget_PP.Liq_Chofer_Info_edit->setText(reg.value("Chofer_Nombre").toString() + " " + reg.value("Chofer_Apellidos").toString());        
             widget_PP.Liq_Fecha_Info_edit->setText(reg.value("Fecha").toString());        
             widget_PP.Liq_Folio_Info_edit->setText(reg.value("Folio").toString());       
-            widget_PP.Liq_Bruto_Info_edit->setText(reg.value("Bruto").toString());            
-            widget_PP.Liq_Tara_Info_edit->setText(reg.value("Tara").toString());
-            widget_PP.Liq_Neto_Info_edit->setText(reg.value("Neto").toString());
+            widget_PP.Liq_Bruto_Info_edit->setText(QString::number(Bruto, 'f', 3) );            
+            widget_PP.Liq_Tara_Info_edit->setText(QString::number(Tara, 'f', 3) );
+            widget_PP.Liq_Neto_Info_edit->setText(QString::number(Neto, 'f', 3) );
             widget_PP.Liq_Dedc_Humedad_edit->setText(reg.value("Humedad").toString());
             //Excedentes, revisar si se quedan o se elimina
             //widget_PP.Liq_Excd_Derecho_edit->setText(reg.value("Sorgo_Contrato").toString());      // Tons con derecho
@@ -2676,10 +2652,10 @@ void Silo::Liquidaciones(int row, int col){  // Muestra la info de la boleta den
             widget_PP.Liq_Reten_Sanidad_edit->setText(QString::number(Sanidad, 'f', 2));     // sanidad vegetal              vienede las opciones
             widget_PP.Liq_Reten_Total_edit->setText(QString::number(Reten_Total, 'f', 2));       // Total de retenciones
             // Deducciones
-            widget_PP.Liq_Dedc_Humedad_edit->setText(QString::number(DeduX_norma, 'f', 2));      // Deducciones normas Kgs
+            widget_PP.Liq_Dedc_Deducciones_edit->setText(QString::number(DeduX_norma, 'f', 2));      // Deducciones normas Kgs
             widget_PP.Liq_Dedc_Merma_edit->setText(QString::number(Merma_1Ciento, 'f', 2));         // prevencion merma
             //Totales
-            widget_PP.Liq_Total_PrecioTon_edit->setText(QString::number(Cnf.value("Precio_Ton").toFloat(), 'f', 2));   //  sacar de las opciones
+            widget_PP.Liq_Total_PrecioTon_edit->setText(QString::number(Precio_Ton, 'f', 2));
             widget_PP.Liq_Total_Analizado_edit->setText(QString::number(Peso_Anali, 'f', 2));     // Peso Analizado   Revisar cambie el nombre
             widget_PP.Liq_Total_Pagar_edit->setText(QString::number(Total_Pagar , 'f', 2));
         correcto = true;
@@ -2705,7 +2681,7 @@ void Silo::Liquidaciones(int row, int col){  // Muestra la info de la boleta den
     //KillDB("Config.db");
 }
 
-void Silo::Popup_DrynWet_CB1(){
+void Silo::Popup_DrynWet_CB1(){  // Primera tabla de humedad
     widget_PP.HumSec_CB1->clear();
     for ( float it = 14.0; it <=25.9 ; ){
         it = it + 0.1;
@@ -2717,22 +2693,22 @@ void Silo::Popup_DrynWet_CB1(){
     //widget_PP.HumSec_CB1_edit->setLocale(mexico);
 }
 
-void Silo::Popup_DrynWet_CB2(){
+void Silo::Popup_DrynWet_CB2(){   // Segunda Tabla de Humedad
     widget_PP.HumSec_CB2->clear();
-    for ( float it = 26.0; it <=30.0 ; ){
+    for ( float it = 26.0; it <=30.1 ; ){
         widget_PP.HumSec_CB2->addItem(QString::number( it, 'f', 1));
         it = it + 0.1;
     }
     widget_PP.HumSec_CB2_edit->setValidator(new QDoubleValidator(0, 1000, 2, this));
 }
-
-void Silo::Popup_DrynWet_CB3(){
+ 
+void Silo::Popup_DrynWet_CB3(){   // Tarifas de Secado
     widget_PP.HumSec_CB3->clear();
     for ( float it = 14.1; it <30.1 ; ){
         widget_PP.HumSec_CB3->addItem(QString::number( it, 'f', 1));
          it = it + 1;
     }
-    widget_PP.HumSec_CB3_edit->setValidator(new QDoubleValidator(0, 1000, 2, this));
+    widget_PP.HumSec_CB3_edit->setValidator(new QDoubleValidator(0, 1000, 2, this));  // estipula el rango y los decimales que puede aceptar el Qlineedit
 }
 
 //#pragma GCC diagnostic pop
@@ -3614,10 +3590,415 @@ void Silo::ShowDeduc(){   // populates tables Humedad y Secado
     //KillDB();
 }
 
-void Silo::Opciones(){
-    // here comes all related to App Options
+void Silo::Cuotas_Sanidad(int estado){
+    
+    //  Qt::Unchecked  = 0
+    //  Qt::Checked  = 2
+    if(estado == 2){
+        widget_PP.Cuotas_Sanidad_edit->setEnabled(true);
+        widget_PP.Cuotas_Sanidad_edit->setStyleSheet("border-width:1px; border-color:rgb(30,30,30); border-radius:8px; background:white;");
+    }
+    if(estado == 0){
+        widget_PP.Cuotas_Sanidad_edit->setEnabled(false);
+        widget_PP.Cuotas_Sanidad_edit->setStyleSheet("border-width:0px; border-color:rgb(30,30,30); border-radius:8px; background:white;");
+    }
 }
 
+void Silo::Cuotas_Grano(int estado){
+    
+    //  Qt::Unchecked  = 0
+    //  Qt::Checked  = 2
+    if(estado == 2){
+        widget_PP.Cuotas_Grano_edit->setEnabled(true);
+        widget_PP.Cuotas_Grano_edit->setStyleSheet("border-width:1px; border-color:rgb(30,30,30); border-radius:8px; background:white;");
+    }
+    if(estado == 0){
+        widget_PP.Cuotas_Grano_edit->setEnabled(false);
+        widget_PP.Cuotas_Grano_edit->setStyleSheet("border-width:0px; border-color:rgb(30,30,30); border-radius:8px; background:white;");
+    }
+}
+
+void Silo::Cuotas_Modulo(int estado){
+    
+    //  Qt::Unchecked  = 0
+    //  Qt::Checked  = 2
+    if(estado == 2){
+        widget_PP.Cuotas_Modulo_edit->setEnabled(true);
+        widget_PP.Cuotas_Modulo_edit->setStyleSheet("border-width:1px; border-color:rgb(30,30,30); border-radius:8px; background:white;");
+    }
+    if(estado == 0){
+        widget_PP.Cuotas_Modulo_edit->setEnabled(false);
+        widget_PP.Cuotas_Modulo_edit->setStyleSheet("border-width:0px; border-color:rgb(30,30,30); border-radius:8px; background:white;");
+    }
+}
+
+void Silo::Actualizacion(int estado){
+    
+    std::wstring DirFile;
+    TCHAR buffer[MAX_PATH] = {0};
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
+    DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
+    
+    CrearDB(QString::fromStdWString(DirFile), "Config.db");
+    QSqlQuery Opt(QSqlDatabase::database("Config.db"));
+    
+    if(estado == 0){   // si no esta seleccionado no se buscan actualizaciones
+        Opt.prepare("UPDATE Config SET Actulz = :Actz");
+        Opt.bindValue(":Actz", 0);
+        Opt.exec();
+        if(Opt.lastError().isValid()){
+            Log("No se pudo guardar el valor, 0");
+        }
+    }
+    if(estado == 2){
+        Opt.prepare("UPDATE Config SET Actulz = :Actz");
+        Opt.bindValue(":Actz", 1);
+        Opt.exec();
+        if(Opt.lastError().isValid()){
+            Log("Se actualizo el valor, 1");
+        }
+    }
+    Opt.finish();
+}
+
+void Silo::Usuarios_Borrar(int estado){    // Activa y desactiva el borrar usuario
+    if(estado == 0){
+        widget_PP.User_Del_CB->setEnabled(false);
+        widget_PP.User_Del_CB->setStyleSheet("border-width:0px; border-color:rgb(30,30,30); border-radius:8px; background:white");
+    }
+    if(estado == 2){
+        widget_PP.User_Del_CB->setEnabled(true);
+        widget_PP.User_Del_CB->setStyleSheet("border-width:1px; border-color:rgb(30,30,30); border-radius:8px; background:white");
+    }
+}
+
+void Silo::Usuarios_New(){
+    QString User = widget_PP.User_Add_usuario_edit->text();
+    QString Pass = widget_PP.User_Add_pass_edit->text();
+    QString Name = widget_PP.User_Add_nombre_edit->text();
+    QString Apellido = widget_PP.User_Add_apellidos_edit->text();
+    QString Direc = widget_PP.User_Add_direccion_edit->text();
+    QString Tel = widget_PP.User_Add_telefono_edit->text();
+    QString Puesto = widget_PP.User_Add_puesto_edit->text();
+    int Num_user{0};
+    
+    QMessageBox MBox;
+    QPushButton *boton_OK = MBox.addButton("Ok", QMessageBox::AcceptRole);
+    //MBox.setWindowTitle("Correcto");
+    MBox.setDefaultButton(boton_OK);
+    
+    std::wstring DirFile;
+    TCHAR buffer[MAX_PATH] = {0};
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
+    DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
+    
+    CrearDB(QString::fromStdWString(DirFile), "Utilisateurs.db");
+    QSqlQuery Opt(QSqlDatabase::database("Utilisateurs.db"));
+
+    Opt.exec("SELECT Num_User FROM Usuarios");
+    if (Opt.lastError().isValid()){
+        Log("No se Puede leer el numero de Usuario\n" + Opt.lastError().text() + "\n" + Opt.lastQuery());
+    }
+    Opt.last();
+    Num_user = Opt.value("Num_User").toInt();
+    if(Num_user <= 0){
+        Num_user = 1;
+    }
+    
+    Opt.first();
+    Opt.prepare("INSERT INTO Usuarios (Num_User, Nombre, Apellido, Direccion, Telefono, User, Pass, Puesto)"
+                "VALUES (:num_user, :name, :apellido, :direc, :tel, :user, :pass, :puesto) ");
+    Opt.bindValue(":num_user", Num_user);
+    Opt.bindValue(":name", Name);
+    Opt.bindValue(":apellido", Apellido);
+    Opt.bindValue(":direc", Direc);
+    Opt.bindValue(":tel", Tel);
+    Opt.bindValue(":user", User);
+    Opt.bindValue(":pass", Pass);
+    Opt.bindValue(":puesto", Puesto);
+    Opt.exec();
+    if(Opt.lastError().isValid()){
+        Log("Error no se puede crear el nuevo usuario\n" + Opt.lastQuery() + "\n" + Opt.lastError().text());
+        MBox.setWindowTitle("Error");
+        MBox.setText("No se puede crear el Usuario");
+        MBox.exec();
+    } else {
+        MBox.setWindowTitle("Correcto");
+        MBox.setText("Nuevo Usuario creado con Exito");
+        MBox.exec();
+    }
+    Opt.finish();
+}
+
+void Silo::Usuarios(int estado){   // Activa y desactiva los QlineEdit
+    if(estado == 0){
+        widget_PP.User_Add_usuario_edit->setEnabled(false);
+        widget_PP.User_Add_usuario_edit->setStyleSheet("border-width:0px; border-color:rgb(30,30,30); border-radius:8px; background:white");
+        widget_PP.User_Add_pass_edit->setEnabled(false);
+        widget_PP.User_Add_pass_edit->setStyleSheet("border-width:0px; border-color:rgb(30,30,30); border-radius:8px; background:white");
+        widget_PP.User_Add_nombre_edit->setEnabled(false);
+        widget_PP.User_Add_nombre_edit->setStyleSheet("border-width:0px; border-color:rgb(30,30,30); border-radius:8px; background:white");
+        widget_PP.User_Add_apellidos_edit->setEnabled(false);
+        widget_PP.User_Add_apellidos_edit->setStyleSheet("border-width:0px; border-color:rgb(30,30,30); border-radius:8px; background:white");
+        widget_PP.User_Add_direccion_edit->setEnabled(false);
+        widget_PP.User_Add_direccion_edit->setStyleSheet("border-width:0px; border-color:rgb(30,30,30); border-radius:8px; background:white");
+        widget_PP.User_Add_telefono_edit->setEnabled(false);
+        widget_PP.User_Add_telefono_edit->setStyleSheet("border-width:0px; border-color:rgb(30,30,30); border-radius:8px; background:white");
+        widget_PP.User_Add_puesto_edit->setEnabled(false);
+        widget_PP.User_Add_puesto_edit->setStyleSheet("border-width:0px; border-color:rgb(30,30,30); border-radius:8px; background:white");
+    }
+    if(estado == 2){
+        widget_PP.User_Add_usuario_edit->setEnabled(true);
+        widget_PP.User_Add_usuario_edit->setStyleSheet("border-width:1px; border-color:rgb(30,30,30); border-radius:8px; background:white");
+        widget_PP.User_Add_pass_edit->setEnabled(true);
+        widget_PP.User_Add_pass_edit->setStyleSheet("border-width:1px; border-color:rgb(30,30,30); border-radius:8px; background:white");
+        widget_PP.User_Add_nombre_edit->setEnabled(true);
+        widget_PP.User_Add_nombre_edit->setStyleSheet("border-width:1px; border-color:rgb(30,30,30); border-radius:8px; background:white");
+        widget_PP.User_Add_apellidos_edit->setEnabled(true);
+        widget_PP.User_Add_apellidos_edit->setStyleSheet("border-width:1px; border-color:rgb(30,30,30); border-radius:8px; background:white");
+        widget_PP.User_Add_direccion_edit->setEnabled(true);
+        widget_PP.User_Add_direccion_edit->setStyleSheet("border-width:1px; border-color:rgb(30,30,30); border-radius:8px; background:white");
+        widget_PP.User_Add_telefono_edit->setEnabled(true);
+        widget_PP.User_Add_telefono_edit->setStyleSheet("border-width:1px; border-color:rgb(30,30,30); border-radius:8px; background:white");
+        widget_PP.User_Add_puesto_edit->setEnabled(true);
+        widget_PP.User_Add_puesto_edit->setStyleSheet("border-width:1px; border-color:rgb(30,30,30); border-radius:8px; background:white");
+    }
+}
+
+void Silo::Options_Init(){   // set disable all the Qlineedit by default for Options
+    
+    widget_PP.Cuotas_Sanidad_edit->setEnabled(false);
+    widget_PP.Cuotas_Sanidad_edit->setStyleSheet("border-width:0px; border-radius:8px; background:white");
+    widget_PP.Cuotas_Grano_edit->setEnabled(false);
+    widget_PP.Cuotas_Grano_edit->setStyleSheet("border-width:0px; border-radius:8px; background:white");
+    widget_PP.Cuotas_Modulo_edit->setEnabled(false);
+    widget_PP.Cuotas_Modulo_edit->setStyleSheet("border-width:0px; border-radius:8px; background:white");
+    widget_PP.User_Add_usuario_edit->setEnabled(false);
+    widget_PP.User_Add_usuario_edit->setStyleSheet("border-width:0px; border-radius:8px; background:white");
+    widget_PP.User_Add_pass_edit->setEnabled(false);
+    widget_PP.User_Add_pass_edit->setStyleSheet("border-width:0px; border-radius:8px; background:white");
+    widget_PP.User_Add_nombre_edit->setEnabled(false);
+    widget_PP.User_Add_nombre_edit->setStyleSheet("border-width:0px; border-radius:8px; background:white");
+    widget_PP.User_Add_apellidos_edit->setEnabled(false);
+    widget_PP.User_Add_apellidos_edit->setStyleSheet("border-width:0px; border-radius:8px; background:white");
+    widget_PP.User_Add_direccion_edit->setEnabled(false);
+    widget_PP.User_Add_direccion_edit->setStyleSheet("border-width:0px; border-radius:8px; background:white");
+    widget_PP.User_Add_telefono_edit->setEnabled(false);
+    widget_PP.User_Add_telefono_edit->setStyleSheet("border-width:0px; border-radius:8px; background:white");
+    widget_PP.User_Add_puesto_edit->setEnabled(false);
+    widget_PP.User_Add_puesto_edit->setStyleSheet("border-width:0px; border-radius:8px; background:white");
+    widget_PP.User_Del_CB->setEnabled(false);
+    widget_PP.User_Del_CB->setStyleSheet("border-width:0px; border-radius:8px; background:white");
+    
+    widget_PP.Cuotas_Sanidad->setChecked(false);
+    widget_PP.Cuotas_Grano->setChecked(false);
+    widget_PP.Cuotas_Modulo->setChecked(false);
+    widget_PP.User_Add->setChecked(false);
+    widget_PP.User_Del->setChecked(false);
+    widget_PP.Actual->setChecked(true);
+    
+    Opt_Sanidad_Load();
+    Opt_Grano_Load();
+    Opt_Modulo_Load();
+    
+}
+
+void Silo::Opt_Sanidad(){      // Guarda la cuota de Sanidad
+    QString sani = widget_PP.Cuotas_Sanidad_edit->text();
+    
+    QMessageBox MBox;
+    QPushButton *boton_OK = MBox.addButton("Ok", QMessageBox::AcceptRole);
+    //MBox.setWindowTitle("Correcto");
+    MBox.setDefaultButton(boton_OK);
+    
+    std::wstring DirFile;
+    TCHAR buffer[MAX_PATH] = {0};
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
+    DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
+    
+    CrearDB(QString::fromStdWString(DirFile), "Config.db");
+    QSqlQuery Opt(QSqlDatabase::database("Config.db"));
+
+    Opt.prepare("UPDATE Config SET Sanidad = :sanid");
+    Opt.bindValue(":sanid", sani);
+    Opt.exec();
+    if(Opt.lastError().isValid()){
+        Log("Error al insertar el valor de Sanidad\n" + Opt.lastQuery() + "\n" + Opt.lastError().text());
+        MBox.setWindowTitle("Error");
+        MBox.setText("No se pudo Guardar el Valor de Sanidad");
+        MBox.exec();
+    } else {
+        MBox.setWindowTitle("Correcto");
+        MBox.setText("Valor de Sanidad Guardado con Exito");
+        MBox.exec();
+    }
+    Opt.finish();
+}
+
+void Silo::Opt_Sanidad_Load(){    // Carga la cuota de Sanidad y la muestra
+        
+    std::wstring DirFile;
+    TCHAR buffer[MAX_PATH] = {0};
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
+    DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
+    
+    CrearDB(QString::fromStdWString(DirFile), "Config.db");
+    QSqlQuery Opt(QSqlDatabase::database("Config.db"));
+
+    Opt.exec("SELECT Sanidad FROM Config");
+    if(Opt.lastError().isValid()){
+        Log("Error al leer la tabla Config" + Opt.lastError().text() + "\n" + Opt.lastQuery());
+    }
+    Opt.first();
+    QString valor = Opt.value("Sanidad").toString(); 
+    widget_PP.Cuotas_Sanidad_edit->setText(valor);
+    Opt.finish();
+}
+
+void Silo::Opt_Grano(){    // Guarda la Cuota de Cons de Grano en la DB
+    QString grano = widget_PP.Cuotas_Grano_edit->text();
+    
+    QMessageBox MBox;
+    QPushButton *boton_OK = MBox.addButton("Ok", QMessageBox::AcceptRole);
+    //MBox.setWindowTitle("Correcto");
+    MBox.setDefaultButton(boton_OK);
+    
+    std::wstring DirFile;
+    TCHAR buffer[MAX_PATH] = {0};
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
+    DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
+    
+    CrearDB(QString::fromStdWString(DirFile), "Config.db");
+    QSqlQuery Opt(QSqlDatabase::database("Config.db"));
+
+    Opt.prepare("UPDATE Config SET Cuota = :cuota");
+    Opt.bindValue(":cuota", grano);
+    Opt.exec();
+    if(Opt.lastError().isValid()){
+        Log("Error al insertar la Cuota de Conservacion de Grano \n" + Opt.lastQuery() + "\n" + Opt.lastError().text());
+        MBox.setWindowTitle("Error");
+        MBox.setText("No se pudo Guardar la Cuota de Cons de Grano");
+        MBox.exec();
+    } else {
+        MBox.setWindowTitle("Correcto");
+        MBox.setText("Cuota de Cons de Grano Guardado con Exito");
+        MBox.exec();
+    }
+    Opt.finish();
+}
+
+void Silo::Opt_Grano_Load(){     // Carga el valor de la cuota de Grano y la muestra
+        
+    std::wstring DirFile;
+    TCHAR buffer[MAX_PATH] = {0};
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
+    DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
+    
+    CrearDB(QString::fromStdWString(DirFile), "Config.db");
+    QSqlQuery Opt(QSqlDatabase::database("Config.db"));
+
+    Opt.exec("SELECT Cuota FROM Config");
+    if(Opt.lastError().isValid()){
+        Log("Error al leer la Cuota de Conservacion" + Opt.lastError().text() + "\n" + Opt.lastQuery());
+    }
+    Opt.first();
+    QString valor = Opt.value("Cuota").toString(); 
+    widget_PP.Cuotas_Grano_edit->setText(valor);
+    Opt.finish();
+}
+ 
+void Silo::Opt_Modulo(){     // Guarda el valor introducido en Modulo
+    QString grano = widget_PP.Cuotas_Modulo_edit->text();
+    
+    QMessageBox MBox;
+    QPushButton *boton_OK = MBox.addButton("Ok", QMessageBox::AcceptRole);
+    //MBox.setWindowTitle("Correcto");
+    MBox.setDefaultButton(boton_OK);
+    
+    std::wstring DirFile;
+    TCHAR buffer[MAX_PATH] = {0};
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
+    DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
+    
+    CrearDB(QString::fromStdWString(DirFile), "Config.db");
+    QSqlQuery Opt(QSqlDatabase::database("Config.db"));
+
+    Opt.prepare("UPDATE Config SET Modulo = :mod");
+    Opt.bindValue(":mod", grano);
+    Opt.exec();
+    if(Opt.lastError().isValid()){
+        Log("Error al insertar la Cuota del Modulo \n" + Opt.lastQuery() + "\n" + Opt.lastError().text());
+        MBox.setWindowTitle("Error");
+        MBox.setText("No se pudo Guardar la Cuota del Modulo");
+        MBox.exec();
+    } else {
+        MBox.setWindowTitle("Correcto");
+        MBox.setText("Cuota del Modulo Guardado con Exito");
+        MBox.exec();
+    }
+    Opt.finish();
+}
+
+void Silo::Opt_Modulo_Load(){  // Carga el valor del Modulo y lo muestra en Opciones
+        
+    std::wstring DirFile;
+    TCHAR buffer[MAX_PATH] = {0};
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
+    DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
+    
+    CrearDB(QString::fromStdWString(DirFile), "Config.db");
+    QSqlQuery Opt(QSqlDatabase::database("Config.db"));
+
+    Opt.exec("SELECT Modulo FROM Config");
+    if(Opt.lastError().isValid()){
+        Log("Error al leer la Cuota del Modulo" + Opt.lastError().text() + "\n" + Opt.lastQuery());
+    }
+    Opt.first();
+    QString valor = Opt.value("Modulo").toString(); 
+    widget_PP.Cuotas_Modulo_edit->setText(valor);
+    Opt.finish();
+}
+
+void Silo::Opt_TonsSocios(){     // Guarda el valor introducido en Modulo
+    QString Ton = widget_PP.Socios_TonsxSocio_edit->text();
+    
+    QMessageBox MBox;
+    QPushButton *boton_OK = MBox.addButton("Ok", QMessageBox::AcceptRole);
+    //MBox.setWindowTitle("Correcto");
+    MBox.setDefaultButton(boton_OK);
+    
+    std::wstring DirFile;
+    TCHAR buffer[MAX_PATH] = {0};
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
+    DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
+    
+    CrearDB(QString::fromStdWString(DirFile), "Config.db");
+    QSqlQuery Opt(QSqlDatabase::database("Config.db"));
+
+    Opt.prepare("UPDATE Config SET Ton_Socio = :mod");
+    Opt.bindValue(":mod", Ton);
+    Opt.exec();
+    if(Opt.lastError().isValid()){
+        Log("Error al insertar las Toneladas por Derecho \n" + Opt.lastQuery() + "\n" + Opt.lastError().text());
+        MBox.setWindowTitle("Error");
+        MBox.setText("No se pudo Actualizar las Tons de cada Socio");
+        MBox.exec();
+    } else {
+        MBox.setWindowTitle("Correcto");
+        MBox.setText("Se actualizo Tons de Cada Socio");
+        MBox.exec();
+    }
+    Opt.finish();
+}
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wwrite-strings"
@@ -4147,6 +4528,50 @@ void Silo::Salir(){
     this->close();
 }
 
+void Silo::Validadores_Boletas_New(){
+    //QRegExp rx("[^a-z$]|[^A-Z$]");     // RegExp los caracteres entre a-z o A-Z
+    
+    widget_PP.Folio_edit->setValidator(new QIntValidator(this));
+    widget_PP.Peso_Bruto_edit->setValidator(new QDoubleValidator(this)); 
+    widget_PP.Peso_Tara_edit->setValidator(new QDoubleValidator(this));
+    //widget_PP.Peso_Neto_edit->setValidator(new QDoubleValidator(0, 60000, 2, this));
+    widget_PP.Humedad_edit->setValidator(new QDoubleValidator(0, 30, 2, this));
+    widget_PP.Peso_Espe_edit->setValidator(new QDoubleValidator(0, 1000, 3, this));
+    
+    //widget_PP.Predio_Ubicacion_edit->setValidator(new QRegExpValidator(rx, this));    // solo pueden existir caracteres contenidos en rx
+   
+}
+void Silo::Validadores_Boletas_Salidas(){
+    widget_PP.Folio_Salida_edit->setValidator(new QIntValidator(this));
+    widget_PP.Salidas_Bruto_edit->setValidator(new QDoubleValidator(this));
+    widget_PP.Salidas_Tara_edit->setValidator(new QDoubleValidator(this));
+    widget_PP.Salidas_Humedad_edit->setValidator(new QDoubleValidator(0, 30, 2, this));
+    widget_PP.Salidas_Espe_edit->setValidator(new QDoubleValidator(0, 1000, 3, this));
+}
+
+void Silo::Validadores_Productores(){
+     widget_PP.Tel_Lista_Prod_edit->setValidator(new QIntValidator( this));
+     widget_PP.Whats_Lista_Prod_edit->setValidator(new QIntValidator(this));
+     widget_PP.No_Cliente_edit->setValidator(new QIntValidator(0, 500, this));
+     widget_PP.Acciones_Lista_Prod_edit->setValidator(new QIntValidator(0 ,500 , this));
+}
+
+void Silo::Validadores_Compradores(){
+     widget_PP.Telefono_edit->setValidator(new QIntValidator(this));
+     widget_PP.Whatsapp_edit->setValidator(new QIntValidator(this));
+     widget_PP.Precio_Ton_edit->setValidator(new QDoubleValidator(0, 10000, 2, this));
+    
+}
+
+void Silo::Validadores_Opciones(){
+    widget_PP.Cuotas_Sanidad_edit->setValidator(new QDoubleValidator(this));
+    widget_PP.Cuotas_Grano_edit->setValidator(new QDoubleValidator(this));
+    widget_PP.Cuotas_Modulo_edit->setValidator(new QDoubleValidator(this));
+    widget_PP.Socios_TonsxSocio_edit->setValidator(new QDoubleValidator(this));
+    widget_PP.User_Add_telefono_edit->setValidator(new QIntValidator(this));
+    
+}
+
 void Silo::Imp_Liquida(){
     //  prints liquidaciones
     std::vector<QString> vector;   // Here goes the data that needs to be printed
@@ -4162,17 +4587,28 @@ void Silo::C_Ent(){  // Boletas de entrada
    
     widget_PP.Ciclo_edit->setText(ciclo_actual());  
     widget_PP.SW_Zona_Principal->setCurrentIndex(1);
+    Validadores_Boletas_New();
     Entradas_CB_Productor();
     Tabla_Boletas_Entradas();
     Arrows();
     widget_PP.icon_Arrow_1->setVisible(true);
  }
 
-void Silo::C_Reg(){  // Registros
+void Silo::C_Reg_Ind(){  // Registros Individuales
     
     widget_PP.SW_Zona_Principal->setCurrentIndex(2);
     widget_PP.Registros_Ind->horizontalHeader()->setVisible(true);
+    widget_PP.Registros_Tab->setCurrentIndex(0);
     Reg_Individual_CB_Ciclo();
+    RegistroGeneral_CB();
+    Arrows();
+    widget_PP.icon_Arrow_4->setVisible(true);
+}
+
+void Silo::C_Reg_Gen(){  // Registros Generales
+    widget_PP.SW_Zona_Principal->setCurrentIndex(2);
+    widget_PP.Registros_General->horizontalHeader()->setVisible(true);
+    widget_PP.Registros_Tab->setCurrentIndex(1);
     RegistroGeneral_CB();
     Arrows();
     widget_PP.icon_Arrow_4->setVisible(true);
@@ -4188,6 +4624,7 @@ void Silo::C_Pro(){    // Productores
     
     widget_PP.SW_Zona_Principal->setCurrentIndex(4);
     Productores_Lista();
+    Validadores_Productores();
     Arrows();
     widget_PP.icon_Arrow_5->setVisible(true);
 }
@@ -4196,6 +4633,7 @@ void Silo::C_Comp(){   // Compradores
     
     widget_PP.SW_Zona_Principal->setCurrentIndex(5);
     Compradores_Lista();
+    Validadores_Compradores();
     Arrows();
     widget_PP.icon_Arrow_6->setVisible(true);
 }
@@ -4203,9 +4641,8 @@ void Silo::C_Comp(){   // Compradores
 void Silo::C_Liq(){  // Liquidaciones
 
     widget_PP.SW_Zona_Principal->setCurrentIndex(6);
-    //Liquidaciones_Show_Comp();
-    Liquidaciones_Show();
-    
+    Liquidaciones_CB_Prod();
+    Liquidaciones_CB_Comp();
     Arrows();
     widget_PP.icon_Arrow_2->setVisible(true);
 }
@@ -4213,6 +4650,8 @@ void Silo::C_Liq(){  // Liquidaciones
 
 void Silo::C_Opc(){    // Opciones
     widget_PP.SW_Zona_Principal->setCurrentIndex(7);
+    Options_Init();
+    Validadores_Opciones();
     Arrows();
 }
 
@@ -4235,6 +4674,7 @@ void Silo::Salidas(){     // Salidas de Camiones
     widget_PP.Ciclo_edit_Salida->setText(ciclo_actual());  
     widget_PP.SW_Zona_Principal->setCurrentIndex(10);
     Salidas_CB_Comprador();
+    Validadores_Boletas_Salidas();
     Tabla_Boletas_Salidas();
     Arrows();
     widget_PP.icon_Arrow_3->setVisible(true);

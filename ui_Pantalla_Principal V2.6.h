@@ -15,6 +15,7 @@
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QFrame>
+#include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -111,9 +112,8 @@ public:
     QPushButton *push_Entrada_Limpiar;
     QPushButton *push_Entrada_Update;
     QWidget *page_Registros;
-    QLabel *Panel_Registros;
     QFrame *frame_19;
-    QTabWidget *tabWidget;
+    QTabWidget *Registros_Tab;
     QWidget *Individual;
     QTableWidget *Registros_Ind;
     QPushButton *RegInd_Print;
@@ -270,7 +270,6 @@ public:
     QLabel *label_202;
     QLabel *Fondo_3;
     QWidget *page_Empleados;
-    QLabel *Panel_Productores;
     QFrame *frame_12;
     QLineEdit *Nombre_Lista_Prod_edit;
     QLabel *Nombre;
@@ -304,7 +303,6 @@ public:
     QPushButton *Prod_Borrar;
     QPushButton *Prod_Update;
     QWidget *page_Compradores;
-    QLabel *Panel_Compradores;
     QFrame *frame_13;
     QLabel *Razon_Social;
     QLineEdit *Contacto_edit;
@@ -325,8 +323,8 @@ public:
     QLabel *Comprador;
     QLineEdit *RFC_edit;
     QLabel *RFC;
-    QLineEdit *Estado_edit_2;
-    QLabel *Estado_2;
+    QLineEdit *Precio_Ton_edit;
+    QLabel *Precio_Ton;
     QFrame *frame_17;
     QTableWidget *Compradores_Lista;
     QLabel *ListaCompradores;
@@ -336,7 +334,6 @@ public:
     QPushButton *Comp_Guardar;
     QPushButton *Comp_Update;
     QWidget *page_Liquidacion;
-    QLabel *Panel_Liquidacion;
     QFrame *frame_4;
     QFrame *frame_5;
     QComboBox *Liq_Prod_CB;
@@ -375,6 +372,9 @@ public:
     QLabel *Liq_Dedc_Humedad_edit;
     QLabel *Liq_NoProd;
     QLabel *Liq_NoProd_edit;
+    QLabel *kgs_10;
+    QLabel *kgs_11;
+    QLabel *kgs_12;
     QFrame *frame_23;
     QLabel *Liq_Reten_ConsGrano;
     QLabel *Liq_Reten_Sanidad;
@@ -425,12 +425,12 @@ public:
     QCheckBox *Cuotas_Grano;
     QCheckBox *Cuotas_Modulo;
     QLabel *Cuotas;
-    QLabel *Socios;
-    QFrame *frame_30;
+    QFrame *frame_31;
+    QCheckBox *Actual;
+    QComboBox *Tipo_Grano_CB;
+    QLabel *Tipo_Grano;
     QLineEdit *Socios_TonsxSocio_edit;
     QLabel *Socios_TonsxSocio;
-    QFrame *frame_31;
-    QCheckBox *actualizacion;
     QLabel *otros;
     QFrame *frame_37;
     QCheckBox *User_Add;
@@ -449,8 +449,9 @@ public:
     QLabel *User_Add_puesto;
     QLineEdit *User_Add_puesto_edit;
     QCheckBox *User_Del;
-    QComboBox *comboBox;
-    QPushButton *Comp_Guardar_2;
+    QComboBox *User_Del_CB;
+    QPushButton *User_Del_Push;
+    QPushButton *User_Add_Push;
     QLabel *otros_2;
     QLabel *Fondo_7;
     QWidget *page_DrynWet;
@@ -846,7 +847,6 @@ public:
     QPushButton *push_BeforeTable;
     QLabel *Panel_DrynWet_2;
     QWidget *page;
-    QLabel *Panel_Salidas;
     QLabel *Fondo_11;
     QFrame *frame_6;
     QLabel *Peso_Tara_2;
@@ -907,6 +907,7 @@ public:
     QLabel *Silo_Total_2;
     QLabel *icon_Arrow_8;
     QLabel *icon_Arrow_9;
+    QGraphicsView *graphicsView;
     QFrame *Barra_lateral;
     QFrame *frame_Botones;
     QLabel *icon_Boletas;
@@ -1722,28 +1723,6 @@ public:
         page_Registros = new QWidget();
         page_Registros->setObjectName(QStringLiteral("page_Registros"));
         page_Registros->setStyleSheet(QStringLiteral(""));
-        Panel_Registros = new QLabel(page_Registros);
-        Panel_Registros->setObjectName(QStringLiteral("Panel_Registros"));
-        Panel_Registros->setGeometry(QRect(20, 20, 190, 40));
-        Panel_Registros->setMinimumSize(QSize(0, 0));
-        Panel_Registros->setMaximumSize(QSize(190, 40));
-        QFont font6;
-        font6.setFamily(QStringLiteral("Bahnschrift"));
-        font6.setPointSize(30);
-        font6.setBold(false);
-        font6.setItalic(false);
-        font6.setWeight(50);
-        Panel_Registros->setFont(font6);
-        Panel_Registros->setStyleSheet(QLatin1String("font: 30pt \"Bahnschrift\";\n"
-"border-width:3px;\n"
-"border-color:rgb(255, 20, 82);\n"
-"border-style:none none solid none;\n"
-"border-radius:0px;"));
-        Panel_Registros->setFrameShape(QFrame::Box);
-        Panel_Registros->setFrameShadow(QFrame::Raised);
-        Panel_Registros->setLineWidth(2);
-        Panel_Registros->setMidLineWidth(0);
-        Panel_Registros->setAlignment(Qt::AlignCenter);
         frame_19 = new QFrame(page_Registros);
         frame_19->setObjectName(QStringLiteral("frame_19"));
         frame_19->setGeometry(QRect(20, 70, 1571, 891));
@@ -1752,63 +1731,63 @@ public:
 "border-radius: 20px"));
         frame_19->setFrameShape(QFrame::StyledPanel);
         frame_19->setFrameShadow(QFrame::Raised);
-        tabWidget = new QTabWidget(frame_19);
-        tabWidget->setObjectName(QStringLiteral("tabWidget"));
-        tabWidget->setGeometry(QRect(0, 0, 1571, 871));
-        tabWidget->setFont(font5);
-        tabWidget->setLayoutDirection(Qt::LeftToRight);
-        tabWidget->setAutoFillBackground(false);
-        tabWidget->setStyleSheet(QLatin1String("border-radius:0px;\n"
+        Registros_Tab = new QTabWidget(frame_19);
+        Registros_Tab->setObjectName(QStringLiteral("Registros_Tab"));
+        Registros_Tab->setGeometry(QRect(0, 0, 1571, 871));
+        Registros_Tab->setFont(font5);
+        Registros_Tab->setLayoutDirection(Qt::LeftToRight);
+        Registros_Tab->setAutoFillBackground(false);
+        Registros_Tab->setStyleSheet(QLatin1String("border-radius:0px;\n"
 "border-width:0px;\n"
 "border-size:0px;\n"
 "border-color: rgb(0, 0, 0);\n"
 "border-style:solid;\n"
 "\n"
 ""));
-        tabWidget->setTabPosition(QTabWidget::North);
-        tabWidget->setTabShape(QTabWidget::Rounded);
-        tabWidget->setIconSize(QSize(25, 25));
-        tabWidget->setElideMode(Qt::ElideLeft);
-        tabWidget->setUsesScrollButtons(false);
-        tabWidget->setDocumentMode(true);
-        tabWidget->setTabsClosable(false);
-        tabWidget->setMovable(false);
+        Registros_Tab->setTabPosition(QTabWidget::North);
+        Registros_Tab->setTabShape(QTabWidget::Rounded);
+        Registros_Tab->setIconSize(QSize(25, 25));
+        Registros_Tab->setElideMode(Qt::ElideLeft);
+        Registros_Tab->setUsesScrollButtons(false);
+        Registros_Tab->setDocumentMode(true);
+        Registros_Tab->setTabsClosable(false);
+        Registros_Tab->setMovable(false);
         Individual = new QWidget();
         Individual->setObjectName(QStringLiteral("Individual"));
         Registros_Ind = new QTableWidget(Individual);
         if (Registros_Ind->columnCount() < 10)
             Registros_Ind->setColumnCount(10);
-        QFont font7;
-        font7.setPointSize(12);
+        QFont font6;
+        font6.setPointSize(12);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
-        __qtablewidgetitem->setFont(font7);
+        __qtablewidgetitem->setFont(font6);
         Registros_Ind->setHorizontalHeaderItem(0, __qtablewidgetitem);
         QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
-        __qtablewidgetitem1->setFont(font7);
+        __qtablewidgetitem1->setFont(font6);
         Registros_Ind->setHorizontalHeaderItem(1, __qtablewidgetitem1);
         QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
-        __qtablewidgetitem2->setFont(font7);
+        __qtablewidgetitem2->setFont(font6);
         Registros_Ind->setHorizontalHeaderItem(2, __qtablewidgetitem2);
         QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
-        __qtablewidgetitem3->setFont(font7);
+        __qtablewidgetitem3->setFont(font6);
         Registros_Ind->setHorizontalHeaderItem(3, __qtablewidgetitem3);
         QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
-        __qtablewidgetitem4->setFont(font7);
+        __qtablewidgetitem4->setFont(font6);
         Registros_Ind->setHorizontalHeaderItem(4, __qtablewidgetitem4);
         QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
-        __qtablewidgetitem5->setFont(font7);
+        __qtablewidgetitem5->setFont(font6);
         Registros_Ind->setHorizontalHeaderItem(5, __qtablewidgetitem5);
         QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
-        __qtablewidgetitem6->setFont(font7);
+        __qtablewidgetitem6->setFont(font6);
         Registros_Ind->setHorizontalHeaderItem(6, __qtablewidgetitem6);
         QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
-        __qtablewidgetitem7->setFont(font7);
+        __qtablewidgetitem7->setFont(font6);
         Registros_Ind->setHorizontalHeaderItem(7, __qtablewidgetitem7);
         QTableWidgetItem *__qtablewidgetitem8 = new QTableWidgetItem();
-        __qtablewidgetitem8->setFont(font7);
+        __qtablewidgetitem8->setFont(font6);
         Registros_Ind->setHorizontalHeaderItem(8, __qtablewidgetitem8);
         QTableWidgetItem *__qtablewidgetitem9 = new QTableWidgetItem();
-        __qtablewidgetitem9->setFont(font7);
+        __qtablewidgetitem9->setFont(font6);
         Registros_Ind->setHorizontalHeaderItem(9, __qtablewidgetitem9);
         Registros_Ind->setObjectName(QStringLiteral("Registros_Ind"));
         Registros_Ind->setGeometry(QRect(25, 109, 1521, 641));
@@ -1996,7 +1975,7 @@ public:
 "border-color: rgb(255, 255, 255);\n"
 "color:red;"));
         GranoEntregado->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        tabWidget->addTab(Individual, QString());
+        Registros_Tab->addTab(Individual, QString());
         Ciclo_Ind_7->raise();
         Ciclo_Ind_8->raise();
         Ciclo_Ind_9->raise();
@@ -2172,7 +2151,7 @@ public:
 "border-radius:0px;\n"
 "border-color: rgb(255, 255, 255);"));
         label_50->setAlignment(Qt::AlignCenter);
-        tabWidget->addTab(General, QString());
+        Registros_Tab->addTab(General, QString());
         TotalGranoEntregado->raise();
         Ciclo_Gen->raise();
         RegGen_Ciclo_CB->raise();
@@ -2190,7 +2169,6 @@ public:
         SW_Zona_Principal->addWidget(page_Registros);
         Fondo_2->raise();
         frame_19->raise();
-        Panel_Registros->raise();
         page_Adeudos = new QWidget();
         page_Adeudos->setObjectName(QStringLiteral("page_Adeudos"));
         Panel_Adeudos = new QLabel(page_Adeudos);
@@ -2198,7 +2176,13 @@ public:
         Panel_Adeudos->setGeometry(QRect(30, 9, 190, 40));
         Panel_Adeudos->setMinimumSize(QSize(0, 0));
         Panel_Adeudos->setMaximumSize(QSize(190, 40));
-        Panel_Adeudos->setFont(font6);
+        QFont font7;
+        font7.setFamily(QStringLiteral("Bahnschrift"));
+        font7.setPointSize(30);
+        font7.setBold(false);
+        font7.setItalic(false);
+        font7.setWeight(50);
+        Panel_Adeudos->setFont(font7);
         Panel_Adeudos->setStyleSheet(QLatin1String("font: 30pt \"Bahnschrift\";\n"
 "border-width:3px;\n"
 "border-color:rgb(255, 20, 82);\n"
@@ -3094,22 +3078,6 @@ public:
         frame_18->raise();
         page_Empleados = new QWidget();
         page_Empleados->setObjectName(QStringLiteral("page_Empleados"));
-        Panel_Productores = new QLabel(page_Empleados);
-        Panel_Productores->setObjectName(QStringLiteral("Panel_Productores"));
-        Panel_Productores->setGeometry(QRect(20, 20, 230, 40));
-        Panel_Productores->setMinimumSize(QSize(0, 0));
-        Panel_Productores->setMaximumSize(QSize(230, 40));
-        Panel_Productores->setFont(font6);
-        Panel_Productores->setStyleSheet(QLatin1String("font: 30pt \"Bahnschrift\";\n"
-"border-width:3px;\n"
-"border-color:rgb(255, 20, 82);\n"
-"border-style:none none solid none;\n"
-"border-radius:0px;"));
-        Panel_Productores->setFrameShape(QFrame::Box);
-        Panel_Productores->setFrameShadow(QFrame::Raised);
-        Panel_Productores->setLineWidth(2);
-        Panel_Productores->setMidLineWidth(0);
-        Panel_Productores->setAlignment(Qt::AlignCenter);
         frame_12 = new QFrame(page_Empleados);
         frame_12->setObjectName(QStringLiteral("frame_12"));
         frame_12->setGeometry(QRect(790, 110, 695, 631));
@@ -3187,6 +3155,7 @@ public:
 "border-style:solid;\n"
 "border-radius:8px;\n"
 "background:white;"));
+        Tel_Lista_Prod_edit->setMaxLength(1000000);
         Tel_Lista_Prod_edit->setReadOnly(false);
         Acciones_Lista_Prod = new QLabel(frame_12);
         Acciones_Lista_Prod->setObjectName(QStringLiteral("Acciones_Lista_Prod"));
@@ -3503,7 +3472,6 @@ public:
 ""));
         SW_Zona_Principal->addWidget(page_Empleados);
         Fondo_4->raise();
-        Panel_Productores->raise();
         frame_12->raise();
         Prod_Guardar->raise();
         frame_15->raise();
@@ -3512,21 +3480,6 @@ public:
         Prod_Update->raise();
         page_Compradores = new QWidget();
         page_Compradores->setObjectName(QStringLiteral("page_Compradores"));
-        Panel_Compradores = new QLabel(page_Compradores);
-        Panel_Compradores->setObjectName(QStringLiteral("Panel_Compradores"));
-        Panel_Compradores->setGeometry(QRect(20, 20, 240, 40));
-        Panel_Compradores->setMinimumSize(QSize(0, 0));
-        Panel_Compradores->setFont(font6);
-        Panel_Compradores->setStyleSheet(QLatin1String("font: 30pt \"Bahnschrift\";\n"
-"border-width:3px;\n"
-"border-color:rgb(255, 20, 82);\n"
-"border-style:none none solid none;\n"
-"border-radius:0px;"));
-        Panel_Compradores->setFrameShape(QFrame::Box);
-        Panel_Compradores->setFrameShadow(QFrame::Raised);
-        Panel_Compradores->setLineWidth(2);
-        Panel_Compradores->setMidLineWidth(0);
-        Panel_Compradores->setAlignment(Qt::AlignCenter);
         frame_13 = new QFrame(page_Compradores);
         frame_13->setObjectName(QStringLiteral("frame_13"));
         frame_13->setGeometry(QRect(790, 110, 695, 521));
@@ -3712,24 +3665,24 @@ public:
 "background:transparent;\n"
 "border-color: rgb(237, 237, 237);"));
         RFC->setAlignment(Qt::AlignCenter);
-        Estado_edit_2 = new QLineEdit(frame_13);
-        Estado_edit_2->setObjectName(QStringLiteral("Estado_edit_2"));
-        Estado_edit_2->setGeometry(QRect(370, 460, 300, 35));
-        Estado_edit_2->setStyleSheet(QLatin1String("border-width:1px;\n"
+        Precio_Ton_edit = new QLineEdit(frame_13);
+        Precio_Ton_edit->setObjectName(QStringLiteral("Precio_Ton_edit"));
+        Precio_Ton_edit->setGeometry(QRect(370, 460, 300, 35));
+        Precio_Ton_edit->setStyleSheet(QLatin1String("border-width:1px;\n"
 "border-color:rgb(30,30,30);\n"
 "border-style:solid;\n"
 "border-radius:8px;\n"
 "background:white;"));
-        Estado_edit_2->setReadOnly(false);
-        Estado_2 = new QLabel(frame_13);
-        Estado_2->setObjectName(QStringLiteral("Estado_2"));
-        Estado_2->setGeometry(QRect(380, 430, 181, 31));
-        Estado_2->setFont(font4);
-        Estado_2->setStyleSheet(QLatin1String("font:20px;\n"
+        Precio_Ton_edit->setReadOnly(false);
+        Precio_Ton = new QLabel(frame_13);
+        Precio_Ton->setObjectName(QStringLiteral("Precio_Ton"));
+        Precio_Ton->setGeometry(QRect(380, 430, 181, 31));
+        Precio_Ton->setFont(font4);
+        Precio_Ton->setStyleSheet(QLatin1String("font:20px;\n"
 "border-radius:0px;\n"
 "background:transparent;\n"
 "border-color: rgb(237, 237, 237);"));
-        Estado_2->setAlignment(Qt::AlignCenter);
+        Precio_Ton->setAlignment(Qt::AlignCenter);
         Estado->raise();
         Email->raise();
         Telefono->raise();
@@ -3739,7 +3692,7 @@ public:
         Whatsapp->raise();
         Ciudad->raise();
         RFC->raise();
-        Estado_2->raise();
+        Precio_Ton->raise();
         Contacto_edit->raise();
         Razon_Social_edit->raise();
         Direccion_edit->raise();
@@ -3750,7 +3703,7 @@ public:
         Email_edit->raise();
         Comprador->raise();
         RFC_edit->raise();
-        Estado_edit_2->raise();
+        Precio_Ton_edit->raise();
         frame_17 = new QFrame(page_Compradores);
         frame_17->setObjectName(QStringLiteral("frame_17"));
         frame_17->setGeometry(QRect(70, 80, 580, 840));
@@ -3888,7 +3841,6 @@ public:
 ""));
         SW_Zona_Principal->addWidget(page_Compradores);
         Fondo_5->raise();
-        Panel_Compradores->raise();
         frame_13->raise();
         frame_17->raise();
         Comp_Borrar->raise();
@@ -3897,22 +3849,6 @@ public:
         Comp_Update->raise();
         page_Liquidacion = new QWidget();
         page_Liquidacion->setObjectName(QStringLiteral("page_Liquidacion"));
-        Panel_Liquidacion = new QLabel(page_Liquidacion);
-        Panel_Liquidacion->setObjectName(QStringLiteral("Panel_Liquidacion"));
-        Panel_Liquidacion->setGeometry(QRect(20, 20, 230, 40));
-        Panel_Liquidacion->setMinimumSize(QSize(0, 0));
-        Panel_Liquidacion->setMaximumSize(QSize(230, 40));
-        Panel_Liquidacion->setFont(font6);
-        Panel_Liquidacion->setStyleSheet(QLatin1String("font: 30pt \"Bahnschrift\";\n"
-"border-width:3px;\n"
-"border-color:rgb(255, 20, 82);\n"
-"border-style:none none solid none;\n"
-"border-radius:0px;"));
-        Panel_Liquidacion->setFrameShape(QFrame::Box);
-        Panel_Liquidacion->setFrameShadow(QFrame::Raised);
-        Panel_Liquidacion->setLineWidth(2);
-        Panel_Liquidacion->setMidLineWidth(0);
-        Panel_Liquidacion->setAlignment(Qt::AlignCenter);
         frame_4 = new QFrame(page_Liquidacion);
         frame_4->setObjectName(QStringLiteral("frame_4"));
         frame_4->setGeometry(QRect(90, 130, 1368, 775));
@@ -4159,7 +4095,7 @@ public:
         Liq_Chofer_Info_edit->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
         Liq_Fecha_Info_edit = new QLabel(frame_21);
         Liq_Fecha_Info_edit->setObjectName(QStringLiteral("Liq_Fecha_Info_edit"));
-        Liq_Fecha_Info_edit->setGeometry(QRect(480, 10, 141, 31));
+        Liq_Fecha_Info_edit->setGeometry(QRect(460, 10, 141, 31));
         Liq_Fecha_Info_edit->setStyleSheet(QLatin1String("font:16px;\n"
 "border-radius:0px;\n"
 "background:transparent;\n"
@@ -4229,6 +4165,30 @@ public:
 "background:transparent;\n"
 "border-color: transparent;"));
         Liq_NoProd_edit->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        kgs_10 = new QLabel(frame_21);
+        kgs_10->setObjectName(QStringLiteral("kgs_10"));
+        kgs_10->setGeometry(QRect(580, 84, 50, 31));
+        kgs_10->setStyleSheet(QLatin1String("font:16px;\n"
+"border-radius:0px;\n"
+"background:transparent;\n"
+"border-color: transparent;"));
+        kgs_10->setAlignment(Qt::AlignCenter);
+        kgs_11 = new QLabel(frame_21);
+        kgs_11->setObjectName(QStringLiteral("kgs_11"));
+        kgs_11->setGeometry(QRect(580, 125, 50, 31));
+        kgs_11->setStyleSheet(QLatin1String("font:16px;\n"
+"border-radius:0px;\n"
+"background:transparent;\n"
+"border-color: transparent;"));
+        kgs_11->setAlignment(Qt::AlignCenter);
+        kgs_12 = new QLabel(frame_21);
+        kgs_12->setObjectName(QStringLiteral("kgs_12"));
+        kgs_12->setGeometry(QRect(580, 165, 50, 31));
+        kgs_12->setStyleSheet(QLatin1String("font:16px;\n"
+"border-radius:0px;\n"
+"background:transparent;\n"
+"border-color: transparent;"));
+        kgs_12->setAlignment(Qt::AlignCenter);
         frame_23 = new QFrame(frame_4);
         frame_23->setObjectName(QStringLiteral("frame_23"));
         frame_23->setGeometry(QRect(120, 470, 320, 190));
@@ -4500,7 +4460,7 @@ public:
         Liq_Total_Pagar->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
         Liq_Total_Pagar_edit = new QLabel(frame_26);
         Liq_Total_Pagar_edit->setObjectName(QStringLiteral("Liq_Total_Pagar_edit"));
-        Liq_Total_Pagar_edit->setGeometry(QRect(140, 70, 151, 31));
+        Liq_Total_Pagar_edit->setGeometry(QRect(130, 70, 151, 31));
         Liq_Total_Pagar_edit->setStyleSheet(QLatin1String("font:20px;\n"
 "color:red;\n"
 "border-radius:0px;\n"
@@ -4534,7 +4494,7 @@ public:
         Liq_Total_Analizado_edit->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         Liq_Total_PrecioTon_edit = new QLabel(frame_26);
         Liq_Total_PrecioTon_edit->setObjectName(QStringLiteral("Liq_Total_PrecioTon_edit"));
-        Liq_Total_PrecioTon_edit->setGeometry(QRect(150, 40, 130, 31));
+        Liq_Total_PrecioTon_edit->setGeometry(QRect(148, 40, 130, 31));
         Liq_Total_PrecioTon_edit->setStyleSheet(QLatin1String("font:16px;\n"
 "border-radius:0px;\n"
 "background:transparent;\n"
@@ -4564,15 +4524,15 @@ public:
 "background:transparent;\n"
 "border-color: transparent;"));
         kgs_9->setAlignment(Qt::AlignCenter);
+        Liq_Total_Analizado_edit->raise();
+        Liq_Total_PrecioTon_edit->raise();
+        Liq_Total_Pagar_edit->raise();
         kgs_9->raise();
         Liq_Total_Pagar->raise();
         Liq_Total_PrecioTon->raise();
         Liq_Total_Analizado->raise();
         kgs_7->raise();
         kgs_8->raise();
-        Liq_Total_Analizado_edit->raise();
-        Liq_Total_PrecioTon_edit->raise();
-        Liq_Total_Pagar_edit->raise();
         Deducciones_2 = new QLabel(frame_4);
         Deducciones_2->setObjectName(QStringLiteral("Deducciones_2"));
         Deducciones_2->setGeometry(QRect(930, 430, 131, 31));
@@ -4599,7 +4559,6 @@ public:
         Fondo_6->setScaledContents(true);
         SW_Zona_Principal->addWidget(page_Liquidacion);
         Fondo_6->raise();
-        Panel_Liquidacion->raise();
         frame_4->raise();
         page_Opciones = new QWidget();
         page_Opciones->setObjectName(QStringLiteral("page_Opciones"));
@@ -4608,7 +4567,7 @@ public:
         Panel_Opciones->setGeometry(QRect(20, 20, 230, 40));
         Panel_Opciones->setMinimumSize(QSize(0, 0));
         Panel_Opciones->setMaximumSize(QSize(230, 40));
-        Panel_Opciones->setFont(font6);
+        Panel_Opciones->setFont(font7);
         Panel_Opciones->setStyleSheet(QLatin1String("font: 30pt \"Bahnschrift\";\n"
 "border-width:3px;\n"
 "border-color:rgb(255, 20, 82);\n"
@@ -4621,7 +4580,7 @@ public:
         Panel_Opciones->setAlignment(Qt::AlignCenter);
         frame_16 = new QFrame(page_Opciones);
         frame_16->setObjectName(QStringLiteral("frame_16"));
-        frame_16->setGeometry(QRect(160, 60, 1131, 901));
+        frame_16->setGeometry(QRect(260, 70, 1131, 901));
         frame_16->setStyleSheet(QLatin1String("font: 20pt \"Bahnschrift\";\n"
 "border-width:1px;\n"
 "border-color:rgb(200, 200, 200);\n"
@@ -4632,13 +4591,8 @@ public:
         frame_16->setFrameShadow(QFrame::Raised);
         frame_28 = new QFrame(frame_16);
         frame_28->setObjectName(QStringLiteral("frame_28"));
-        frame_28->setGeometry(QRect(40, 60, 560, 180));
-        frame_28->setStyleSheet(QLatin1String("font: 16pt \"Bahnschrift\";\n"
-"border-width:1px;\n"
-"border-color:rgb(150, 150, 150);\n"
-"background:transparent;\n"
-"border-style:solid;\n"
-"border-radius:10px;"));
+        frame_28->setGeometry(QRect(30, 70, 560, 180));
+        frame_28->setStyleSheet(QStringLiteral(""));
         frame_28->setFrameShape(QFrame::StyledPanel);
         frame_28->setFrameShadow(QFrame::Raised);
         Cuotas_Sanidad_edit = new QLineEdit(frame_28);
@@ -4691,57 +4645,65 @@ public:
 "border-color: rgb(237, 237, 237);"));
         Cuotas = new QLabel(frame_16);
         Cuotas->setObjectName(QStringLiteral("Cuotas"));
-        Cuotas->setGeometry(QRect(270, 30, 111, 31));
+        Cuotas->setGeometry(QRect(270, 40, 111, 31));
         Cuotas->setStyleSheet(QLatin1String("font:20px;\n"
 "border-radius:0px;\n"
 "background:transparent;\n"
 "border-color: rgb(237, 237, 237);"));
         Cuotas->setAlignment(Qt::AlignCenter);
-        Socios = new QLabel(frame_16);
-        Socios->setObjectName(QStringLiteral("Socios"));
-        Socios->setGeometry(QRect(260, 250, 111, 31));
-        Socios->setStyleSheet(QLatin1String("font:20px;\n"
+        frame_31 = new QFrame(frame_16);
+        frame_31->setObjectName(QStringLiteral("frame_31"));
+        frame_31->setGeometry(QRect(620, 70, 471, 181));
+        frame_31->setFrameShape(QFrame::StyledPanel);
+        frame_31->setFrameShadow(QFrame::Raised);
+        Actual = new QCheckBox(frame_31);
+        Actual->setObjectName(QStringLiteral("Actual"));
+        Actual->setGeometry(QRect(40, 30, 331, 31));
+        Actual->setStyleSheet(QLatin1String("font:20px;\n"
 "border-radius:0px;\n"
 "background:transparent;\n"
 "border-color: rgb(237, 237, 237);"));
-        Socios->setAlignment(Qt::AlignCenter);
-        frame_30 = new QFrame(frame_16);
-        frame_30->setObjectName(QStringLiteral("frame_30"));
-        frame_30->setGeometry(QRect(40, 280, 560, 120));
-        frame_30->setFrameShape(QFrame::StyledPanel);
-        frame_30->setFrameShadow(QFrame::Raised);
-        Socios_TonsxSocio_edit = new QLineEdit(frame_30);
+        Tipo_Grano_CB = new QComboBox(frame_31);
+        Tipo_Grano_CB->setObjectName(QStringLiteral("Tipo_Grano_CB"));
+        Tipo_Grano_CB->setGeometry(QRect(240, 130, 201, 31));
+        Tipo_Grano_CB->setStyleSheet(QLatin1String("border-width:1px;\n"
+"border-color:rgb(30,30,30);\n"
+"border-style:solid;\n"
+"border-radius:8px;\n"
+"background:white;"));
+        Tipo_Grano = new QLabel(frame_31);
+        Tipo_Grano->setObjectName(QStringLiteral("Tipo_Grano"));
+        Tipo_Grano->setGeometry(QRect(40, 130, 161, 31));
+        Tipo_Grano->setStyleSheet(QLatin1String("font:20px;\n"
+"border-radius:0px;\n"
+"background:transparent;\n"
+"border-color: rgb(237, 237, 237);"));
+        Tipo_Grano->setAlignment(Qt::AlignCenter);
+        Socios_TonsxSocio_edit = new QLineEdit(frame_31);
         Socios_TonsxSocio_edit->setObjectName(QStringLiteral("Socios_TonsxSocio_edit"));
-        Socios_TonsxSocio_edit->setGeometry(QRect(360, 20, 151, 31));
+        Socios_TonsxSocio_edit->setGeometry(QRect(260, 80, 161, 31));
         Socios_TonsxSocio_edit->setStyleSheet(QLatin1String("border-width:1px;\n"
 "border-color:rgb(30,30,30);\n"
 "border-style:solid;\n"
 "border-radius:8px;\n"
 "background:white;"));
         Socios_TonsxSocio_edit->setAlignment(Qt::AlignCenter);
-        Socios_TonsxSocio = new QLabel(frame_30);
+        Socios_TonsxSocio = new QLabel(frame_31);
         Socios_TonsxSocio->setObjectName(QStringLiteral("Socios_TonsxSocio"));
-        Socios_TonsxSocio->setGeometry(QRect(30, 20, 271, 31));
+        Socios_TonsxSocio->setGeometry(QRect(40, 80, 191, 31));
         Socios_TonsxSocio->setStyleSheet(QLatin1String("font:20px;\n"
 "border-radius:0px;\n"
 "background:transparent;\n"
 "border-color: rgb(237, 237, 237);"));
         Socios_TonsxSocio->setAlignment(Qt::AlignCenter);
-        frame_31 = new QFrame(frame_16);
-        frame_31->setObjectName(QStringLiteral("frame_31"));
-        frame_31->setGeometry(QRect(660, 70, 431, 80));
-        frame_31->setFrameShape(QFrame::StyledPanel);
-        frame_31->setFrameShadow(QFrame::Raised);
-        actualizacion = new QCheckBox(frame_31);
-        actualizacion->setObjectName(QStringLiteral("actualizacion"));
-        actualizacion->setGeometry(QRect(40, 30, 331, 31));
-        actualizacion->setStyleSheet(QLatin1String("font:20px;\n"
-"border-radius:0px;\n"
-"background:transparent;\n"
-"border-color: rgb(237, 237, 237);"));
+        Socios_TonsxSocio->raise();
+        Actual->raise();
+        Tipo_Grano_CB->raise();
+        Tipo_Grano->raise();
+        Socios_TonsxSocio_edit->raise();
         otros = new QLabel(frame_16);
         otros->setObjectName(QStringLiteral("otros"));
-        otros->setGeometry(QRect(870, 40, 111, 31));
+        otros->setGeometry(QRect(780, 40, 111, 31));
         otros->setStyleSheet(QLatin1String("font:20px;\n"
 "border-radius:0px;\n"
 "background:transparent;\n"
@@ -4749,7 +4711,7 @@ public:
         otros->setAlignment(Qt::AlignCenter);
         frame_37 = new QFrame(frame_16);
         frame_37->setObjectName(QStringLiteral("frame_37"));
-        frame_37->setGeometry(QRect(50, 450, 781, 361));
+        frame_37->setGeometry(QRect(30, 300, 781, 371));
         frame_37->setFrameShape(QFrame::StyledPanel);
         frame_37->setFrameShadow(QFrame::Raised);
         User_Add = new QCheckBox(frame_37);
@@ -4761,7 +4723,7 @@ public:
 "border-color: rgb(237, 237, 237);"));
         User_Add_usuario = new QLabel(frame_37);
         User_Add_usuario->setObjectName(QStringLiteral("User_Add_usuario"));
-        User_Add_usuario->setGeometry(QRect(30, 70, 111, 31));
+        User_Add_usuario->setGeometry(QRect(34, 70, 111, 31));
         User_Add_usuario->setStyleSheet(QLatin1String("font:20px;\n"
 "border-radius:0px;\n"
 "background:transparent;\n"
@@ -4778,7 +4740,7 @@ public:
         User_Add_usuario_edit->setAlignment(Qt::AlignCenter);
         User_Add_pass = new QLabel(frame_37);
         User_Add_pass->setObjectName(QStringLiteral("User_Add_pass"));
-        User_Add_pass->setGeometry(QRect(30, 110, 111, 31));
+        User_Add_pass->setGeometry(QRect(23, 110, 111, 31));
         User_Add_pass->setStyleSheet(QLatin1String("font:20px;\n"
 "border-radius:0px;\n"
 "background:transparent;\n"
@@ -4795,7 +4757,7 @@ public:
         User_Add_pass_edit->setAlignment(Qt::AlignCenter);
         User_Add_nombre = new QLabel(frame_37);
         User_Add_nombre->setObjectName(QStringLiteral("User_Add_nombre"));
-        User_Add_nombre->setGeometry(QRect(30, 150, 111, 31));
+        User_Add_nombre->setGeometry(QRect(27, 150, 111, 31));
         User_Add_nombre->setStyleSheet(QLatin1String("font:20px;\n"
 "border-radius:0px;\n"
 "background:transparent;\n"
@@ -4812,7 +4774,7 @@ public:
         User_Add_nombre_edit->setAlignment(Qt::AlignCenter);
         User_Add_apellidos = new QLabel(frame_37);
         User_Add_apellidos->setObjectName(QStringLiteral("User_Add_apellidos"));
-        User_Add_apellidos->setGeometry(QRect(30, 190, 111, 31));
+        User_Add_apellidos->setGeometry(QRect(27, 190, 111, 31));
         User_Add_apellidos->setStyleSheet(QLatin1String("font:20px;\n"
 "border-radius:0px;\n"
 "background:transparent;\n"
@@ -4829,7 +4791,7 @@ public:
         User_Add_apellidos_edit->setAlignment(Qt::AlignCenter);
         User_Add_direccion = new QLabel(frame_37);
         User_Add_direccion->setObjectName(QStringLiteral("User_Add_direccion"));
-        User_Add_direccion->setGeometry(QRect(30, 230, 111, 31));
+        User_Add_direccion->setGeometry(QRect(28, 230, 111, 31));
         User_Add_direccion->setStyleSheet(QLatin1String("font:20px;\n"
 "border-radius:0px;\n"
 "background:transparent;\n"
@@ -4846,7 +4808,7 @@ public:
         User_Add_direccion_edit->setAlignment(Qt::AlignCenter);
         User_Add_telefono = new QLabel(frame_37);
         User_Add_telefono->setObjectName(QStringLiteral("User_Add_telefono"));
-        User_Add_telefono->setGeometry(QRect(30, 270, 111, 31));
+        User_Add_telefono->setGeometry(QRect(33, 270, 111, 31));
         User_Add_telefono->setStyleSheet(QLatin1String("font:20px;\n"
 "border-radius:0px;\n"
 "background:transparent;\n"
@@ -4863,7 +4825,7 @@ public:
         User_Add_telefono_edit->setAlignment(Qt::AlignCenter);
         User_Add_puesto = new QLabel(frame_37);
         User_Add_puesto->setObjectName(QStringLiteral("User_Add_puesto"));
-        User_Add_puesto->setGeometry(QRect(30, 310, 111, 31));
+        User_Add_puesto->setGeometry(QRect(48, 310, 91, 31));
         User_Add_puesto->setStyleSheet(QLatin1String("font:20px;\n"
 "border-radius:0px;\n"
 "background:transparent;\n"
@@ -4880,20 +4842,48 @@ public:
         User_Add_puesto_edit->setAlignment(Qt::AlignCenter);
         User_Del = new QCheckBox(frame_37);
         User_Del->setObjectName(QStringLiteral("User_Del"));
-        User_Del->setGeometry(QRect(400, 20, 190, 31));
+        User_Del->setGeometry(QRect(440, 20, 190, 31));
         User_Del->setStyleSheet(QLatin1String("font:20px;\n"
 "border-radius:0px;\n"
 "background:transparent;\n"
 "border-color: rgb(237, 237, 237);"));
-        comboBox = new QComboBox(frame_37);
-        comboBox->setObjectName(QStringLiteral("comboBox"));
-        comboBox->setGeometry(QRect(440, 70, 261, 31));
-        Comp_Guardar_2 = new QPushButton(frame_37);
-        Comp_Guardar_2->setObjectName(QStringLiteral("Comp_Guardar_2"));
-        Comp_Guardar_2->setGeometry(QRect(510, 130, 121, 41));
-        Comp_Guardar_2->setFont(font4);
-        Comp_Guardar_2->setToolTipDuration(-1);
-        Comp_Guardar_2->setStyleSheet(QLatin1String("\n"
+        User_Del_CB = new QComboBox(frame_37);
+        User_Del_CB->setObjectName(QStringLiteral("User_Del_CB"));
+        User_Del_CB->setGeometry(QRect(440, 70, 261, 31));
+        User_Del_CB->setStyleSheet(QLatin1String("border-width:1px;\n"
+"border-color:rgb(30,30,30);\n"
+"border-style:solid;\n"
+"border-radius:8px;\n"
+"background:white;"));
+        User_Del_Push = new QPushButton(frame_37);
+        User_Del_Push->setObjectName(QStringLiteral("User_Del_Push"));
+        User_Del_Push->setGeometry(QRect(590, 160, 121, 41));
+        User_Del_Push->setFont(font4);
+        User_Del_Push->setToolTipDuration(-1);
+        User_Del_Push->setStyleSheet(QLatin1String("\n"
+"QPushButton{\n"
+"font:20px;\n"
+"color:black;\n"
+"background-color:rgb(252,252,252);\n"
+"border-color:transparent;\n"
+"border-width:1px;\n"
+"border-radius:20px;\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"color:white;\n"
+"background-color:rgb(255, 130, 75);\n"
+"border-color:rgb(255,255,255);\n"
+"border-width:0px;\n"
+"}\n"
+"\n"
+""));
+        User_Add_Push = new QPushButton(frame_37);
+        User_Add_Push->setObjectName(QStringLiteral("User_Add_Push"));
+        User_Add_Push->setGeometry(QRect(440, 160, 121, 41));
+        User_Add_Push->setFont(font4);
+        User_Add_Push->setToolTipDuration(-1);
+        User_Add_Push->setStyleSheet(QLatin1String("\n"
 "QPushButton{\n"
 "font:20px;\n"
 "color:black;\n"
@@ -4913,7 +4903,7 @@ public:
 ""));
         otros_2 = new QLabel(frame_16);
         otros_2->setObjectName(QStringLiteral("otros_2"));
-        otros_2->setGeometry(QRect(200, 410, 111, 31));
+        otros_2->setGeometry(QRect(270, 270, 120, 31));
         otros_2->setStyleSheet(QLatin1String("font:20px;\n"
 "border-radius:0px;\n"
 "background:transparent;\n"
@@ -4922,8 +4912,6 @@ public:
         otros->raise();
         Cuotas->raise();
         frame_28->raise();
-        Socios->raise();
-        frame_30->raise();
         otros_2->raise();
         frame_37->raise();
         frame_31->raise();
@@ -4942,7 +4930,7 @@ public:
         Panel_DrynWet->setObjectName(QStringLiteral("Panel_DrynWet"));
         Panel_DrynWet->setGeometry(QRect(20, 20, 291, 40));
         Panel_DrynWet->setMinimumSize(QSize(0, 0));
-        Panel_DrynWet->setFont(font6);
+        Panel_DrynWet->setFont(font7);
         Panel_DrynWet->setStyleSheet(QLatin1String("font: 30pt \"Bahnschrift\";\n"
 "border-width:3px;\n"
 "border-color:rgb(255, 20, 82);\n"
@@ -7922,7 +7910,7 @@ public:
         Panel_DrynWet_2->setObjectName(QStringLiteral("Panel_DrynWet_2"));
         Panel_DrynWet_2->setGeometry(QRect(20, 20, 291, 40));
         Panel_DrynWet_2->setMinimumSize(QSize(0, 0));
-        Panel_DrynWet_2->setFont(font6);
+        Panel_DrynWet_2->setFont(font7);
         Panel_DrynWet_2->setStyleSheet(QLatin1String("font: 30pt \"Bahnschrift\";\n"
 "border-width:3px;\n"
 "border-color:rgb(255, 20, 82);\n"
@@ -7936,21 +7924,6 @@ public:
         SW_Zona_Principal->addWidget(page_DrynWet_2);
         page = new QWidget();
         page->setObjectName(QStringLiteral("page"));
-        Panel_Salidas = new QLabel(page);
-        Panel_Salidas->setObjectName(QStringLiteral("Panel_Salidas"));
-        Panel_Salidas->setGeometry(QRect(20, 20, 180, 40));
-        Panel_Salidas->setMinimumSize(QSize(0, 0));
-        Panel_Salidas->setFont(font6);
-        Panel_Salidas->setStyleSheet(QLatin1String("font: 30pt \"Bahnschrift\";\n"
-"border-width:3px;\n"
-"border-color:rgb(255, 20, 82);\n"
-"border-style:none none solid none;\n"
-"border-radius:0px;"));
-        Panel_Salidas->setFrameShape(QFrame::Box);
-        Panel_Salidas->setFrameShadow(QFrame::Raised);
-        Panel_Salidas->setLineWidth(2);
-        Panel_Salidas->setMidLineWidth(0);
-        Panel_Salidas->setAlignment(Qt::AlignCenter);
         Fondo_11 = new QLabel(page);
         Fondo_11->setObjectName(QStringLiteral("Fondo_11"));
         Fondo_11->setGeometry(QRect(0, 0, 1640, 1030));
@@ -8562,23 +8535,13 @@ public:
 "\n"
 ""));
         SW_Zona_Principal->addWidget(page);
-        Fondo_11->raise();
-        Panel_Salidas->raise();
-        frame_6->raise();
-        push_Salidas_Nuevo->raise();
-        push_Salidas_Limpiar->raise();
-        frame_38->raise();
-        BOLETAS_Salidas->raise();
-        frame_39->raise();
-        push_Salidas_Borrar->raise();
-        push_Salidas_Update->raise();
         page_2 = new QWidget();
         page_2->setObjectName(QStringLiteral("page_2"));
         Panel_Silos = new QLabel(page_2);
         Panel_Silos->setObjectName(QStringLiteral("Panel_Silos"));
         Panel_Silos->setGeometry(QRect(20, 20, 180, 40));
         Panel_Silos->setMinimumSize(QSize(0, 0));
-        Panel_Silos->setFont(font6);
+        Panel_Silos->setFont(font7);
         Panel_Silos->setStyleSheet(QLatin1String("font: 30pt \"Bahnschrift\";\n"
 "border-width:3px;\n"
 "border-color:rgb(255, 20, 82);\n"
@@ -8626,6 +8589,9 @@ public:
         icon_Arrow_9->setPixmap(QPixmap(QString::fromUtf8(":/prefijoNuevo/Imagenes/Arrow_Right.png")));
         icon_Arrow_9->setScaledContents(true);
         icon_Arrow_9->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        graphicsView = new QGraphicsView(page_2);
+        graphicsView->setObjectName(QStringLiteral("graphicsView"));
+        graphicsView->setGeometry(QRect(610, 20, 256, 192));
         SW_Zona_Principal->addWidget(page_2);
         Fondo_10->raise();
         Panel_Silos->raise();
@@ -8633,6 +8599,7 @@ public:
         Silo_Total_2->raise();
         icon_Arrow_9->raise();
         icon_Arrow_8->raise();
+        graphicsView->raise();
         Barra_lateral = new QFrame(centralwidget);
         Barra_lateral->setObjectName(QStringLiteral("Barra_lateral"));
         Barra_lateral->setGeometry(QRect(0, 0, 301, 1081));
@@ -8704,7 +8671,7 @@ public:
         push_Liquidacion->setObjectName(QStringLiteral("push_Liquidacion"));
         push_Liquidacion->setGeometry(QRect(0, 100, 300, 50));
         push_Liquidacion->setMinimumSize(QSize(160, 50));
-        push_Liquidacion->setFont(font6);
+        push_Liquidacion->setFont(font7);
         push_Liquidacion->setLayoutDirection(Qt::LeftToRight);
         push_Liquidacion->setStyleSheet(QLatin1String("\n"
 "QPushButton{\n"
@@ -8736,7 +8703,7 @@ public:
         push_Boletas->setObjectName(QStringLiteral("push_Boletas"));
         push_Boletas->setGeometry(QRect(0, 40, 301, 50));
         push_Boletas->setMinimumSize(QSize(160, 50));
-        push_Boletas->setFont(font6);
+        push_Boletas->setFont(font7);
         push_Boletas->setLayoutDirection(Qt::LeftToRight);
         push_Boletas->setAutoFillBackground(false);
         push_Boletas->setStyleSheet(QLatin1String("\n"
@@ -8763,7 +8730,7 @@ public:
         push_Registros->setObjectName(QStringLiteral("push_Registros"));
         push_Registros->setGeometry(QRect(0, 220, 300, 50));
         push_Registros->setMinimumSize(QSize(160, 50));
-        push_Registros->setFont(font6);
+        push_Registros->setFont(font7);
         push_Registros->setStyleSheet(QLatin1String("\n"
 "QPushButton{\n"
 "color:black;\n"
@@ -8787,7 +8754,7 @@ public:
         push_Productores->setObjectName(QStringLiteral("push_Productores"));
         push_Productores->setGeometry(QRect(0, 280, 300, 50));
         push_Productores->setMinimumSize(QSize(160, 50));
-        push_Productores->setFont(font6);
+        push_Productores->setFont(font7);
         push_Productores->setStyleSheet(QLatin1String("\n"
 "QPushButton{\n"
 "color:black;\n"
@@ -8811,7 +8778,7 @@ public:
         push_Compradores->setObjectName(QStringLiteral("push_Compradores"));
         push_Compradores->setGeometry(QRect(0, 340, 300, 50));
         push_Compradores->setMinimumSize(QSize(160, 50));
-        push_Compradores->setFont(font6);
+        push_Compradores->setFont(font7);
         push_Compradores->setStyleSheet(QLatin1String("\n"
 "QPushButton{\n"
 "color:black;\n"
@@ -8835,7 +8802,7 @@ public:
         push_Salidas->setObjectName(QStringLiteral("push_Salidas"));
         push_Salidas->setGeometry(QRect(0, 160, 300, 50));
         push_Salidas->setMinimumSize(QSize(160, 50));
-        push_Salidas->setFont(font6);
+        push_Salidas->setFont(font7);
         push_Salidas->setLayoutDirection(Qt::LeftToRight);
         push_Salidas->setAutoFillBackground(false);
         push_Salidas->setStyleSheet(QLatin1String("\n"
@@ -8871,7 +8838,7 @@ public:
         push_Silos->setEnabled(true);
         push_Silos->setGeometry(QRect(0, 400, 300, 50));
         push_Silos->setMinimumSize(QSize(160, 50));
-        push_Silos->setFont(font6);
+        push_Silos->setFont(font7);
         push_Silos->setStyleSheet(QLatin1String("\n"
 "QPushButton{\n"
 "color:black;\n"
@@ -8979,7 +8946,7 @@ public:
         Usuario_Actual->setGeometry(QRect(30, 220, 240, 74));
         Usuario_Actual->setMinimumSize(QSize(0, 0));
         Usuario_Actual->setMaximumSize(QSize(240, 100));
-        Usuario_Actual->setFont(font6);
+        Usuario_Actual->setFont(font7);
         Usuario_Actual->setStyleSheet(QLatin1String("font: 30pt \"Bahnschrift\";\n"
 "color:black;\n"
 "border:0px solid black;\n"
@@ -9089,7 +9056,7 @@ public:
         retranslateUi(Pantalla_Principal);
 
         SW_Zona_Principal->setCurrentIndex(0);
-        tabWidget->setCurrentIndex(0);
+        Registros_Tab->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(Pantalla_Principal);
@@ -9156,7 +9123,6 @@ public:
         push_Entrada_Borrar->setText(QApplication::translate("Pantalla_Principal", "Borrar Boleta", nullptr));
         push_Entrada_Limpiar->setText(QApplication::translate("Pantalla_Principal", "Limpiar Campos", nullptr));
         push_Entrada_Update->setText(QApplication::translate("Pantalla_Principal", "Actualizar Campos", nullptr));
-        Panel_Registros->setText(QApplication::translate("Pantalla_Principal", "Registros", nullptr));
         QTableWidgetItem *___qtablewidgetitem = Registros_Ind->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("Pantalla_Principal", "Folio #", nullptr));
         QTableWidgetItem *___qtablewidgetitem1 = Registros_Ind->horizontalHeaderItem(1);
@@ -9198,7 +9164,7 @@ public:
         label_48->setText(QApplication::translate("Pantalla_Principal", "Grano Entregado", nullptr));
         label_51->setText(QApplication::translate("Pantalla_Principal", "Kgs", nullptr));
         GranoEntregado->setText(QApplication::translate("Pantalla_Principal", "0000", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(Individual), QApplication::translate("Pantalla_Principal", "Individual", nullptr));
+        Registros_Tab->setTabText(Registros_Tab->indexOf(Individual), QApplication::translate("Pantalla_Principal", "Individual", nullptr));
         Ciclo_Gen->setText(QApplication::translate("Pantalla_Principal", "Ciclo:", nullptr));
 #ifndef QT_NO_TOOLTIP
         RegGen_Print->setToolTip(QString());
@@ -9217,7 +9183,7 @@ public:
         label_47->setText(QApplication::translate("Pantalla_Principal", "Total de Grano", nullptr));
         TotalGranoEntregado->setText(QApplication::translate("Pantalla_Principal", "0000", nullptr));
         label_50->setText(QApplication::translate("Pantalla_Principal", "Kgs", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(General), QApplication::translate("Pantalla_Principal", "General", nullptr));
+        Registros_Tab->setTabText(Registros_Tab->indexOf(General), QApplication::translate("Pantalla_Principal", "General", nullptr));
         Fondo_2->setText(QString());
         Panel_Adeudos->setText(QApplication::translate("Pantalla_Principal", "Adeudos", nullptr));
         RetenCuotaConservacion->setText(QApplication::translate("Pantalla_Principal", "Cuota de Conservacion de Grano:", nullptr));
@@ -9323,7 +9289,6 @@ public:
         label_204->setText(QApplication::translate("Pantalla_Principal", "$", nullptr));
         label_202->setText(QApplication::translate("Pantalla_Principal", "$", nullptr));
         Fondo_3->setText(QString());
-        Panel_Productores->setText(QApplication::translate("Pantalla_Principal", "Productores", nullptr));
         Nombre->setText(QApplication::translate("Pantalla_Principal", "Nombre", nullptr));
         Predio_Lista_Prod_2->setText(QApplication::translate("Pantalla_Principal", "Predio", nullptr));
         Ciudad_Lista_Prod->setText(QApplication::translate("Pantalla_Principal", "Ciudad, Ejido", nullptr));
@@ -9370,7 +9335,6 @@ public:
 #endif // QT_NO_WHATSTHIS
         Prod_Update->setText(QApplication::translate("Pantalla_Principal", "Actualizar \n"
 "Registro", nullptr));
-        Panel_Compradores->setText(QApplication::translate("Pantalla_Principal", "Compradores", nullptr));
         Razon_Social->setText(QApplication::translate("Pantalla_Principal", "Razon Social", nullptr));
         Contacto->setText(QApplication::translate("Pantalla_Principal", "Nombre Contacto", nullptr));
         Direccion->setText(QApplication::translate("Pantalla_Principal", "Direccion", nullptr));
@@ -9381,7 +9345,7 @@ public:
         Estado->setText(QApplication::translate("Pantalla_Principal", "Estado", nullptr));
         Comprador->setText(QApplication::translate("Pantalla_Principal", "Datos del Comprador", nullptr));
         RFC->setText(QApplication::translate("Pantalla_Principal", "RFC", nullptr));
-        Estado_2->setText(QApplication::translate("Pantalla_Principal", "Precio Tonelada", nullptr));
+        Precio_Ton->setText(QApplication::translate("Pantalla_Principal", "Precio Tonelada", nullptr));
         ListaCompradores->setText(QApplication::translate("Pantalla_Principal", "Lista de Compradores", nullptr));
         Fondo_5->setText(QString());
 #ifndef QT_NO_TOOLTIP
@@ -9416,7 +9380,6 @@ public:
 #endif // QT_NO_WHATSTHIS
         Comp_Update->setText(QApplication::translate("Pantalla_Principal", "Actualizar \n"
 "Registro", nullptr));
-        Panel_Liquidacion->setText(QApplication::translate("Pantalla_Principal", "Liquidacion", nullptr));
         Liq_Prod->setText(QApplication::translate("Pantalla_Principal", "Productor", nullptr));
         Liq_Ciclo->setText(QApplication::translate("Pantalla_Principal", "Ciclo", nullptr));
         Liq_Ciclo_edit->setText(QApplication::translate("Pantalla_Principal", "0", nullptr));
@@ -9448,6 +9411,9 @@ public:
         Liq_Dedc_Humedad_edit->setText(QString());
         Liq_NoProd->setText(QApplication::translate("Pantalla_Principal", "Productor Num:", nullptr));
         Liq_NoProd_edit->setText(QString());
+        kgs_10->setText(QApplication::translate("Pantalla_Principal", "Tons", nullptr));
+        kgs_11->setText(QApplication::translate("Pantalla_Principal", "Tons", nullptr));
+        kgs_12->setText(QApplication::translate("Pantalla_Principal", "Tons", nullptr));
         Liq_Reten_ConsGrano->setText(QApplication::translate("Pantalla_Principal", "Cuota de Cons Grano", nullptr));
         Liq_Reten_Sanidad->setText(QApplication::translate("Pantalla_Principal", "Sanidad Vegetal", nullptr));
         Liq_Reten_IvaSecado->setText(QApplication::translate("Pantalla_Principal", "Iva Secado", nullptr));
@@ -9468,7 +9434,7 @@ public:
 " Humedad", nullptr));
         Liq_Dedc_Merma_edit->setText(QApplication::translate("Pantalla_Principal", "00", nullptr));
         Liq_Dedc_Deducciones_edit->setText(QApplication::translate("Pantalla_Principal", "00", nullptr));
-        kgs_5->setText(QApplication::translate("Pantalla_Principal", "Kgs", nullptr));
+        kgs_5->setText(QApplication::translate("Pantalla_Principal", "Tons", nullptr));
         kgs_6->setText(QApplication::translate("Pantalla_Principal", "Kgs", nullptr));
         Liq_Liquidacion->setText(QApplication::translate("Pantalla_Principal", "Liquidacion", nullptr));
         Boletas->setText(QApplication::translate("Pantalla_Principal", "Boletas", nullptr));
@@ -9480,8 +9446,8 @@ public:
         Liq_Total_Analizado->setText(QApplication::translate("Pantalla_Principal", "Peso Analizado", nullptr));
         Liq_Total_Analizado_edit->setText(QApplication::translate("Pantalla_Principal", "00", nullptr));
         Liq_Total_PrecioTon_edit->setText(QApplication::translate("Pantalla_Principal", "00", nullptr));
-        kgs_7->setText(QApplication::translate("Pantalla_Principal", "Kgs", nullptr));
-        kgs_8->setText(QApplication::translate("Pantalla_Principal", "Kgs", nullptr));
+        kgs_7->setText(QApplication::translate("Pantalla_Principal", "Tons", nullptr));
+        kgs_8->setText(QApplication::translate("Pantalla_Principal", "Mx", nullptr));
         kgs_9->setText(QApplication::translate("Pantalla_Principal", "Mx", nullptr));
         Deducciones_2->setText(QApplication::translate("Pantalla_Principal", "TOTALES", nullptr));
         Fondo_6->setText(QString());
@@ -9492,27 +9458,34 @@ public:
         Cuotas_Grano->setText(QApplication::translate("Pantalla_Principal", "Cuota Conservacion Grano", nullptr));
         Cuotas_Modulo->setText(QApplication::translate("Pantalla_Principal", "Modulo San Fernando Sur", nullptr));
         Cuotas->setText(QApplication::translate("Pantalla_Principal", "Cuotas", nullptr));
-        Socios->setText(QApplication::translate("Pantalla_Principal", "Socios", nullptr));
+        Actual->setText(QApplication::translate("Pantalla_Principal", "Buscar Actualizaciones al inciar?", nullptr));
+        Tipo_Grano->setText(QApplication::translate("Pantalla_Principal", "Tipo de Grano:", nullptr));
         Socios_TonsxSocio_edit->setText(QString());
-        Socios_TonsxSocio->setText(QApplication::translate("Pantalla_Principal", "Toneladas derecho x Socio", nullptr));
-        actualizacion->setText(QApplication::translate("Pantalla_Principal", "Buscar Actualizaciones al inciar?", nullptr));
+        Socios_TonsxSocio->setText(QApplication::translate("Pantalla_Principal", "Toneladas x Socio", nullptr));
         otros->setText(QApplication::translate("Pantalla_Principal", "Otros", nullptr));
         User_Add->setText(QApplication::translate("Pantalla_Principal", "Agregar Usuario", nullptr));
         User_Add_usuario->setText(QApplication::translate("Pantalla_Principal", "Usuario: ", nullptr));
         User_Add_pass->setText(QApplication::translate("Pantalla_Principal", "Password:", nullptr));
         User_Add_nombre->setText(QApplication::translate("Pantalla_Principal", "Nombres:", nullptr));
-        User_Add_apellidos->setText(QApplication::translate("Pantalla_Principal", "Apellidos", nullptr));
+        User_Add_apellidos->setText(QApplication::translate("Pantalla_Principal", "Apellidos:", nullptr));
         User_Add_direccion->setText(QApplication::translate("Pantalla_Principal", "Direccion:", nullptr));
-        User_Add_telefono->setText(QApplication::translate("Pantalla_Principal", "Telefono", nullptr));
-        User_Add_puesto->setText(QApplication::translate("Pantalla_Principal", "Puesto", nullptr));
+        User_Add_telefono->setText(QApplication::translate("Pantalla_Principal", "Telefono:", nullptr));
+        User_Add_puesto->setText(QApplication::translate("Pantalla_Principal", "Puesto:", nullptr));
         User_Del->setText(QApplication::translate("Pantalla_Principal", "Borrar Usuario", nullptr));
 #ifndef QT_NO_TOOLTIP
-        Comp_Guardar_2->setToolTip(QString());
+        User_Del_Push->setToolTip(QString());
 #endif // QT_NO_TOOLTIP
 #ifndef QT_NO_WHATSTHIS
-        Comp_Guardar_2->setWhatsThis(QString());
+        User_Del_Push->setWhatsThis(QString());
 #endif // QT_NO_WHATSTHIS
-        Comp_Guardar_2->setText(QApplication::translate("Pantalla_Principal", "Borrar", nullptr));
+        User_Del_Push->setText(QApplication::translate("Pantalla_Principal", "Borrar", nullptr));
+#ifndef QT_NO_TOOLTIP
+        User_Add_Push->setToolTip(QString());
+#endif // QT_NO_TOOLTIP
+#ifndef QT_NO_WHATSTHIS
+        User_Add_Push->setWhatsThis(QString());
+#endif // QT_NO_WHATSTHIS
+        User_Add_Push->setText(QApplication::translate("Pantalla_Principal", "Crear", nullptr));
         otros_2->setText(QApplication::translate("Pantalla_Principal", "Usuarios", nullptr));
         Fondo_7->setText(QString());
         Panel_DrynWet->setText(QApplication::translate("Pantalla_Principal", "Humedad y Secado", nullptr));
@@ -9885,7 +9858,6 @@ public:
 #endif // QT_NO_WHATSTHIS
         push_BeforeTable->setText(QApplication::translate("Pantalla_Principal", "Tabla Anterior", nullptr));
         Panel_DrynWet_2->setText(QApplication::translate("Pantalla_Principal", "Humedad y Secado", nullptr));
-        Panel_Salidas->setText(QApplication::translate("Pantalla_Principal", "Salidas", nullptr));
         Fondo_11->setText(QString());
         Peso_Tara_2->setText(QApplication::translate("Pantalla_Principal", "Tara", nullptr));
         Peso_Bruto_2->setText(QApplication::translate("Pantalla_Principal", "Bruto", nullptr));
