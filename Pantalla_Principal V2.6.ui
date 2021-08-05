@@ -175,7 +175,11 @@ border-radius:0px;</string>
      <number>2</number>
     </property>
     <property name="currentIndex">
+<<<<<<< HEAD
      <number>0</number>
+=======
+     <number>2</number>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
     </property>
     <widget class="QWidget" name="page_Landing">
      <widget class="QLabel" name="SplashScreenLogo">
@@ -2047,6 +2051,65 @@ border-width:0px;
      <property name="styleSheet">
       <string notr="true"/>
      </property>
+<<<<<<< HEAD
+=======
+     <widget class="QLabel" name="Panel_Registros">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>190</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>190</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Bahnschrift</family>
+        <pointsize>30</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 30pt &quot;Bahnschrift&quot;;
+border-width:3px;
+border-color:rgb(255, 20, 82);
+border-style:none none solid none;
+border-radius:0px;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <property name="lineWidth">
+       <number>2</number>
+      </property>
+      <property name="midLineWidth">
+       <number>0</number>
+      </property>
+      <property name="text">
+       <string>Registros</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
      <widget class="QFrame" name="frame_19">
       <property name="geometry">
        <rect>
@@ -2067,7 +2130,11 @@ border-radius: 20px</string>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
+<<<<<<< HEAD
       <widget class="QTabWidget" name="Registros_Tab">
+=======
+      <widget class="QTabWidget" name="tabWidget">
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -3311,6 +3378,10 @@ border-color: rgb(255, 255, 255);</string>
      </widget>
      <zorder>Fondo_2</zorder>
      <zorder>frame_19</zorder>
+<<<<<<< HEAD
+=======
+     <zorder>Panel_Registros</zorder>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
     </widget>
     <widget class="QWidget" name="page_Adeudos">
      <widget class="QLabel" name="Panel_Adeudos">
@@ -6423,6 +6494,65 @@ border-color: rgb(255, 255, 255);</string>
      <zorder>frame_18</zorder>
     </widget>
     <widget class="QWidget" name="page_Empleados">
+<<<<<<< HEAD
+=======
+     <widget class="QLabel" name="Panel_Productores">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>230</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>230</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Bahnschrift</family>
+        <pointsize>30</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 30pt &quot;Bahnschrift&quot;;
+border-width:3px;
+border-color:rgb(255, 20, 82);
+border-style:none none solid none;
+border-radius:0px;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <property name="lineWidth">
+       <number>2</number>
+      </property>
+      <property name="midLineWidth">
+       <number>0</number>
+      </property>
+      <property name="text">
+       <string>Productores</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
      <widget class="QFrame" name="frame_12">
       <property name="geometry">
        <rect>
@@ -6623,9 +6753,12 @@ border-style:solid;
 border-radius:8px;
 background:white;</string>
        </property>
+<<<<<<< HEAD
        <property name="maxLength">
         <number>1000000</number>
        </property>
+=======
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
        <property name="readOnly">
         <bool>false</bool>
        </property>
@@ -7410,6 +7543,10 @@ Registro</string>
       </property>
      </widget>
      <zorder>Fondo_4</zorder>
+<<<<<<< HEAD
+=======
+     <zorder>Panel_Productores</zorder>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
      <zorder>frame_12</zorder>
      <zorder>Prod_Guardar</zorder>
      <zorder>frame_15</zorder>
@@ -7418,6 +7555,59 @@ Registro</string>
      <zorder>Prod_Update</zorder>
     </widget>
     <widget class="QWidget" name="page_Compradores">
+<<<<<<< HEAD
+=======
+     <widget class="QLabel" name="Panel_Compradores">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>240</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Bahnschrift</family>
+        <pointsize>30</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 30pt &quot;Bahnschrift&quot;;
+border-width:3px;
+border-color:rgb(255, 20, 82);
+border-style:none none solid none;
+border-radius:0px;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <property name="lineWidth">
+       <number>2</number>
+      </property>
+      <property name="midLineWidth">
+       <number>0</number>
+      </property>
+      <property name="text">
+       <string>Compradores</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
      <widget class="QFrame" name="frame_13">
       <property name="geometry">
        <rect>
@@ -7940,7 +8130,11 @@ border-color: rgb(237, 237, 237);</string>
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
+<<<<<<< HEAD
       <widget class="QLineEdit" name="Precio_Ton_edit">
+=======
+      <widget class="QLineEdit" name="Estado_edit_2">
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
        <property name="geometry">
         <rect>
          <x>370</x>
@@ -7960,7 +8154,11 @@ background:white;</string>
         <bool>false</bool>
        </property>
       </widget>
+<<<<<<< HEAD
       <widget class="QLabel" name="Precio_Ton">
+=======
+      <widget class="QLabel" name="Estado_2">
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
        <property name="geometry">
         <rect>
          <x>380</x>
@@ -8000,7 +8198,11 @@ border-color: rgb(237, 237, 237);</string>
       <zorder>Whatsapp</zorder>
       <zorder>Ciudad</zorder>
       <zorder>RFC</zorder>
+<<<<<<< HEAD
       <zorder>Precio_Ton</zorder>
+=======
+      <zorder>Estado_2</zorder>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
       <zorder>Contacto_edit</zorder>
       <zorder>Razon_Social_edit</zorder>
       <zorder>Direccion_edit</zorder>
@@ -8011,7 +8213,11 @@ border-color: rgb(237, 237, 237);</string>
       <zorder>Email_edit</zorder>
       <zorder>Comprador</zorder>
       <zorder>RFC_edit</zorder>
+<<<<<<< HEAD
       <zorder>Precio_Ton_edit</zorder>
+=======
+      <zorder>Estado_edit_2</zorder>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
      </widget>
      <widget class="QFrame" name="frame_17">
       <property name="geometry">
@@ -8344,6 +8550,10 @@ Registro</string>
       </property>
      </widget>
      <zorder>Fondo_5</zorder>
+<<<<<<< HEAD
+=======
+     <zorder>Panel_Compradores</zorder>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
      <zorder>frame_13</zorder>
      <zorder>frame_17</zorder>
      <zorder>Comp_Borrar</zorder>
@@ -8352,6 +8562,65 @@ Registro</string>
      <zorder>Comp_Update</zorder>
     </widget>
     <widget class="QWidget" name="page_Liquidacion">
+<<<<<<< HEAD
+=======
+     <widget class="QLabel" name="Panel_Liquidacion">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>230</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>230</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Bahnschrift</family>
+        <pointsize>30</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 30pt &quot;Bahnschrift&quot;;
+border-width:3px;
+border-color:rgb(255, 20, 82);
+border-style:none none solid none;
+border-radius:0px;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <property name="lineWidth">
+       <number>2</number>
+      </property>
+      <property name="midLineWidth">
+       <number>0</number>
+      </property>
+      <property name="text">
+       <string>Liquidacion</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
      <widget class="QFrame" name="frame_4">
       <property name="geometry">
        <rect>
@@ -8982,7 +9251,11 @@ border-color: transparent;</string>
        <widget class="QLabel" name="Liq_Fecha_Info_edit">
         <property name="geometry">
          <rect>
+<<<<<<< HEAD
           <x>460</x>
+=======
+          <x>480</x>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
           <y>10</y>
           <width>141</width>
           <height>31</height>
@@ -9177,6 +9450,7 @@ border-color: transparent;</string>
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
        </widget>
+<<<<<<< HEAD
        <widget class="QLabel" name="kgs_10">
         <property name="geometry">
          <rect>
@@ -9243,6 +9517,8 @@ border-color: transparent;</string>
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
+=======
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
       </widget>
       <widget class="QFrame" name="frame_23">
        <property name="geometry">
@@ -9741,7 +10017,11 @@ background:transparent;
 border-color: transparent;</string>
         </property>
         <property name="text">
+<<<<<<< HEAD
          <string>Tons</string>
+=======
+         <string>Kgs</string>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -9917,7 +10197,11 @@ border-color: transparent;</string>
        <widget class="QLabel" name="Liq_Total_Pagar_edit">
         <property name="geometry">
          <rect>
+<<<<<<< HEAD
           <x>130</x>
+=======
+          <x>140</x>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
           <y>70</y>
           <width>151</width>
           <height>31</height>
@@ -10007,7 +10291,11 @@ border-color: transparent;</string>
        <widget class="QLabel" name="Liq_Total_PrecioTon_edit">
         <property name="geometry">
          <rect>
+<<<<<<< HEAD
           <x>148</x>
+=======
+          <x>150</x>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
           <y>40</y>
           <width>130</width>
           <height>31</height>
@@ -10042,7 +10330,11 @@ background:transparent;
 border-color: transparent;</string>
         </property>
         <property name="text">
+<<<<<<< HEAD
          <string>Tons</string>
+=======
+         <string>Kgs</string>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -10064,7 +10356,11 @@ background:transparent;
 border-color: transparent;</string>
         </property>
         <property name="text">
+<<<<<<< HEAD
          <string>Mx</string>
+=======
+         <string>Kgs</string>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -10092,15 +10388,24 @@ border-color: transparent;</string>
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
+<<<<<<< HEAD
        <zorder>Liq_Total_Analizado_edit</zorder>
        <zorder>Liq_Total_PrecioTon_edit</zorder>
        <zorder>Liq_Total_Pagar_edit</zorder>
+=======
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
        <zorder>kgs_9</zorder>
        <zorder>Liq_Total_Pagar</zorder>
        <zorder>Liq_Total_PrecioTon</zorder>
        <zorder>Liq_Total_Analizado</zorder>
        <zorder>kgs_7</zorder>
        <zorder>kgs_8</zorder>
+<<<<<<< HEAD
+=======
+       <zorder>Liq_Total_Analizado_edit</zorder>
+       <zorder>Liq_Total_PrecioTon_edit</zorder>
+       <zorder>Liq_Total_Pagar_edit</zorder>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
       </widget>
       <widget class="QLabel" name="Deducciones_2">
        <property name="geometry">
@@ -10156,6 +10461,10 @@ border-color: transparent;</string>
       </property>
      </widget>
      <zorder>Fondo_6</zorder>
+<<<<<<< HEAD
+=======
+     <zorder>Panel_Liquidacion</zorder>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
      <zorder>frame_4</zorder>
     </widget>
     <widget class="QWidget" name="page_Opciones">
@@ -10218,8 +10527,13 @@ border-radius:0px;</string>
      <widget class="QFrame" name="frame_16">
       <property name="geometry">
        <rect>
+<<<<<<< HEAD
         <x>260</x>
         <y>70</y>
+=======
+        <x>160</x>
+        <y>60</y>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
         <width>1131</width>
         <height>901</height>
        </rect>
@@ -10241,14 +10555,28 @@ border-radius:20px;</string>
       <widget class="QFrame" name="frame_28">
        <property name="geometry">
         <rect>
+<<<<<<< HEAD
          <x>30</x>
          <y>70</y>
+=======
+         <x>40</x>
+         <y>60</y>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
          <width>560</width>
          <height>180</height>
         </rect>
        </property>
        <property name="styleSheet">
+<<<<<<< HEAD
         <string notr="true"/>
+=======
+        <string notr="true">font: 16pt &quot;Bahnschrift&quot;;
+border-width:1px;
+border-color:rgb(150, 150, 150);
+background:transparent;
+border-style:solid;
+border-radius:10px;</string>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
        </property>
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
@@ -10384,7 +10712,11 @@ border-color: rgb(237, 237, 237);</string>
        <property name="geometry">
         <rect>
          <x>270</x>
+<<<<<<< HEAD
          <y>40</y>
+=======
+         <y>30</y>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
          <width>111</width>
          <height>31</height>
         </rect>
@@ -10402,6 +10734,7 @@ border-color: rgb(237, 237, 237);</string>
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
+<<<<<<< HEAD
       <widget class="QFrame" name="frame_31">
        <property name="geometry">
         <rect>
@@ -10409,6 +10742,37 @@ border-color: rgb(237, 237, 237);</string>
          <y>70</y>
          <width>471</width>
          <height>181</height>
+=======
+      <widget class="QLabel" name="Socios">
+       <property name="geometry">
+        <rect>
+         <x>260</x>
+         <y>250</y>
+         <width>111</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font:20px;
+border-radius:0px;
+background:transparent;
+border-color: rgb(237, 237, 237);</string>
+       </property>
+       <property name="text">
+        <string>Socios</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QFrame" name="frame_30">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>280</y>
+         <width>560</width>
+         <height>120</height>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
         </rect>
        </property>
        <property name="frameShape">
@@ -10417,6 +10781,7 @@ border-color: rgb(237, 237, 237);</string>
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
        </property>
+<<<<<<< HEAD
        <widget class="QCheckBox" name="Actual">
         <property name="geometry">
          <rect>
@@ -10442,6 +10807,14 @@ border-color: rgb(237, 237, 237);</string>
           <x>240</x>
           <y>130</y>
           <width>201</width>
+=======
+       <widget class="QLineEdit" name="Socios_TonsxSocio_edit">
+        <property name="geometry">
+         <rect>
+          <x>360</x>
+          <y>20</y>
+          <width>151</width>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
           <height>31</height>
          </rect>
         </property>
@@ -10452,6 +10825,7 @@ border-style:solid;
 border-radius:8px;
 background:white;</string>
         </property>
+<<<<<<< HEAD
        </widget>
        <widget class="QLabel" name="Tipo_Grano">
         <property name="geometry">
@@ -10470,21 +10844,35 @@ border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
          <string>Tipo de Grano:</string>
+=======
+        <property name="text">
+         <string/>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
+<<<<<<< HEAD
        <widget class="QLineEdit" name="Socios_TonsxSocio_edit">
         <property name="geometry">
          <rect>
           <x>260</x>
           <y>80</y>
           <width>161</width>
+=======
+       <widget class="QLabel" name="Socios_TonsxSocio">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>20</y>
+          <width>271</width>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
           <height>31</height>
          </rect>
         </property>
         <property name="styleSheet">
+<<<<<<< HEAD
          <string notr="true">border-width:1px;
 border-color:rgb(30,30,30);
 border-style:solid;
@@ -10493,17 +10881,51 @@ background:white;</string>
         </property>
         <property name="text">
          <string/>
+=======
+         <string notr="true">font:20px;
+border-radius:0px;
+background:transparent;
+border-color: rgb(237, 237, 237);</string>
+        </property>
+        <property name="text">
+         <string>Toneladas derecho x Socio</string>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
+<<<<<<< HEAD
        <widget class="QLabel" name="Socios_TonsxSocio">
         <property name="geometry">
          <rect>
           <x>40</x>
           <y>80</y>
           <width>191</width>
+=======
+      </widget>
+      <widget class="QFrame" name="frame_31">
+       <property name="geometry">
+        <rect>
+         <x>660</x>
+         <y>70</y>
+         <width>431</width>
+         <height>80</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QCheckBox" name="actualizacion">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>30</y>
+          <width>331</width>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
           <height>31</height>
          </rect>
         </property>
@@ -10514,6 +10936,7 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
+<<<<<<< HEAD
          <string>Toneladas x Socio</string>
         </property>
         <property name="alignment">
@@ -10525,11 +10948,20 @@ border-color: rgb(237, 237, 237);</string>
        <zorder>Tipo_Grano_CB</zorder>
        <zorder>Tipo_Grano</zorder>
        <zorder>Socios_TonsxSocio_edit</zorder>
+=======
+         <string>Buscar Actualizaciones al inciar?</string>
+        </property>
+       </widget>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
       </widget>
       <widget class="QLabel" name="otros">
        <property name="geometry">
         <rect>
+<<<<<<< HEAD
          <x>780</x>
+=======
+         <x>870</x>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
          <y>40</y>
          <width>111</width>
          <height>31</height>
@@ -10551,10 +10983,17 @@ border-color: rgb(237, 237, 237);</string>
       <widget class="QFrame" name="frame_37">
        <property name="geometry">
         <rect>
+<<<<<<< HEAD
          <x>30</x>
          <y>300</y>
          <width>781</width>
          <height>371</height>
+=======
+         <x>50</x>
+         <y>450</y>
+         <width>781</width>
+         <height>361</height>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
         </rect>
        </property>
        <property name="frameShape">
@@ -10585,7 +11024,11 @@ border-color: rgb(237, 237, 237);</string>
        <widget class="QLabel" name="User_Add_usuario">
         <property name="geometry">
          <rect>
+<<<<<<< HEAD
           <x>34</x>
+=======
+          <x>30</x>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
           <y>70</y>
           <width>111</width>
           <height>31</height>
@@ -10627,7 +11070,11 @@ background:white;</string>
        <widget class="QLabel" name="User_Add_pass">
         <property name="geometry">
          <rect>
+<<<<<<< HEAD
           <x>23</x>
+=======
+          <x>30</x>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
           <y>110</y>
           <width>111</width>
           <height>31</height>
@@ -10669,7 +11116,11 @@ background:white;</string>
        <widget class="QLabel" name="User_Add_nombre">
         <property name="geometry">
          <rect>
+<<<<<<< HEAD
           <x>27</x>
+=======
+          <x>30</x>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
           <y>150</y>
           <width>111</width>
           <height>31</height>
@@ -10711,7 +11162,11 @@ background:white;</string>
        <widget class="QLabel" name="User_Add_apellidos">
         <property name="geometry">
          <rect>
+<<<<<<< HEAD
           <x>27</x>
+=======
+          <x>30</x>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
           <y>190</y>
           <width>111</width>
           <height>31</height>
@@ -10724,7 +11179,11 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
+<<<<<<< HEAD
          <string>Apellidos:</string>
+=======
+         <string>Apellidos</string>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -10753,7 +11212,11 @@ background:white;</string>
        <widget class="QLabel" name="User_Add_direccion">
         <property name="geometry">
          <rect>
+<<<<<<< HEAD
           <x>28</x>
+=======
+          <x>30</x>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
           <y>230</y>
           <width>111</width>
           <height>31</height>
@@ -10795,7 +11258,11 @@ background:white;</string>
        <widget class="QLabel" name="User_Add_telefono">
         <property name="geometry">
          <rect>
+<<<<<<< HEAD
           <x>33</x>
+=======
+          <x>30</x>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
           <y>270</y>
           <width>111</width>
           <height>31</height>
@@ -10808,7 +11275,11 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
+<<<<<<< HEAD
          <string>Telefono:</string>
+=======
+         <string>Telefono</string>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -10837,9 +11308,15 @@ background:white;</string>
        <widget class="QLabel" name="User_Add_puesto">
         <property name="geometry">
          <rect>
+<<<<<<< HEAD
           <x>48</x>
           <y>310</y>
           <width>91</width>
+=======
+          <x>30</x>
+          <y>310</y>
+          <width>111</width>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
           <height>31</height>
          </rect>
         </property>
@@ -10850,7 +11327,11 @@ background:transparent;
 border-color: rgb(237, 237, 237);</string>
         </property>
         <property name="text">
+<<<<<<< HEAD
          <string>Puesto:</string>
+=======
+         <string>Puesto</string>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -10879,7 +11360,11 @@ background:white;</string>
        <widget class="QCheckBox" name="User_Del">
         <property name="geometry">
          <rect>
+<<<<<<< HEAD
           <x>440</x>
+=======
+          <x>400</x>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
           <y>20</y>
           <width>190</width>
           <height>31</height>
@@ -10895,7 +11380,11 @@ border-color: rgb(237, 237, 237);</string>
          <string>Borrar Usuario</string>
         </property>
        </widget>
+<<<<<<< HEAD
        <widget class="QComboBox" name="User_Del_CB">
+=======
+       <widget class="QComboBox" name="comboBox">
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
         <property name="geometry">
          <rect>
           <x>440</x>
@@ -10904,6 +11393,7 @@ border-color: rgb(237, 237, 237);</string>
           <height>31</height>
          </rect>
         </property>
+<<<<<<< HEAD
         <property name="styleSheet">
          <string notr="true">border-width:1px;
 border-color:rgb(30,30,30);
@@ -10917,6 +11407,14 @@ background:white;</string>
          <rect>
           <x>590</x>
           <y>160</y>
+=======
+       </widget>
+       <widget class="QPushButton" name="Comp_Guardar_2">
+        <property name="geometry">
+         <rect>
+          <x>510</x>
+          <y>130</y>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
           <width>121</width>
           <height>41</height>
          </rect>
@@ -10963,6 +11461,7 @@ border-width:0px;
          <string>Borrar</string>
         </property>
        </widget>
+<<<<<<< HEAD
        <widget class="QPushButton" name="User_Add_Push">
         <property name="geometry">
          <rect>
@@ -11014,13 +11513,21 @@ border-width:0px;
          <string>Crear</string>
         </property>
        </widget>
+=======
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
       </widget>
       <widget class="QLabel" name="otros_2">
        <property name="geometry">
         <rect>
+<<<<<<< HEAD
          <x>270</x>
          <y>270</y>
          <width>120</width>
+=======
+         <x>200</x>
+         <y>410</y>
+         <width>111</width>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
          <height>31</height>
         </rect>
        </property>
@@ -11040,6 +11547,11 @@ border-color: rgb(237, 237, 237);</string>
       <zorder>otros</zorder>
       <zorder>Cuotas</zorder>
       <zorder>frame_28</zorder>
+<<<<<<< HEAD
+=======
+      <zorder>Socios</zorder>
+      <zorder>frame_30</zorder>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
       <zorder>otros_2</zorder>
       <zorder>frame_37</zorder>
       <zorder>frame_31</zorder>
@@ -19478,6 +19990,59 @@ border-radius:0px;</string>
      </widget>
     </widget>
     <widget class="QWidget" name="page">
+<<<<<<< HEAD
+=======
+     <widget class="QLabel" name="Panel_Salidas">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>180</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Bahnschrift</family>
+        <pointsize>30</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 30pt &quot;Bahnschrift&quot;;
+border-width:3px;
+border-color:rgb(255, 20, 82);
+border-style:none none solid none;
+border-radius:0px;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <property name="lineWidth">
+       <number>2</number>
+      </property>
+      <property name="midLineWidth">
+       <number>0</number>
+      </property>
+      <property name="text">
+       <string>Salidas</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
      <widget class="QLabel" name="Fondo_11">
       <property name="geometry">
        <rect>
@@ -19902,7 +20467,11 @@ background:white;
 </string>
        </property>
       </widget>
+<<<<<<< HEAD
       <widget class="QLabel" name="Salidas_Neto">
+=======
+      <widget class="QLabel" name="Peso_Neto_2">
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
        <property name="geometry">
         <rect>
          <x>70</x>
@@ -19964,13 +20533,21 @@ border-color: rgb(237, 237, 237);</string>
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
+<<<<<<< HEAD
       <widget class="QLabel" name="Salidas_Neto_edit">
+=======
+      <widget class="QLabel" name="Peso_Neto_edit_2">
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
        <property name="geometry">
         <rect>
          <x>40</x>
          <y>120</y>
          <width>140</width>
+<<<<<<< HEAD
          <height>35</height>
+=======
+         <height>31</height>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
         </rect>
        </property>
        <property name="font">
@@ -19984,8 +20561,13 @@ border-color: rgb(237, 237, 237);</string>
        </property>
        <property name="styleSheet">
         <string notr="true">font:20px;
+<<<<<<< HEAD
 border-radius:10px;
 background:white;
+=======
+border-radius:0px;
+background:transparent;
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
 border-color: rgb(237, 237, 237);</string>
        </property>
        <property name="text">
@@ -20009,8 +20591,13 @@ border-color: rgb(237, 237, 237);</string>
       <zorder>Salidas_Silo_2</zorder>
       <zorder>Peso_Espe_2</zorder>
       <zorder>Salidas_Espe_edit</zorder>
+<<<<<<< HEAD
       <zorder>Salidas_Neto</zorder>
       <zorder>Salidas_Neto_edit</zorder>
+=======
+      <zorder>Peso_Neto_2</zorder>
+      <zorder>Peso_Neto_edit_2</zorder>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
      </widget>
      <widget class="QPushButton" name="push_Salidas_Nuevo">
       <property name="geometry">
@@ -21061,7 +21648,11 @@ border-color: rgb(237, 237, 237);
 border-width:0px;</string>
        </property>
        <property name="text">
+<<<<<<< HEAD
         <string>Comprador</string>
+=======
+        <string>Productor</string>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -21203,6 +21794,19 @@ border-width:0px;
        <string>Actualizar Campos</string>
       </property>
      </widget>
+<<<<<<< HEAD
+=======
+     <zorder>Fondo_11</zorder>
+     <zorder>Panel_Salidas</zorder>
+     <zorder>frame_6</zorder>
+     <zorder>push_Salidas_Nuevo</zorder>
+     <zorder>push_Salidas_Limpiar</zorder>
+     <zorder>frame_38</zorder>
+     <zorder>BOLETAS_Salidas</zorder>
+     <zorder>frame_39</zorder>
+     <zorder>push_Salidas_Borrar</zorder>
+     <zorder>push_Salidas_Update</zorder>
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
     </widget>
     <widget class="QWidget" name="page_2">
      <widget class="QLabel" name="Panel_Silos">
@@ -21378,6 +21982,7 @@ border-width:0px;</string>
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
      </widget>
+<<<<<<< HEAD
      <widget class="QGraphicsView" name="graphicsView">
       <property name="geometry">
        <rect>
@@ -21388,13 +21993,18 @@ border-width:0px;</string>
        </rect>
       </property>
      </widget>
+=======
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
      <zorder>Fondo_10</zorder>
      <zorder>Panel_Silos</zorder>
      <zorder>Silo_Total_1</zorder>
      <zorder>Silo_Total_2</zorder>
      <zorder>icon_Arrow_9</zorder>
      <zorder>icon_Arrow_8</zorder>
+<<<<<<< HEAD
      <zorder>graphicsView</zorder>
+=======
+>>>>>>> 5c8e1817509e6cba03e0d0a9709861f3438c7118
     </widget>
    </widget>
    <widget class="QFrame" name="Barra_lateral">
