@@ -9434,7 +9434,7 @@ public:
 " Humedad", nullptr));
         Liq_Dedc_Merma_edit->setText(QApplication::translate("Pantalla_Principal", "00", nullptr));
         Liq_Dedc_Deducciones_edit->setText(QApplication::translate("Pantalla_Principal", "00", nullptr));
-        kgs_5->setText(QApplication::translate("Pantalla_Principal", "Tons", nullptr));
+        kgs_5->setText(QApplication::translate("Pantalla_Principal", "Kgs", nullptr));
         kgs_6->setText(QApplication::translate("Pantalla_Principal", "Kgs", nullptr));
         Liq_Liquidacion->setText(QApplication::translate("Pantalla_Principal", "Liquidacion", nullptr));
         Boletas->setText(QApplication::translate("Pantalla_Principal", "Boletas", nullptr));
