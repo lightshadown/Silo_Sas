@@ -1952,7 +1952,7 @@ border-width:0px;
       <property name="geometry">
        <rect>
         <x>1270</x>
-        <y>610</y>
+        <y>530</y>
         <width>200</width>
         <height>57</height>
        </rect>
@@ -1990,48 +1990,6 @@ border-width:0px;
        <string>Limpiar Campos</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="push_Entrada_Update">
-      <property name="geometry">
-       <rect>
-        <x>1270</x>
-        <y>530</y>
-        <width>200</width>
-        <height>57</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Bahnschrift</family>
-        <pointsize>-1</pointsize>
-        <weight>50</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">
-QPushButton{
-font:20px;
-color:black;
-background-color:rgb(252,252,252);
-border-color:transparent;
-border-width:1px;
-border-radius:20px;
-}
-
-QPushButton:hover{
-color:white;
-background-color:rgb(255, 130, 75);
-border-color:rgb(255,255,255);
-border-width:0px;
-}
-
-</string>
-      </property>
-      <property name="text">
-       <string>Actualizar Campos</string>
-      </property>
-     </widget>
      <zorder>Fondo_1</zorder>
      <zorder>BOLETAS</zorder>
      <zorder>frame</zorder>
@@ -2041,7 +1999,6 @@ border-width:0px;
      <zorder>push_Entradas_Nuevo</zorder>
      <zorder>push_Entrada_Borrar</zorder>
      <zorder>push_Entrada_Limpiar</zorder>
-     <zorder>push_Entrada_Update</zorder>
     </widget>
     <widget class="QWidget" name="page_Registros">
      <property name="styleSheet">
@@ -2795,7 +2752,7 @@ border-radius:0px;
 border-color: rgb(255, 255, 255);</string>
          </property>
          <property name="text">
-          <string>Kgs</string>
+          <string>Tons</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -20233,7 +20190,7 @@ border-width:0px;
       <property name="geometry">
        <rect>
         <x>1280</x>
-        <y>610</y>
+        <y>530</y>
         <width>200</width>
         <height>57</height>
        </rect>
@@ -21159,48 +21116,6 @@ border-width:0px;
       </property>
       <property name="text">
        <string>Borrar Boleta</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="push_Salidas_Update">
-      <property name="geometry">
-       <rect>
-        <x>1280</x>
-        <y>530</y>
-        <width>200</width>
-        <height>57</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Bahnschrift</family>
-        <pointsize>-1</pointsize>
-        <weight>50</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">
-QPushButton{
-font:20px;
-color:black;
-background-color:rgb(252,252,252);
-border-color:transparent;
-border-width:1px;
-border-radius:20px;
-}
-
-QPushButton:hover{
-color:white;
-background-color:rgb(255, 130, 75);
-border-color:rgb(255,255,255);
-border-width:0px;
-}
-
-</string>
-      </property>
-      <property name="text">
-       <string>Actualizar Campos</string>
       </property>
      </widget>
     </widget>

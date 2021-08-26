@@ -110,7 +110,6 @@ public:
     QPushButton *push_Entradas_Nuevo;
     QPushButton *push_Entrada_Borrar;
     QPushButton *push_Entrada_Limpiar;
-    QPushButton *push_Entrada_Update;
     QWidget *page_Registros;
     QFrame *frame_19;
     QTabWidget *Registros_Tab;
@@ -899,7 +898,6 @@ public:
     QLabel *label_8;
     QLabel *label_9;
     QPushButton *push_Salidas_Borrar;
-    QPushButton *push_Salidas_Update;
     QWidget *page_2;
     QLabel *Panel_Silos;
     QLabel *Fondo_10;
@@ -1667,31 +1665,9 @@ public:
 ""));
         push_Entrada_Limpiar = new QPushButton(page_Boletas);
         push_Entrada_Limpiar->setObjectName(QStringLiteral("push_Entrada_Limpiar"));
-        push_Entrada_Limpiar->setGeometry(QRect(1270, 610, 200, 57));
+        push_Entrada_Limpiar->setGeometry(QRect(1270, 530, 200, 57));
         push_Entrada_Limpiar->setFont(font4);
         push_Entrada_Limpiar->setStyleSheet(QLatin1String("\n"
-"QPushButton{\n"
-"font:20px;\n"
-"color:black;\n"
-"background-color:rgb(252,252,252);\n"
-"border-color:transparent;\n"
-"border-width:1px;\n"
-"border-radius:20px;\n"
-"}\n"
-"\n"
-"QPushButton:hover{\n"
-"color:white;\n"
-"background-color:rgb(255, 130, 75);\n"
-"border-color:rgb(255,255,255);\n"
-"border-width:0px;\n"
-"}\n"
-"\n"
-""));
-        push_Entrada_Update = new QPushButton(page_Boletas);
-        push_Entrada_Update->setObjectName(QStringLiteral("push_Entrada_Update"));
-        push_Entrada_Update->setGeometry(QRect(1270, 530, 200, 57));
-        push_Entrada_Update->setFont(font4);
-        push_Entrada_Update->setStyleSheet(QLatin1String("\n"
 "QPushButton{\n"
 "font:20px;\n"
 "color:black;\n"
@@ -1719,7 +1695,6 @@ public:
         push_Entradas_Nuevo->raise();
         push_Entrada_Borrar->raise();
         push_Entrada_Limpiar->raise();
-        push_Entrada_Update->raise();
         page_Registros = new QWidget();
         page_Registros->setObjectName(QStringLiteral("page_Registros"));
         page_Registros->setStyleSheet(QStringLiteral(""));
@@ -8151,7 +8126,7 @@ public:
 ""));
         push_Salidas_Limpiar = new QPushButton(page);
         push_Salidas_Limpiar->setObjectName(QStringLiteral("push_Salidas_Limpiar"));
-        push_Salidas_Limpiar->setGeometry(QRect(1280, 610, 200, 57));
+        push_Salidas_Limpiar->setGeometry(QRect(1280, 530, 200, 57));
         push_Salidas_Limpiar->setFont(font4);
         push_Salidas_Limpiar->setStyleSheet(QLatin1String("\n"
 "QPushButton{\n"
@@ -8495,28 +8470,6 @@ public:
         push_Salidas_Borrar->setGeometry(QRect(1280, 450, 200, 57));
         push_Salidas_Borrar->setFont(font4);
         push_Salidas_Borrar->setStyleSheet(QLatin1String("\n"
-"QPushButton{\n"
-"font:20px;\n"
-"color:black;\n"
-"background-color:rgb(252,252,252);\n"
-"border-color:transparent;\n"
-"border-width:1px;\n"
-"border-radius:20px;\n"
-"}\n"
-"\n"
-"QPushButton:hover{\n"
-"color:white;\n"
-"background-color:rgb(255, 130, 75);\n"
-"border-color:rgb(255,255,255);\n"
-"border-width:0px;\n"
-"}\n"
-"\n"
-""));
-        push_Salidas_Update = new QPushButton(page);
-        push_Salidas_Update->setObjectName(QStringLiteral("push_Salidas_Update"));
-        push_Salidas_Update->setGeometry(QRect(1280, 530, 200, 57));
-        push_Salidas_Update->setFont(font4);
-        push_Salidas_Update->setStyleSheet(QLatin1String("\n"
 "QPushButton{\n"
 "font:20px;\n"
 "color:black;\n"
@@ -9122,7 +9075,6 @@ public:
         push_Entradas_Nuevo->setText(QApplication::translate("Pantalla_Principal", "Nueva Boleta", nullptr));
         push_Entrada_Borrar->setText(QApplication::translate("Pantalla_Principal", "Borrar Boleta", nullptr));
         push_Entrada_Limpiar->setText(QApplication::translate("Pantalla_Principal", "Limpiar Campos", nullptr));
-        push_Entrada_Update->setText(QApplication::translate("Pantalla_Principal", "Actualizar Campos", nullptr));
         QTableWidgetItem *___qtablewidgetitem = Registros_Ind->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("Pantalla_Principal", "Folio #", nullptr));
         QTableWidgetItem *___qtablewidgetitem1 = Registros_Ind->horizontalHeaderItem(1);
@@ -9162,7 +9114,7 @@ public:
         Ciclo_Ind_10->setText(QApplication::translate("Pantalla_Principal", "Tara", nullptr));
         Ciclo_Ind_11->setText(QApplication::translate("Pantalla_Principal", "Neto", nullptr));
         label_48->setText(QApplication::translate("Pantalla_Principal", "Grano Entregado", nullptr));
-        label_51->setText(QApplication::translate("Pantalla_Principal", "Kgs", nullptr));
+        label_51->setText(QApplication::translate("Pantalla_Principal", "Tons", nullptr));
         GranoEntregado->setText(QApplication::translate("Pantalla_Principal", "0000", nullptr));
         Registros_Tab->setTabText(Registros_Tab->indexOf(Individual), QApplication::translate("Pantalla_Principal", "Individual", nullptr));
         Ciclo_Gen->setText(QApplication::translate("Pantalla_Principal", "Ciclo:", nullptr));
@@ -9899,7 +9851,6 @@ public:
         label_8->setText(QApplication::translate("Pantalla_Principal", "Chofer", nullptr));
         label_9->setText(QApplication::translate("Pantalla_Principal", "Hora", nullptr));
         push_Salidas_Borrar->setText(QApplication::translate("Pantalla_Principal", "Borrar Boleta", nullptr));
-        push_Salidas_Update->setText(QApplication::translate("Pantalla_Principal", "Actualizar Campos", nullptr));
         Panel_Silos->setText(QApplication::translate("Pantalla_Principal", "Silos", nullptr));
         Fondo_10->setText(QString());
         Silo_Total_1->setText(QString());

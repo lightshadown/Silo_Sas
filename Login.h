@@ -40,17 +40,17 @@ public:
     Login();  //(QString, QApplication);
     virtual ~Login();
     bool SortMAC(const QStringList &sort, QString);   // check if the given Mac Address its the same as the Mac stored in Config
-    QStringList getMacAddress();      // get the macaddres
-    bool checkConfigFile(QString);    // check if config file exist or not
-    QString CheckSerial(QString Cb);  //takes the mac addres and converts it from Hexa to Decimal
-    void CheckLogin();                // check if the config file exist and the serial is correct
-    QString InitApp;                  // here i pass the apps location
-    //bool validSerial = false; 
+    QStringList getMacAddress();                 // get the macaddres
+    bool checkConfigFile(QString);               // check if config file exist or not
+    QString CheckSerial(QString Cb);             //takes the mac addres and converts it from Hexa to Decimal
+    void CheckLogin();                           // check if the config file exist and the serial is correct
+    QString InitApp;                             // here i pass the apps location
+    void CreateConfigFile(QString , QString );   // Creates Config File
     
 signals:
     void ShowMainSignal(QString);     // tells login when to show the main window
 public slots:
-    void Check(); //(QString, QApplication);   // checks if the given serial is valid or not
+    void Check_Enter(); //(QString, QApplication);   // checks if the given serial is valid or not
     void BotonAceptar();               // just the ok Button
      
 private:

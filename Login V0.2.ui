@@ -531,9 +531,9 @@ border-bottom:2px dashed;</string>
    <widget class="QLabel" name="Serial_aviso">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>0</x>
       <y>400</y>
-      <width>281</width>
+      <width>361</width>
       <height>31</height>
      </rect>
     </property>

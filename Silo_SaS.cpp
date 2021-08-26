@@ -71,12 +71,12 @@ Silo::Silo() {
     QObject::connect(widget_PP.Comp_Guardar, SIGNAL(clicked()), this, SLOT(Comprador_New()));                        // Creates new user comprador
     QObject::connect(widget_PP.push_Entrada_Borrar, SIGNAL(clicked()), this, SLOT(Entradas_Boletas_Borrar()));       // Entradas_Boletas_Borrar()
     QObject::connect(widget_PP.push_Salidas_Borrar, SIGNAL(clicked()), this, SLOT(Salidas_Boletas_Borrar()));       //  Salidas_Boletas_Borrar
-    QObject::connect(widget_PP.User_Add_Push, SIGNAL(clicked()), this, SLOT(Usuarios_New()));        //  Usuarios_New()
+    QObject::connect(widget_PP.User_Add_Push, SIGNAL(clicked()), this, SLOT(Usuarios_New()));        //  Creates a new user, Usuarios_New()
     // ************* ComboBox  y Checkbox **************************//
    
     QObject::connect(widget_PP.RegInd_Ciclo_CB, SIGNAL(currentIndexChanged(const QString)), this, SLOT(Reg_Individual_CB_Prod(QString)));           // Registros Individual 
     QObject::connect(widget_PP.RegInd_Prod_CB, SIGNAL(currentIndexChanged(const QString)), this, SLOT(Tabla_Reg_Individual(QString)));              // Registros Individual 
-    QObject::connect(widget_PP.RegGen_Ciclo_CB, SIGNAL(currentIndexChanged(const QString)), this, SLOT(Tabla_Reg_Generales(QString)));              // Registros Generales 
+    QObject::connect(widget_PP.RegGen_Ciclo_CB, SIGNAL(currentIndexChanged(const QString)), this, SLOT(Tabla_Reg_Generales(QString)), Qt::AutoConnection);              // Registros Generales 
     QObject::connect(widget_PP.Liq_Prod_CB, SIGNAL(currentIndexChanged(const QString)), this, SLOT(Liquidaciones_Data(QString)));                   // Liquidaciones
     //QObject::connect(widget_PP.Prod_sal_CB, SIGNAL(currentIndexChanged(const QString)), this, SLOT(AdeudosProdu(QString)));  // Adeudos  -- Borrado
     QObject::connect(widget_PP.Prod_ComboBox, SIGNAL(currentIndexChanged(const QString)), this, SLOT(Entradas_NumProdu(QString)));                  //  Num Productor Entradas
@@ -84,7 +84,7 @@ Silo::Silo() {
     QObject::connect(widget_PP.Cuotas_Sanidad, SIGNAL(stateChanged(int)), this, SLOT(Cuotas_Sanidad(int)));                                         //  Num Comprador Salidas
     QObject::connect(widget_PP.Cuotas_Grano, SIGNAL(stateChanged(int)), this, SLOT(Cuotas_Grano(int)));                                             //  Num Comprador Salidas
     QObject::connect(widget_PP.Cuotas_Modulo, SIGNAL(stateChanged(int)), this, SLOT(Cuotas_Modulo(int)));                                           //  Num Comprador Salidas
-    QObject::connect(widget_PP.User_Add, SIGNAL(stateChanged(int)), this, SLOT(Usuarios(int)));                                                     //  Usuarios(int)
+    QObject::connect(widget_PP.User_Add, SIGNAL(stateChanged(int)), this, SLOT(Usuarios_set(int)));                                                     //  Usuarios(int)
     QObject::connect(widget_PP.User_Del, SIGNAL(stateChanged(int)), this, SLOT(Usuarios_Borrar(int)));                                              //  Usuarios_Borrar(int)
     QObject::connect(widget_PP.Actual, SIGNAL(stateChanged(int)), this, SLOT(Actualizacion(int)));                                                  //  Actualizacion(int)
     
@@ -209,6 +209,11 @@ void Silo::InitSilo(QString App){
         widget_PP.icon_Arrow_8->setVisible(false);
         widget_PP.icon_Arrow_9->setVisible(false);
     }   
+    
+    ///   Agregar en sig Actualizacion   ///////
+    widget_PP.Tipo_Grano->setVisible(false);
+    widget_PP.Tipo_Grano_CB->setVisible(false);
+    ////////////////////////////////////////////
 }
 
 void Silo::InitDb(QString App){
@@ -275,6 +280,8 @@ void Silo::InitDb(QString App){
     Creditos();
     Ciclo(); 
     Dry_n_Wet();  // secado
+    
+    RevisarDiasRestantes();
     
 }
 
@@ -1590,13 +1597,13 @@ void Silo::Reg_Individual_CB_Prod(QString ComboBox){  // comboBox de los product
 
 void Silo::Tabla_Reg_Individual(QString ComboBox){  // Muestra las boletas de cada Productor de forma individual
     
-    auto contador = 0;  // super importante NO BORRAR!!!!!!!!!!!!!!!
+    auto contador{0};  // super importante NO BORRAR!!!!!!!!!!!!!!!
     QString info;  // hace las comparacions contra el ComboBox
     QString folioNum, Chofer, C_Apellidos, Placas, Color, Tipo, Silo;\
-    auto Bruto{0.0}, Tara{0.0}, Neto{0.0}, Humedad{0.0};
-//  QString Prod_Num = registros.value("Prod_Num").toString();
-
+    auto Bruto{0.0}, Tara{0.0}, Neto{0.0}, Humedad{0.0}, Grano_Entregado{0.0};
+    std::vector<float> Grano;
     std::wstring DirFile;
+    
     TCHAR buffer[MAX_PATH] = {0};
     GetModuleFileName(NULL, buffer, MAX_PATH);
     std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
@@ -1648,7 +1655,7 @@ void Silo::Tabla_Reg_Individual(QString ComboBox){  // Muestra las boletas de ca
               Color = prod.value("Color").toString();
               Tipo = prod.value("Tipo").toString();
               Humedad = prod.value("Humedad").toFloat();
-              Bruto = prod.value("Bruto").toFloat() / 1000;
+              Bruto = prod.value("Bruto").toFloat() / 1000;   // se divide entre 1000 para pasar de Kgs a Tons
               Tara = prod.value("Tara").toFloat() / 1000;
               Neto = prod.value("Neto").toFloat() / 1000;
               //Silo = prod.value("Silo").toString();
@@ -1745,6 +1752,7 @@ void Silo::Tabla_Reg_Individual(QString ComboBox){  // Muestra las boletas de ca
               edit8->setStyleSheet("border-width:0px; padding-left:57px");
               widget_PP.Registros_Ind->setCellWidget(filas,8,edit8);
               
+              Grano.push_back(Neto);
     } else {
           if (info.trimmed() == ","){contador++;}
         }
@@ -1754,7 +1762,12 @@ void Silo::Tabla_Reg_Individual(QString ComboBox){  // Muestra las boletas de ca
      
        }
   } while(prod.next()); 
-  
+        
+      for(int i : Grano){
+          Grano_Entregado += Grano[i];
+      }
+    widget_PP.GranoEntregado->setText(QString::number(Grano_Entregado, 'f', 3));
+    
   prod.finish();
   //KillDB();
 }
@@ -1787,33 +1800,113 @@ void Silo::RegistroGeneral_CB(){
 
 void Silo::Tabla_Reg_Generales(QString ComboBox){  // Registro general, muestra el total de todas las boletas X productor
   
+        //  buscar solo las boletas de cada productor, sumarle los netos de cada uno 
+        //  primero se calcula para cada boleta y se van sumando para sacar un total de las boletas y mostarlo por cada productor
+        //  tomar el neto de cada boleta y calcular Analizado, Secado, la cuota de Conservacion, Sanidad Vegetal 
+        //  y el total de grano a entregar por productor
+    
     QString Productor;
-    auto counter{0}, filas{0};
-    float Neto{0.0}, Analizado{110.0}, Secado{20.0}, Cuota_Grano{0.0}, Sanidad{0.0}, Total{50};
-
+    auto cntr{0}, filas{0},Total{50} ;
+    auto Neto{0.0}, Cuota_Grano{0.0}, Sanidad{0.0};
+    struct VecProd{    // estructura de datos personalizada
+        QString Productor;
+        float Neto;
+        float Analizado;
+        float Secado;
+        float CuotaGrano;
+        float Sanidad;
+        float Total;
+    };
+    
+    std::vector<float> Analicis;        // sorgo analizado
+    std::vector<VecProd> listProd;      // list with all producers that have aviable boletas 
+    std::vector<VecProd> listBoletas;   // list with all aviable boletas
+    
     std::wstring DirFile;
     TCHAR buffer[MAX_PATH] = {0};
     GetModuleFileName(NULL, buffer, MAX_PATH);
     std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
     DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
     
-    //QString Db = widget_PP.RegGen_Ciclo_CB->currentText();
     CrearDB(QString::fromStdWString(DirFile), ComboBox);
     CrearDB(QString::fromStdWString(DirFile), "Config.db");
     //Log("TablaRegGen, Antes del query " + ComboBox);
     QSqlQuery rows(QSqlDatabase::database(ComboBox));  // haces la busqueda de boletas
     QSqlQuery Cnf(QSqlDatabase::database("Config.db"));
-    // filtrar solo por el nombre y apellido del productor
-    // rows selecciona todos los productores
-    rows.exec("SELECT b.Prod_Nombre, b.Prod_Apellidos, a.Neto FROM Boletas_Entradas AS a JOIN Productores AS b ON a.Prod_Num=b.Prod_Num ORDER BY b.Prod_Num");
-    if(rows.lastError().isValid()){
-        Log( "Fallo Lectura Tabla Registros Generales \n" + rows.executedQuery() + "\n" + rows.lastError().text() ); 
-    }
     
     Cnf.exec("SELECT * FROM Config");
     if(Cnf.lastError().isValid()){
         Log("No se puede leer el Config");
     }
+    Cnf.first();
+    Sanidad = Cnf.value("Sanidad").toFloat();
+    Cuota_Grano = Cnf.value("Cuota").toFloat();
+    
+    // initializing List Struct with names of productores
+    rows.exec("SELECT b.Prod_Nombre, b.Prod_Apellidos, a.Prod_Num FROM Boletas_Entradas AS a "
+              "JOIN Productores AS b ON a.Prod_Num=b.Prod_Num GROUP BY a.Prod_Num ORDER BY b.Prod_Num ");
+    rows.first();   // pone el puntero en el primer registor
+    do{
+            cntr++;    // cuenta cada registro, total de registros
+        }while(rows.next());
+    rows.first();
+    for ( int j = 0 ; j<cntr; ){
+        Productor = rows.value("Prod_Nombre").toString() + " " + rows.value("Prod_Apellidos").toString();
+        listProd.push_back(VecProd());
+        listProd[j].Productor = Productor;
+        listProd[j].Neto = 0;
+        listProd[j].Analizado = 0;
+        listProd[j].Secado = 0;
+        listProd[j].CuotaGrano = 0;
+        listProd[j].Sanidad = 0;
+        j++;
+        rows.next();
+    };
+    
+    // fill vector with list of boletas
+    rows.exec("SELECT b.Prod_Nombre, b.Prod_Apellidos, a.Humedad, a.Neto FROM Boletas_Entradas AS a "
+              "JOIN Productores AS b ON a.Prod_Num=b.Prod_Num ORDER BY b.Prod_Num");
+    if(rows.lastError().isValid()){
+        Log( "Fallo Lectura Tabla Registros Generales \n" + rows.executedQuery() + "\n" + rows.lastError().text() ); 
+    }
+    
+    rows.first();  
+    cntr = 0;
+    do{              // cuenta cada registro, total de registros
+            cntr++;   
+        }while(rows.next());
+    
+    rows.first();    
+    for (auto i{0}; i<cntr; ){
+       //Productor = ;
+       Neto = rows.value("Neto").toFloat() / 1000;      // convercion de Kgs a Tons
+       Analicis = Analizado(rows.value("Humedad").toFloat(), rows.value("Neto").toFloat());    // peso analizado
+       //Secado = 0;
+       //Cuota_Grano = 0;
+       listBoletas.push_back(VecProd());
+       listBoletas[i].Productor = (rows.value("Prod_Nombre").toString() + " " + rows.value("Prod_Apellidos").toString());
+       listBoletas[i].Neto = Neto;
+       listBoletas[i].Analizado = Analicis[2];
+       listBoletas[i].Secado = 0;
+       listBoletas[i].CuotaGrano = Analicis[2] * Cuota_Grano;
+       listBoletas[i].Sanidad = Analicis[2] * Sanidad;
+       i++;
+       rows.next();
+    };
+        
+    // Compares every list and adds all Neto and Analizado to listProd
+    for (auto &Prod : listProd ){
+        for (auto Bol : listBoletas){
+            if (Prod.Productor == Bol.Productor){
+                Prod.Neto += Bol.Neto;
+                Prod.Analizado += Bol.Analizado;
+                Prod.Secado += Bol.Secado;
+                Prod.CuotaGrano += Bol.CuotaGrano;
+                Prod.Sanidad += Bol.Sanidad;
+            }
+        }
+    }
+    
     
     widget_PP.Registros_General->clear();
     widget_PP.Registros_General->setRowCount(0);
@@ -1827,40 +1920,13 @@ void Silo::Tabla_Reg_Generales(QString ComboBox){  // Registro general, muestra 
     widget_PP.Registros_General->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     
     //Log( "TablaRegGen dentro del ciclo \n" + ComboBox);
+    Log("antes del while");
     
-    Cnf.first();
-    Sanidad = Cnf.value("Sanidad").toFloat();
-    Cuota_Grano = Cnf.value("Cuota").toFloat();
-    
-    rows.first();   // pone el puntero en el primer registor
-    do{
-            counter++;    // cuenta cada registro, total de registros
-        }while(rows.next());
-    
-    rows.first();   // reinicia los registros
-    while(rows.next()){     // este while pone cada productor en una fila cada uno
-   /*
-        for( int i =0; i<=counter ; ){
-            if(rows.value("Prod_Num").toInt() == i+1){
-                Neto = Neto + rows.value("Neto").toFloat();
-            }
-            i++;
-        }
-  
-        //
-        //  buscar solo las boletas de cada productor, sumarle los netos de cada uno 
-        //  primero se calcula para cada boleta y se van sumando para sacar un total de las boletas y mostarlo por cada productor
-        //  tomar el neto de cada boleta y calcular Analizado, Secado, la cuota de Conservacion, Sanidad Vegetal y el total de grano a entregar por productor
-        //
-        
-       rows.first();  //  poner para  
-       */
+    for ( auto boleta: listProd ){   // this for shows all producer in every row       
+      
        widget_PP.Registros_General->setRowCount(widget_PP.Registros_General->rowCount() + 1);
        filas = widget_PP.Registros_General->rowCount() - 1;
         
-       Productor = rows.value("Prod_Nombre").toString() + " " + rows.value("Prod_Apellidos").toString();
-       Neto = rows.value("Neto").toFloat() / 1000;
-       
         // Modo Viejo
 //              QTableWidgetItem *obj0 = new QTableWidgetItem;   // Productor
 //              obj0->setText(Productor);
@@ -1883,63 +1949,65 @@ void Silo::Tabla_Reg_Generales(QString ComboBox){  // Registro general, muestra 
 //              QTableWidgetItem *obj6 = new QTableWidgetItem;   // Total
 //              obj6->setText(QString::number(Total, 'f', 3));
 //              widget_PP.Registros_General->setItem(filas,6,obj6);           
-//              
+//           
+          // mostra en pantalla
               QLineEdit *edit0 = new QLineEdit(widget_PP.Registros_General);   // Productor
               //edit0->setValidator(new QDoubleValidator(1, 2, 2,edit5));   
-              edit0->setText(Productor);
+              edit0->setText(boleta.Productor);//  listBoletas[i].Productor);
               edit0->setReadOnly(true);
               edit0->setStyleSheet("border-width:0px; padding-left:20px");
               widget_PP.Registros_General->setCellWidget(filas,0,edit0);
              
+              
               QLineEdit *edit1 = new QLineEdit(widget_PP.Registros_General);   // Neto
               //edit1->setValidator(new QDoubleValidator(1, 2, 2,edit1));   
-              edit1->setText(QString::number(Neto, 'f', 3));
+              edit1->setText(QString::number( boleta.Neto, 'f', 2) + " Tons"); 
               edit1->setReadOnly(true);
-              edit1->setStyleSheet("border-width:0px; padding-left:50px");
+              edit1->setStyleSheet("border-width:0px; padding-left:40px");
               widget_PP.Registros_General->setCellWidget(filas,1,edit1);
+            
               
               QLineEdit *edit2 = new QLineEdit(widget_PP.Registros_General);   // Analizado
               //edit2->setValidator(new QDoubleValidator(1, 2, 2,edit2));   
-              edit2->setText(QString::number(Analizado, 'f', 3));
+              edit2->setText(QString::number( boleta.Analizado, 'f', 2 )+ " Tons");  
               edit2->setReadOnly(true);
-              edit2->setStyleSheet("border-width:0px; padding-left:65px");
+              edit2->setStyleSheet("border-width:0px; padding-left:55px");
               widget_PP.Registros_General->setCellWidget(filas,2,edit2);
              
+              
               QLineEdit *edit3 = new QLineEdit(widget_PP.Registros_General);   // Secado
               //edit3->setValidator(new QDoubleValidator(1, 2, 2,edit3));   
-              edit3->setText(QString::number(Secado, 'f', 3));
+              edit3->setText(QString::number( boleta.Secado, 'f', 2 )+ " Tons");
               edit3->setReadOnly(true);
               edit3->setStyleSheet("border-width:0px; padding-left:65px");
               widget_PP.Registros_General->setCellWidget(filas,3,edit3);
+             
               
               QLineEdit *edit4 = new QLineEdit(widget_PP.Registros_General);   // Cuota Grano
               //edit4->setValidator(new QDoubleValidator(1, 2, 2,edit4));   
-              edit4->setText(QString::number(Cuota_Grano, 'f', 1));
+              edit4->setText("-" + QString::number(boleta.CuotaGrano, 'f', 2) + " Mx");
               edit4->setReadOnly(true);
               edit4->setStyleSheet("border-width:0px; padding-left:65px");
               widget_PP.Registros_General->setCellWidget(filas,4,edit4);
+             
               
               QLineEdit *edit5 = new QLineEdit(widget_PP.Registros_General);   // Sanidad
               //edit5->setValidator(new QDoubleValidator(1, 2, 2,edit5));   
-              edit5->setText(QString::number(Sanidad, 'f', 1));
+              edit5->setText("-" + QString::number(boleta.Sanidad, 'f', 2) + " Mx");
               edit5->setReadOnly(true);
               edit5->setStyleSheet("border-width:0px; padding-left:65px");
               widget_PP.Registros_General->setCellWidget(filas,5,edit5);
               
+              
               QLineEdit *edit6 = new QLineEdit(widget_PP.Registros_General);   // Total
               //edit6->setValidator(new QDoubleValidator(1, 2, 2,edit6));   
-              edit6->setText(QString::number(Total, 'f', 3));
+              edit6->setText(QString::number(Total, 'f', 2) + " Mx");
               edit6->setReadOnly(true);
               edit6->setStyleSheet("border-width:0px; padding-left:65px");
               widget_PP.Registros_General->setCellWidget(filas,6,edit6);
-         
+              
     } 
-   /*     
-      if( contador >= 5){
-        QMessageBox::warning( this, "Error", " No Existe ese Usuario");
-     
-       }
-     */
+   
     rows.finish();
     //KillDB();
 }
@@ -2404,12 +2472,14 @@ void Silo::Liquidaciones(int row, int col){  // funcion principal, toma la info 
     std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
     DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
     
-    float DeduX_norma, Humd_Kilos, Merma_1Ciento;
-    float Total_Deduc, Peso_Anali, Total_Pagar, Secado;
+    float Humd_Kilos,Total_Pagar, Secado;
     float Iva_Secado, Reten_Total, Tarifa, Precio_Ton;
-    float Cuota_Cons, Sanidad;  // las cuotas viene de la DB Config.db
-    float Bruto, Tara, Neto;
+    auto Cuota_Cons{0.0}, Sanidad{0.0};  // las cuotas viene de la DB Config.db
+    auto Bruto{0.0}, Tara{0.0}, Neto{0.0};
     int rango{0};
+    std::vector<float> Peso_Anali;
+    std::vector<float> Hmd_Deduc;
+    
     //QString comp_CB;
     
     bool correcto = false;
@@ -2419,11 +2489,11 @@ void Silo::Liquidaciones(int row, int col){  // funcion principal, toma la info 
     float it = 14.1;
     
     CrearDB(QString::fromStdWString(DirFile), ciclo_actual());
-    CrearDB(QString::fromStdWString(DirFile), "Humedad_Secado.db");   // creates connection to database
+    //CrearDB(QString::fromStdWString(DirFile), "Humedad_Secado.db");   // creates connection to database
     CrearDB(QString::fromStdWString(DirFile), "Config.db");
     
     QSqlQuery reg(QSqlDatabase::database(ciclo_actual()));          // query ciclo actual
-    QSqlQuery Hmd(QSqlDatabase::database("Humedad_Secado.db"));     // query to Humedad y Secado
+    //QSqlQuery Hmd(QSqlDatabase::database("Humedad_Secado.db"));     // query to Humedad y Secado
     QSqlQuery Cnf(QSqlDatabase::database("Config.db"));             // query to Config
    
     QTableWidgetItem* item = widget_PP.Liq_Boletas_Lista->item(row,0);  // item deliver the row and col for the object
@@ -2442,7 +2512,7 @@ void Silo::Liquidaciones(int row, int col){  // funcion principal, toma la info 
         Log( "Error Liquidaciones data \n" + reg.executedQuery() + "\n" + reg.lastError().text());
     }
     reg.first();
-    Hmd.first();
+    //Hmd.first();
     Cnf.first();
     
     do {
@@ -2459,123 +2529,106 @@ void Silo::Liquidaciones(int row, int col){  // funcion principal, toma la info 
             */
             // Calculo Deducciones
             ////////////////// Porcentaje /////////////////////////////
-            Hmd.exec("SELECT * FROM Kilos");    // seleccionar las tablas de humedad
-            if(Hmd.lastError().isValid()){
-                Log("Error de Kilos \n" + Hmd.executedQuery() + "\n" + Hmd.lastError().text());
-            }
-            Hmd.first();
             
-            for(int i = 0 ; i<160;){
-                if(reg.value("Humedad").toFloat() == Hmd.value("Porcentaje").toFloat()){  // compares decimal values for Humidity
-                    Humd_Kilos = Hmd.value("Kgs_Ton").toFloat();  // Kilos a restar por Ton
-                    //Log( "Kilos a restar: " + QString::number(Humd_Kilos, 'f', 2));
-                    break;//correcto_Hum = true;
-                }
-                if (reg.value("Humedad").toFloat() > 30.0){
-                    Log("Error la humedad es mayor a 30.0");
-                    return;
-                }
-                //Log("Dentro de Kilos X Humedad \nPorcentaje: " + QString::number(Hmd.value("Porcentaje").toFloat(), 'f', 2) + " ,Humedad: " + QString::number(reg.value("Humedad").toFloat(), 'f', 2 ));
-                Hmd.next();
-                i++;
-            }
+            Hmd_Deduc = Hmd (reg.value("Humedad").toFloat(), DirFile);   //  regresa la cantidad de kilos a descontar y la tarifa
+            Humd_Kilos = Hmd_Deduc[0];
+            Tarifa = Hmd_Deduc[1];
+//            Hmd.exec("SELECT * FROM Kilos");    // seleccionar las tablas de humedad
+//            if(Hmd.lastError().isValid()){
+//                Log("Error de Kilos \n" + Hmd.executedQuery() + "\n" + Hmd.lastError().text());
+//            }
+//            Hmd.first();
 //            
-//            do{    // Obtener kilos X Humedad
+//            for(int i = 0 ; i<160;){
 //                if(reg.value("Humedad").toFloat() == Hmd.value("Porcentaje").toFloat()){  // compares decimal values for Humidity
 //                    Humd_Kilos = Hmd.value("Kgs_Ton").toFloat();  // Kilos a restar por Ton
+//                    //Log( "Kilos a restar: " + QString::number(Humd_Kilos, 'f', 2));
 //                    break;//correcto_Hum = true;
 //                }
 //                if (reg.value("Humedad").toFloat() > 30.0){
 //                    Log("Error la humedad es mayor a 30.0");
 //                    return;
 //                }
-//                Log("Dentro de Kilos X Humedad " + QString::number(Hmd.value("Porcentaje").toFloat(), 'f', 3));
+//                //Log("Dentro de Kilos X Humedad \nPorcentaje: " + QString::number(Hmd.value("Porcentaje").toFloat(), 'f', 2) + " ,Humedad: " + QString::number(reg.value("Humedad").toFloat(), 'f', 2 ));
 //                Hmd.next();
-//            } while (Hmd.last() == false);
-            
-            /////////////////////  RANGO   /////////////////////////////
-            Hmd.exec("SELECT * FROM Secado");
-            if (Hmd.lastError().isValid()){
-                Log("Error de Secado \n" + Hmd.executedQuery() + "\n" + Hmd.lastError().text() );
-            }
-                // Especifico el rango, ver si se puede hacer mejor
-            if (reg.value("Humedad").toFloat() > 14.0 && reg.value("Humedad").toFloat() <15.1){
-                rango = 0;
-            }
-            if (reg.value("Humedad").toFloat() > 15.0 && reg.value("Humedad").toFloat() <16.1){
-                rango = 1;
-            } 
-            if (reg.value("Humedad").toFloat() > 16.0 && reg.value("Humedad").toFloat() <17.1){
-                rango = 2;
-            } 
-            if (reg.value("Humedad").toFloat() > 17.0 && reg.value("Humedad").toFloat() <18.1){
-                rango = 3;
-            } 
-            if (reg.value("Humedad").toFloat() > 18.0 && reg.value("Humedad").toFloat() <19.1){
-                rango = 4;
-            } 
-            if (reg.value("Humedad").toFloat() > 19.0 && reg.value("Humedad").toFloat() <20.1){
-                rango = 5;
-            } 
-            if (reg.value("Humedad").toFloat() > 20.0 && reg.value("Humedad").toFloat() <21.1){
-                rango = 6;
-            } 
-            if (reg.value("Humedad").toFloat() > 21.0 && reg.value("Humedad").toFloat() <22.1){
-                rango = 7;
-            }
-            if (reg.value("Humedad").toFloat() > 22.0 && reg.value("Humedad").toFloat() <23.1){
-                rango = 8;
-            } 
-            if (reg.value("Humedad").toFloat() > 23.0 && reg.value("Humedad").toFloat() <24.1){
-                rango = 9;
-            } 
-            if (reg.value("Humedad").toFloat() > 24.0 && reg.value("Humedad").toFloat() <25.1){
-                rango = 10;
-            } 
-            if (reg.value("Humedad").toFloat() > 25.0 && reg.value("Humedad").toFloat() <26.1){
-                rango = 11;
-            }
-            if (reg.value("Humedad").toFloat() > 26.0 && reg.value("Humedad").toFloat() <27.1){
-                rango = 12;
-            } 
-            if (reg.value("Humedad").toFloat() > 27.0 && reg.value("Humedad").toFloat() <28.1){
-                rango = 13;
-            } 
-            if (reg.value("Humedad").toFloat() > 28.0 && reg.value("Humedad").toFloat() <29.1){
-                rango = 14;
-            } 
-            if (reg.value("Humedad").toFloat() > 29.0 && reg.value("Humedad").toFloat() <30.1){
-                rango = 15;
-            }
-            
-            Hmd.first();
-            
-            for (int i = 0; i<16 ; ){
-                if(rango == Hmd.value("Rango").toInt() ){  // usar los index de la tabla  0..15, no puede ser comparacion directab
-                    Tarifa = Hmd.value("Tarifa").toFloat();
-                    //Log("Tarifa: " + QString::number(Hmd.value("Tarifa").toFloat(), 'f', 2) );
-                    break;  //correcto_Tar = true;
-                }
-                if (reg.value("Humedad").toFloat() > 30.0){   // Manejo de errores Humedad
-                    Log("error el valor de humedad es mayor a 30.0 " + QString::number(reg.value("Humedad").toFloat()));
-                    MBox.setWindowTitle("Error de Humedad");
-                    MBox.setText("La humedad del sorgo no puede ser mayor a 30.0");
-                    MBox.exec();
-                    Tarifa = 0.0;
-                    return;
-                    //correcto_Tar == true;
-                }
-                //Log("Dentro de Tarifa X Humedad \nRango: " + QString::number(rango) + " , " + QString::number(Hmd.value("Rango").toInt()));
-                Hmd.next();
-                i++;
-            }
-            
-//            do {// Obtener Tarifa x Humedad
+//                i++;
+//            }
+////            
+////            do{    // Obtener kilos X Humedad
+////                if(reg.value("Humedad").toFloat() == Hmd.value("Porcentaje").toFloat()){  // compares decimal values for Humidity
+////                    Humd_Kilos = Hmd.value("Kgs_Ton").toFloat();  // Kilos a restar por Ton
+////                    break;//correcto_Hum = true;
+////                }
+////                if (reg.value("Humedad").toFloat() > 30.0){
+////                    Log("Error la humedad es mayor a 30.0");
+////                    return;
+////                }
+////                Log("Dentro de Kilos X Humedad " + QString::number(Hmd.value("Porcentaje").toFloat(), 'f', 3));
+////                Hmd.next();
+////            } while (Hmd.last() == false);
+//            
+//            /////////////////////  RANGO   /////////////////////////////
+//            Hmd.exec("SELECT * FROM Secado");
+//            if (Hmd.lastError().isValid()){
+//                Log("Error de Secado \n" + Hmd.executedQuery() + "\n" + Hmd.lastError().text() );
+//            }
+//                // Especifico el rango, ver si se puede hacer mejor
+//            if (reg.value("Humedad").toFloat() > 14.0 && reg.value("Humedad").toFloat() <15.1){
+//                rango = 0;
+//            }
+//            if (reg.value("Humedad").toFloat() > 15.0 && reg.value("Humedad").toFloat() <16.1){
+//                rango = 1;
+//            } 
+//            if (reg.value("Humedad").toFloat() > 16.0 && reg.value("Humedad").toFloat() <17.1){
+//                rango = 2;
+//            } 
+//            if (reg.value("Humedad").toFloat() > 17.0 && reg.value("Humedad").toFloat() <18.1){
+//                rango = 3;
+//            } 
+//            if (reg.value("Humedad").toFloat() > 18.0 && reg.value("Humedad").toFloat() <19.1){
+//                rango = 4;
+//            } 
+//            if (reg.value("Humedad").toFloat() > 19.0 && reg.value("Humedad").toFloat() <20.1){
+//                rango = 5;
+//            } 
+//            if (reg.value("Humedad").toFloat() > 20.0 && reg.value("Humedad").toFloat() <21.1){
+//                rango = 6;
+//            } 
+//            if (reg.value("Humedad").toFloat() > 21.0 && reg.value("Humedad").toFloat() <22.1){
+//                rango = 7;
+//            }
+//            if (reg.value("Humedad").toFloat() > 22.0 && reg.value("Humedad").toFloat() <23.1){
+//                rango = 8;
+//            } 
+//            if (reg.value("Humedad").toFloat() > 23.0 && reg.value("Humedad").toFloat() <24.1){
+//                rango = 9;
+//            } 
+//            if (reg.value("Humedad").toFloat() > 24.0 && reg.value("Humedad").toFloat() <25.1){
+//                rango = 10;
+//            } 
+//            if (reg.value("Humedad").toFloat() > 25.0 && reg.value("Humedad").toFloat() <26.1){
+//                rango = 11;
+//            }
+//            if (reg.value("Humedad").toFloat() > 26.0 && reg.value("Humedad").toFloat() <27.1){
+//                rango = 12;
+//            } 
+//            if (reg.value("Humedad").toFloat() > 27.0 && reg.value("Humedad").toFloat() <28.1){
+//                rango = 13;
+//            } 
+//            if (reg.value("Humedad").toFloat() > 28.0 && reg.value("Humedad").toFloat() <29.1){
+//                rango = 14;
+//            } 
+//            if (reg.value("Humedad").toFloat() > 29.0 && reg.value("Humedad").toFloat() <30.1){
+//                rango = 15;
+//            }
+//            
+//            Hmd.first();
+//            
+//            for (int i = 0; i<16 ; ){
 //                if(rango == Hmd.value("Rango").toInt() ){  // usar los index de la tabla  0..15, no puede ser comparacion directab
 //                    Tarifa = Hmd.value("Tarifa").toFloat();
+//                    //Log("Tarifa: " + QString::number(Hmd.value("Tarifa").toFloat(), 'f', 2) );
 //                    break;  //correcto_Tar = true;
-//                }else{
-//                    Hmd.next();
 //                }
 //                if (reg.value("Humedad").toFloat() > 30.0){   // Manejo de errores Humedad
 //                    Log("error el valor de humedad es mayor a 30.0 " + QString::number(reg.value("Humedad").toFloat()));
@@ -2586,17 +2639,40 @@ void Silo::Liquidaciones(int row, int col){  // funcion principal, toma la info 
 //                    return;
 //                    //correcto_Tar == true;
 //                }
-//                //Log("Dentro de Tarifa X Humedad");
-//            } while( Hmd.last() == false);   // correcto_Tar == true
-            ///////////////////////////////////////////////////////////
-            //  1000kgs = 1 Ton
-            //KilosxTon = Humd_Kilos / 1000; // los kilos a restar por Tonelada 
-            DeduX_norma = (Humd_Kilos / 1000) * reg.value("Neto").toFloat(); // Kilos a restar al neto
-            //Log( "Kilos a restar: " + QString::number(Humd_Kilos, 'f', 3) + " ,Neto: " + reg.value("Neto").toString() + " ,Deducciones: " + QString::number(DeduX_norma, 'f', 3) );
-            Merma_1Ciento = (reg.value("Neto").toFloat() - DeduX_norma) * 0.01;  // 1% merma de la boleta
-            Total_Deduc = DeduX_norma + Merma_1Ciento;  // total de deducciones
-            Peso_Anali = (reg.value("Neto").toFloat() - Total_Deduc) / 1000 ;   // converts from Kgs to Ton
+//                //Log("Dentro de Tarifa X Humedad \nRango: " + QString::number(rango) + " , " + QString::number(Hmd.value("Rango").toInt()));
+//                Hmd.next();
+//                i++;
+//            }
+//            
+////            do {// Obtener Tarifa x Humedad
+////                if(rango == Hmd.value("Rango").toInt() ){  // usar los index de la tabla  0..15, no puede ser comparacion directab
+////                    Tarifa = Hmd.value("Tarifa").toFloat();
+////                    break;  //correcto_Tar = true;
+////                }else{
+////                    Hmd.next();
+////                }
+////                if (reg.value("Humedad").toFloat() > 30.0){   // Manejo de errores Humedad
+////                    Log("error el valor de humedad es mayor a 30.0 " + QString::number(reg.value("Humedad").toFloat()));
+////                    MBox.setWindowTitle("Error de Humedad");
+////                    MBox.setText("La humedad del sorgo no puede ser mayor a 30.0");
+////                    MBox.exec();
+////                    Tarifa = 0.0;
+////                    return;
+////                    //correcto_Tar == true;
+////                }
+////                //Log("Dentro de Tarifa X Humedad");
+////            } while( Hmd.last() == false);   // correcto_Tar == true
+//            ///////////////////////////////////////////////////////////
+//            //  1000kgs = 1 Ton
+//            
+            Peso_Anali = Analizado(Humd_Kilos, reg.value("Neto").toFloat() );   // le paso Kilos a restar y el peso neto, regresa un vector
             
+//            DeduX_norma = (Humd_Kilos / 1000) * reg.value("Neto").toFloat(); // Kilos a restar al neto
+//            //Log( "Kilos a restar: " + QString::number(Humd_Kilos, 'f', 3) + " ,Neto: " + reg.value("Neto").toString() + " ,Deducciones: " + QString::number(DeduX_norma, 'f', 3) );
+//            Merma_1Ciento = (reg.value("Neto").toFloat() - DeduX_norma) * 0.01;  // 1% merma de la boleta
+//            Total_Deduc = DeduX_norma + Merma_1Ciento;  // total de deducciones
+//            Peso_Anali = (reg.value("Neto").toFloat() - Total_Deduc) / 1000 ;   // converts from Kgs to Ton
+//            
             // Calculo Retenciones de Liquidacion
             Cnf.exec("SELECT * FROM Config");
             if(Cnf.lastError().isValid()){
@@ -2616,7 +2692,7 @@ void Silo::Liquidaciones(int row, int col){  // funcion principal, toma la info 
                 Precio_Ton = 0.0;
                 return;
             } else {   
-                Total_Pagar = Peso_Anali * Precio_Ton;
+                Total_Pagar = Peso_Anali[2] * Precio_Ton;
                 widget_PP.Liq_Total_PrecioTon_edit->setText(QString::number(Precio_Ton, 'f', 2));
             }
             
@@ -2652,11 +2728,11 @@ void Silo::Liquidaciones(int row, int col){  // funcion principal, toma la info 
             widget_PP.Liq_Reten_Sanidad_edit->setText(QString::number(Sanidad, 'f', 2));     // sanidad vegetal              vienede las opciones
             widget_PP.Liq_Reten_Total_edit->setText(QString::number(Reten_Total, 'f', 2));       // Total de retenciones
             // Deducciones
-            widget_PP.Liq_Dedc_Deducciones_edit->setText(QString::number(DeduX_norma, 'f', 2));      // Deducciones normas Kgs
-            widget_PP.Liq_Dedc_Merma_edit->setText(QString::number(Merma_1Ciento, 'f', 2));         // prevencion merma
+            widget_PP.Liq_Dedc_Deducciones_edit->setText(QString::number(Peso_Anali[0], 'f', 2));      // Deducciones normas Kgs
+            widget_PP.Liq_Dedc_Merma_edit->setText(QString::number(Peso_Anali[1], 'f', 2));         // prevencion merma
             //Totales
             widget_PP.Liq_Total_PrecioTon_edit->setText(QString::number(Precio_Ton, 'f', 2));
-            widget_PP.Liq_Total_Analizado_edit->setText(QString::number(Peso_Anali, 'f', 2));     // Peso Analizado   Revisar cambie el nombre
+            widget_PP.Liq_Total_Analizado_edit->setText(QString::number(Peso_Anali[2], 'f', 2));     // Peso Analizado   Revisar cambie el nombre
             widget_PP.Liq_Total_Pagar_edit->setText(QString::number(Total_Pagar , 'f', 2));
         correcto = true;
      }
@@ -2674,11 +2750,153 @@ void Silo::Liquidaciones(int row, int col){  // funcion principal, toma la info 
        // Log("Dentro del While principal Liquidaciones Data");
     } while (correcto == false);
     reg.finish();
-    Hmd.finish();
+//    Hmd.finish();
     Cnf.finish();
     //KillDB();
     //KillDB("Humedad_Secado.db");
     //KillDB("Config.db");
+}
+
+std::vector<float> Silo::Analizado(float Humd_Kilos, float Neto_eval){  // Calcula el peso analizado, pasar los valores tal cual de la DB
+    
+    std::vector<float> peso;
+    auto DeduX_norma{0.0}, Merma_1Ciento{0.0}, Total_Deduc{0.0}, Peso_Anali{0.0};
+    
+    DeduX_norma = (Humd_Kilos / 1000) * Neto_eval; // Kilos a restar al neto
+    //Log( "Kilos a restar: " + QString::number(Humd_Kilos, 'f', 3) + " ,Neto: " + reg.value("Neto").toString() + " ,Deducciones: " + QString::number(DeduX_norma, 'f', 3) );
+    Merma_1Ciento = (Neto_eval - DeduX_norma) * 0.01;  // 1% merma de la boleta
+    Total_Deduc = DeduX_norma + Merma_1Ciento;  // total de deducciones
+    Peso_Anali = (Neto_eval - Total_Deduc) / 1000 ;   // converts from Kgs to Ton
+    
+    peso.push_back(DeduX_norma);
+    peso.push_back(Merma_1Ciento);
+    peso.push_back(Peso_Anali);
+    
+    return peso;
+}
+
+std::vector<float> Silo::Hmd (float Humedad, std::wstring DirFile){    // regresa la cantidad de kilos a descontar y la tarifa
+    
+    QMessageBox MBox;
+    QPushButton *boton_OK = MBox.addButton("Ok", QMessageBox::AcceptRole);
+    MBox.setDefaultButton(boton_OK);
+    MBox.setWindowIcon(QPixmap("images/Icono_App_Silo_1.png"));
+    
+    
+    std::vector<float> descuentos;
+    auto Kilos{0.0}, Tarifa{0.0};
+    auto rango{0};
+    
+    CrearDB(QString::fromStdWString(DirFile), "Humedad_Secado.db");   // creates connection to database
+    QSqlQuery Hmd(QSqlDatabase::database("Humedad_Secado.db"));     // query to Humedad y Secado
+    
+    ////////////////// Porcentaje /////////////////////////////
+            Hmd.exec("SELECT * FROM Kilos");    // seleccionar las tablas de humedad
+            if(Hmd.lastError().isValid()){
+                Log("Error de Kilos \n" + Hmd.executedQuery() + "\n" + Hmd.lastError().text());
+            }
+            Hmd.first();
+            
+            for(int i = 0 ; i<160;){
+                if(Humedad == Hmd.value("Porcentaje").toFloat()){  // compares decimal values for Humidity
+                    Kilos = Hmd.value("Kgs_Ton").toFloat();  // Kilos a restar por Ton
+                    //Log( "Kilos a restar: " + QString::number(Kilos, 'f', 2));
+                    break;//correcto_Hum = true;
+                }
+//                if (Humedad > 30.0){
+//                    Log("Error la humedad es mayor a 30.0");
+//                    descuentos.push_back(0.0);
+//                    return descuentos;
+//                }
+                //Log("Dentro de Kilos X Humedad \nPorcentaje: " + QString::number(Hmd.value("Porcentaje").toFloat(), 'f', 2) + " ,Humedad: " + QString::number(reg.value("Humedad").toFloat(), 'f', 2 ));
+                Hmd.next();
+                i++;
+            }
+            
+            
+            /////////////////////  RANGO   /////////////////////////////
+            Hmd.exec("SELECT * FROM Secado");
+            if (Hmd.lastError().isValid()){
+                Log("Error de Secado \n" + Hmd.executedQuery() + "\n" + Hmd.lastError().text() );
+            }
+                // Especifico el rango, ver si se puede hacer mejor
+            if (Humedad > 14.0 && Humedad <15.1){
+                rango = 0;
+            }
+            if (Humedad > 15.0 && Humedad <16.1){
+                rango = 1;
+            } 
+            if (Humedad > 16.0 && Humedad <17.1){
+                rango = 2;
+            } 
+            if (Humedad > 17.0 && Humedad <18.1){
+                rango = 3;
+            } 
+            if (Humedad > 18.0 && Humedad <19.1){
+                rango = 4;
+            } 
+            if (Humedad > 19.0 && Humedad <20.1){
+                rango = 5;
+            } 
+            if (Humedad > 20.0 && Humedad <21.1){
+                rango = 6;
+            } 
+            if (Humedad > 21.0 && Humedad <22.1){
+                rango = 7;
+            }
+            if (Humedad > 22.0 && Humedad <23.1){
+                rango = 8;
+            } 
+            if (Humedad > 23.0 && Humedad <24.1){
+                rango = 9;
+            } 
+            if (Humedad > 24.0 && Humedad <25.1){
+                rango = 10;
+            } 
+            if (Humedad > 25.0 && Humedad <26.1){
+                rango = 11;
+            }
+            if (Humedad > 26.0 && Humedad <27.1){
+                rango = 12;
+            } 
+            if (Humedad > 27.0 && Humedad <28.1){
+                rango = 13;
+            } 
+            if (Humedad > 28.0 && Humedad <29.1){
+                rango = 14;
+            } 
+            if (Humedad > 29.0 && Humedad <30.1){
+                rango = 15;
+            }
+            
+            Hmd.first();
+            
+            for (int i = 0; i<16 ; ){
+                if(rango == Hmd.value("Rango").toInt() ){  // usar los index de la tabla  0..15, no puede ser comparacion directab
+                    Tarifa = Hmd.value("Tarifa").toFloat();
+                    //Log("Tarifa: " + QString::number(Hmd.value("Tarifa").toFloat(), 'f', 2) );
+                    break;  //correcto_Tar = true;
+                }
+                
+                //Log("Dentro de Tarifa X Humedad \nRango: " + QString::number(rango) + " , " + QString::number(Hmd.value("Rango").toInt()));
+                Hmd.next();
+                i++;
+            }
+            
+            if (Humedad > 30.0){   // Manejo de errores Humedad
+                    Log("error el valor de humedad es mayor a 30.0 " + QString::number(Humedad));
+                    MBox.setWindowTitle("Error de Humedad");
+                    MBox.setText("La humedad del sorgo no puede ser mayor a 30.0");
+                    MBox.exec();
+                    descuentos.push_back(0.0);
+                    descuentos.push_back(0.0);
+                    return descuentos;
+                
+                }
+            descuentos.push_back(Kilos);
+            descuentos.push_back(Tarifa);
+       
+       return descuentos;     
 }
 
 void Silo::Popup_DrynWet_CB1(){  // Primera tabla de humedad
@@ -3590,6 +3808,55 @@ void Silo::ShowDeduc(){   // populates tables Humedad y Secado
     //KillDB();
 }
 
+void Silo::ShowDeduc_Tarifa(){   // populates tables Tarifa
+   
+    QVector<float> HumSec(16);
+    
+    std::wstring DirFile;
+    TCHAR buffer[MAX_PATH] = {0};
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
+    DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
+    
+    CrearDB(QString::fromStdWString(DirFile), "Humedad_Secado.db");
+    QSqlQuery Tabla(QSqlDatabase::database("Humedad_Secado.db"));
+
+    Tabla.exec("SELECT * FROM Secado ORDER BY Rango");
+    if(Tabla.lastError().isValid()){
+        Log("Leer la tabla Secado\n" + Tabla.lastQuery() + "\n" + Tabla.lastError().text());
+    }
+    
+    //float it = Tabla.value("Kgs_Ton").toFloat();
+    //float i = Tabla.value("Porcentaje").toFloat();
+    Tabla.first();
+    for( int i =0; i<16 ; ) {   // populates hash table    
+        HumSec.insert(i, Tabla.value("Tarifa").toFloat());
+        Tabla.next();
+        i++;
+    }
+    
+    // Populates the values of the DB Humedad y Secado
+    widget_PP.HumSec_Tarifa_141_150->setText(QString::number(HumSec.at(0), 'f', 2));
+    widget_PP.HumSec_Tarifa_151_160->setText(QString::number(HumSec.at(1), 'f', 2));
+    widget_PP.HumSec_Tarifa_161_170->setText(QString::number(HumSec.at(2), 'f', 2));
+    widget_PP.HumSec_Tarifa_171_180->setText(QString::number(HumSec.at(3), 'f', 2));
+    widget_PP.HumSec_Tarifa_181_190->setText(QString::number(HumSec.at(4), 'f', 2));
+    widget_PP.HumSec_Tarifa_191_200->setText(QString::number(HumSec.at(5), 'f', 2));
+    widget_PP.HumSec_Tarifa_201_210->setText(QString::number(HumSec.at(6), 'f', 2));
+    widget_PP.HumSec_Tarifa_211_220->setText(QString::number(HumSec.at(7), 'f', 2));
+    widget_PP.HumSec_Tarifa_221_230->setText(QString::number(HumSec.at(8), 'f', 2));
+    widget_PP.HumSec_Tarifa_231_240->setText(QString::number(HumSec.at(9), 'f', 2));
+    widget_PP.HumSec_Tarifa_241_250->setText(QString::number(HumSec.at(10), 'f', 2));
+    widget_PP.HumSec_Tarifa_251_260->setText(QString::number(HumSec.at(11), 'f', 2));
+    widget_PP.HumSec_Tarifa_261_270->setText(QString::number(HumSec.at(12), 'f', 2));
+    widget_PP.HumSec_Tarifa_271_280->setText(QString::number(HumSec.at(13), 'f', 2));
+    widget_PP.HumSec_Tarifa_281_290->setText(QString::number(HumSec.at(14), 'f', 2));
+    widget_PP.HumSec_Tarifa_291_300->setText(QString::number(HumSec.at(15), 'f', 2));
+    
+    Tabla.finish();
+    //KillDB();
+}
+
 void Silo::Cuotas_Sanidad(int estado){
     
     //  Qt::Unchecked  = 0
@@ -3662,17 +3929,6 @@ void Silo::Actualizacion(int estado){
     Opt.finish();
 }
 
-void Silo::Usuarios_Borrar(int estado){    // Activa y desactiva el borrar usuario
-    if(estado == 0){
-        widget_PP.User_Del_CB->setEnabled(false);
-        widget_PP.User_Del_CB->setStyleSheet("border-width:0px; border-color:rgb(30,30,30); border-radius:8px; background:white");
-    }
-    if(estado == 2){
-        widget_PP.User_Del_CB->setEnabled(true);
-        widget_PP.User_Del_CB->setStyleSheet("border-width:1px; border-color:rgb(30,30,30); border-radius:8px; background:white");
-    }
-}
-
 void Silo::Usuarios_New(){
     QString User = widget_PP.User_Add_usuario_edit->text();
     QString Pass = widget_PP.User_Add_pass_edit->text();
@@ -3705,6 +3961,8 @@ void Silo::Usuarios_New(){
     Num_user = Opt.value("Num_User").toInt();
     if(Num_user <= 0){
         Num_user = 1;
+    }else {
+        Num_user++;   
     }
     
     Opt.first();
@@ -3732,7 +3990,56 @@ void Silo::Usuarios_New(){
     Opt.finish();
 }
 
-void Silo::Usuarios(int estado){   // Activa y desactiva los QlineEdit
+void Silo::Usuarios_Borrar(int estado){    // Activa y desactiva el borrar usuario
+    Usuarios_Load_Borrar();
+    
+    if(estado == 0){
+        widget_PP.User_Del_CB->setEnabled(false);
+        widget_PP.User_Del_CB->setStyleSheet("border-width:0px; border-color:rgb(30,30,30); border-radius:8px; background:white");
+    }
+    if(estado == 2){
+        widget_PP.User_Del_CB->setEnabled(true);
+        widget_PP.User_Del_CB->setStyleSheet("border-width:1px; border-color:rgb(30,30,30); border-radius:8px; background:white; color:black; ");
+    }
+}
+
+void Silo::Usuarios_Load_Borrar(){
+    auto dos{0};
+    QString Productor;
+    widget_PP.User_Del_CB->clear();
+   
+    std::wstring DirFile;
+    TCHAR buffer[MAX_PATH] = {0};
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
+    DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
+    
+    CrearDB(QString::fromStdWString(DirFile), users());
+    
+    QSqlQuery user(QSqlDatabase::database(users()));
+    user.exec("SELECT Num_User FROM Usuarios");
+    if(user.lastError().isValid()){
+        Log( "Error al seleccionar usuarios \n" + user.executedQuery() + "\n" + user.lastError().text());
+    }
+    
+    user.first();
+    do{
+        dos++;
+    }while(user.next());
+   
+    user.first();
+    for(auto i{0}; i<dos; ){
+        Productor = (user.value("Nombre").toString() + " " + user.value("Apellido").toString() + " Usuarios");
+       widget_PP.User_Del_CB->addItem( Productor ); //populates the combobox for erase users
+       Log(Productor);
+       user.next();
+       i++;
+    }
+    
+    user.finish();
+}
+
+void Silo::Usuarios_set(int estado){   // Activa y desactiva los QlineEdit
     if(estado == 0){
         widget_PP.User_Add_usuario_edit->setEnabled(false);
         widget_PP.User_Add_usuario_edit->setStyleSheet("border-width:0px; border-color:rgb(30,30,30); border-radius:8px; background:white");
@@ -4107,7 +4414,7 @@ void Silo::CrearDB(QString Dir , QString Db){  // para sqlite, si no existe el a
     
 }
 
-void Silo::KillDB(){//QString Db){
+void Silo::KillDB(){//QString Db){    // Destroy the current SQL conecction
     QSqlDatabase db = QSqlDatabase::database();
     db.close();
     QSqlDatabase::removeDatabase(QSqlDatabase::defaultConnection);
@@ -4131,7 +4438,7 @@ void Silo::Contrasenas(){
     }
     
     valor.exec("CREATE TABLE IF NOT EXISTS Usuarios"
-               "(Num_User INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
+               "(Num_User INTEGER NOT NULL, "
                "Nombre VARCHAR(100) NOT NULL, Apellido VARCHAR(200) NOT NULL, "
                "Direccion TEXT, Telefono INTEGER, "
                "User VARCHAR(20) NOT NULL, Pass VARCHAR(20) NOT NULL, Puesto VARCHAR(200) )");
@@ -4371,76 +4678,6 @@ void Silo::Dry_n_Wet(){
     //KillDB();
 } 
 
-void Silo::CreateConfigFile(QString DirFile, QString MAC){
-    // creates the DB Config 
-    // if the Mac its empty creates the file
-    // if the Mac its pass, it updates the mac inside Config table
-    int row{0};
-    
-    if (MAC.isEmpty()){   // si esta vacio la mac crea el archivo
-        CrearDB(DirFile, "Config.db");
-    
-        QSqlQuery valor(QSqlDatabase::database("Config.db"));
-        if(valor.lastError().isValid()){
-            Log("Creacion de Db Config fallida \n" + valor.executedQuery() + "\n" + valor.lastError().text() );
-        }
-    
-        valor.exec("CREATE TABLE IF NOT EXISTS Config"
-               "(Mac VARCHAR(18), Ton_Socio FLOAT, Sanidad FLOAT,"
-               " Cuota FLOAT, Modulo FLOAT, Actulz INTEGER, Precio_Fix FLOAT )");
-        if(valor.lastError().isValid()){
-            Log("Creacion de Config fallida \n" + valor.lastQuery() + "\n" + valor.lastError().text() );
-        }
-    
-        if(!valor.lastError().isValid()){
-            Log("Creacion de Config");
-        }
-        valor.finish();
-        //KillDB();
-    }else{
-        // here i update the mac address inside the config file
-        CrearDB(DirFile, "Config.db");   // creates conecction to DB
-        QSqlQuery valor(QSqlDatabase::database("Config.db"));
-        if(valor.lastError().isValid()){
-            Log("Error \n" + valor.executedQuery() + "\n" + valor.lastError().text() );
-        }
-    
-        valor.exec("SELECT * FROM Config");
-       Log("antes del while");
-        while (valor.last() == true){
-            row++;
-            valor.next();
-        }
-        
-        Log(MAC);
-        
-        if( row == 1 ){  // if exist a row update the mac address
-        valor.prepare("UPDATE Config SET Mac = ':serial'");
-        valor.bindValue(":serial", MAC);
-        valor.exec();
-        if(valor.lastError().isValid()){
-            Log("No se puede accesar la tabla Config \n" + valor.lastQuery() + "\n" + valor.lastError().text() );
-            }
-        }
-        if( row == 0){     //if not creates the row and update it
-            valor.prepare("INSERT INTO Config (Mac) VALUES (:serial)");
-            valor.bindValue(":serial", MAC);
-            valor.exec();
-            if(valor.lastError().isValid()){
-                Log("No se puede crear el registro\n" + valor.lastQuery() + "\n" + valor.lastError().text() );
-            }
-        }
-        if( row>1 ){
-            Log("Error Demaciados campos " + QString::number(row));
-        }
-        if(!valor.lastError().isValid()){
-            Log("Update de Config");
-        }
-        valor.finish();
-        //KillDB();
-    }
-} 
-
 void Silo::LogData(QString data){
     std::ofstream archivo; 
     std::time_t now = time(0);
@@ -4574,19 +4811,105 @@ void Silo::Validadores_Opciones(){
 
 void Silo::Imp_Liquida(){
     //  prints liquidaciones
-    std::vector<QString> vector;   // Here goes the data that needs to be printed
-    Impresora* print = new Impresora;
-    print->imprimir(this, vector);
+    std::vector<Data> vector; 
+    Data boleta;
+    QString deduc, merma, secado, secadoIva;
+    auto totaldeduc{0.0}, totalSecado{0.0};
+    
+    QMessageBox MBox;
+    QPushButton *boton_OK = MBox.addButton("Ok", QMessageBox::AcceptRole);
+    MBox.setWindowTitle("Error");
+    MBox.setDefaultButton(boton_OK);
+    MBox.setText("No esta seleccionado ningun Productor");
+    // struct vieja
+//     QString Nombre, Procedencia,Vehiculo, Placas, Chofer, Fecha ;
+//        int Folio;
+//        float Humedad, KilosxTon, Deduc, Merma, DeducTotal;
+//        float Bruto, Tara, Neto, Analizado, PrecioTon;
+//        float Secado, SecadoIva, Cuota_Conserv, Sanidad;
+    
+     // Here goes the data that needs to be printed
+    if (widget_PP.Liq_Prod_Info_edit->text() != "") {
+        boleta.Nombre = widget_PP.Liq_Prod_Info_edit->text();
+        boleta.Procedencia = widget_PP.Liq_Proce_Info_edit->text();
+        boleta.Vehiculo = widget_PP.Liq_Vehi_Info_edit->text();
+        boleta.Placas = widget_PP.Liq_Placas_Info_edit->text();
+        boleta.Chofer = widget_PP.Liq_Chofer_Info_edit->text();
+        boleta.Fecha = widget_PP.Liq_Fecha_Info_edit->text();
+        boleta.Folio = widget_PP.Liq_Folio_Info_edit->text();
+        boleta.Humedad = widget_PP.Liq_Dedc_Humedad_edit->text();
+        boleta.KilosxTon = "pendiente";
+        boleta.Deduc = widget_PP.Liq_Dedc_Deducciones_edit->text();
+        boleta.Merma = widget_PP.Liq_Dedc_Merma_edit->text();
+
+        deduc = boleta.Deduc;
+        merma = boleta.Merma;
+        totaldeduc = merma.toFloat() + deduc.toFloat();
+
+        boleta.DeducTotal = QString::number(totaldeduc, 'f', 2);
+        boleta.Bruto = widget_PP.Liq_Bruto_Info_edit->text();
+        boleta.Tara = widget_PP.Liq_Tara_Info_edit->text();
+        boleta.Neto = widget_PP.Liq_Neto_Info_edit->text();
+        boleta.Analizado = widget_PP.Liq_Total_Analizado_edit->text();
+        boleta.PrecioTon = widget_PP.Liq_Total_PrecioTon_edit->text();
+        boleta.Secado = widget_PP.Liq_Reten_Secado_edit->text();
+        boleta.SecadoIva = widget_PP.Liq_Reten_IvaSecado_edit->text();
+        boleta.Sanidad = widget_PP.Liq_Reten_Sanidad_edit->text();
+        boleta.Cuota_Conserv = widget_PP.Liq_Reten_ConsGrano_edit->text();
+        boleta.Total = widget_PP.Liq_Total_Pagar_edit->text();
+
+        secado = boleta.Secado;
+        secadoIva = boleta.SecadoIva;
+        totalSecado = secado.toFloat() + secadoIva.toFloat();
+
+        boleta.TotalSecado = QString::number(totalSecado, 'f', 2);
+
+        Impresora* print = new Impresora;
+        vector.push_back(boleta);
+        print->imprimir(this, vector);
+    }else{
+        MBox.exec();
+    }
 }
 
 void Silo::Imp_Salidas(){
     // prints boletas salidas
 }
 
+void Silo::RevisarDiasRestantes(){     // Check how many days are left, if the serial is 00 is for life
+//    
+//    QString serial;
+    //QStringList ss2;
+    QString tiempo;
+    //std::stringstream ss ;
+    //std::string timer;
+//    if (serial.contains("-")){
+//            serial.chop(3);
+//            //silo->Log(serial);
+//        }
+//       
+////        if (serial.isEmpty() == false && serial == MAC_addrs){
+////            // create file for config
+////            //silo->Log(" valor de serial: " + serial + "\nMac addres: " + MAC_addrs);
+////            //ready = true;
+////            break;
+////        }
+    std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
+    std::time_t now_c = std::chrono::system_clock::to_time_t(now);
+    std::tm tm = *std::gmtime(&now_c);     // lo pasas a tiempo GMT (UTC)
+    
+    //ss << std::put_time( &tm, "%Y-%m-%d %H:%M:%S");
+    
+    //tiempo = QString::fromStdString(ss.str());
+    //tiempo = ss2.join("");
+    //Log("Tiempo usando Chrono " + tiempo);
+    //std::chrono::duration<float> DiasRestantes = tiempo_actual;
+}
+
 void Silo::C_Ent(){  // Boletas de entrada
-   
-    widget_PP.Ciclo_edit->setText(ciclo_actual());  
+    
     widget_PP.SW_Zona_Principal->setCurrentIndex(1);
+    widget_PP.Ciclo_edit->setText(ciclo_actual());  
     Validadores_Boletas_New();
     Entradas_CB_Productor();
     Tabla_Boletas_Entradas();
@@ -4656,9 +4979,9 @@ void Silo::C_Opc(){    // Opciones
 }
 
 void Silo::C_HumySec1(){  //Humedad y secado 1
+    widget_PP.SW_Zona_Principal->setCurrentIndex(8);
     Popup_DrynWet_CB1();
     ShowDeduc();
-    widget_PP.SW_Zona_Principal->setCurrentIndex(8);
     Arrows();
     
 }
@@ -4667,12 +4990,13 @@ void Silo::C_HumySec2(){    // Humedad y secado 2
     widget_PP.SW_Zona_Principal->setCurrentIndex(9);
     Popup_DrynWet_CB2();
     Popup_DrynWet_CB3();
+    ShowDeduc_Tarifa();
     Arrows();
 }
 
 void Silo::Salidas(){     // Salidas de Camiones
-    widget_PP.Ciclo_edit_Salida->setText(ciclo_actual());  
     widget_PP.SW_Zona_Principal->setCurrentIndex(10);
+    widget_PP.Ciclo_edit_Salida->setText(ciclo_actual());  
     Salidas_CB_Comprador();
     Validadores_Boletas_Salidas();
     Tabla_Boletas_Salidas();

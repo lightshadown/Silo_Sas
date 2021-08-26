@@ -176,7 +176,7 @@ public:
         Serial_edit->setFrame(false);
         Serial_aviso = new QLabel(frame_2);
         Serial_aviso->setObjectName(QStringLiteral("Serial_aviso"));
-        Serial_aviso->setGeometry(QRect(40, 400, 281, 31));
+        Serial_aviso->setGeometry(QRect(0, 400, 361, 31));
         Serial_aviso->setStyleSheet(QLatin1String("font:16px \"Bahnschrift\";\n"
 "background:transparent;\n"
 "border:0px;\n"

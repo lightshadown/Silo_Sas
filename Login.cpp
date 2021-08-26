@@ -25,7 +25,7 @@
 
 Login::Login(){ //(QString appDir, QApplication app) {
     widget_Login.setupUi(this);
-    QObject::connect(widget_Login.Serial_edit, SIGNAL(returnPressed()), this, SLOT(Check()));  // senal de enter al introducir el serial
+    QObject::connect(widget_Login.Serial_edit, SIGNAL(returnPressed()), this, SLOT(Check_Enter()));  // senal de enter al introducir el serial
     QObject::connect(widget_Login.Aceptar, SIGNAL(clicked()), this, SLOT(BotonAceptar()));  // boton de Aceptar
     QObject::connect(widget_Login.Cancelar, SIGNAL(clicked()), this, SLOT(close()));
 }
@@ -152,18 +152,23 @@ void Login::BotonAceptar(){
     this->hide();
 }
 
-void Login::Check(){  //(QString AppDir, QApplication){    
+void Login::Check_Enter(){  //(QString AppDir, QApplication){    
     Silo* silo = new Silo();
+    QString serial;
     
+    serial = widget_Login.Serial_edit->text();
+            
     QString DirFile = InitApp;
     if (SortMAC(getMacAddress(), widget_Login.Serial_edit->text())){  // compares and check if the serial provided is valid
             silo->Log("Serial Valido");
             widget_Login.Serial_aviso->setStyleSheet("color:green");
             widget_Login.Serial_aviso->setText("Serial Valido");
             widget_Login.Aceptar->setCheckable(true);
-            widget_Login.Aceptar->setStyleSheet("background-color:rgba(255,255,255,0.5); border-radius:10px; color:black;");
-            silo->CreateConfigFile(DirFile, widget_Login.Serial_edit->text());  // Create config File, pass the valid serial here
-        }else{
+            widget_Login.Aceptar->setVisible(true);
+            widget_Login.Aceptar->setStyleSheet("background-color:green;color:black; border-radius:10px");
+          //  widget_Login.Aceptar->setStyleSheet("background-color:rgba(255,255,255,0.5); border-radius:10px; color:black;");
+            CreateConfigFile(DirFile, serial);  // Create config File, pass the valid serial here
+    }else{
             silo->Log("Serial NO VALIDO");                         //  serial its not valid
             widget_Login.Serial_aviso->setStyleSheet("color:red");
             widget_Login.Serial_aviso->setText("No Valido, intentelo de Nuevo");
@@ -189,44 +194,51 @@ void Login::CheckLogin(){
     
     if(checkConfigFile(InitApp) == true){   //check if file exist
        // check mac inside config vs machines mac  
+       widget_Login.Serial_edit->setVisible(false);   // hide or show serial_edit
+       widget_Login.Serial_edit->setStyleSheet("background-color:white; font:20px; font-color:black;"
+                                               "border-width:1px; border-style:solid; border-radius:5px "); 
        silo->CrearDB(InitApp, "Config.db");
        QSqlQuery mac(QSqlDatabase::database("Config.db"));
        mac.exec("SELECT Mac FROM Config");
        if(mac.lastError().isValid()){
-           silo->Log("No se Puede obtener la Mac \n" + mac.lastError().text());
+           silo->Log("Cannot retrieve Mac \n" + mac.lastError().text());
        }
+       
        mac.first();
        MacSql = mac.value("Mac").toString();
-       //silo->Log("Valor mac de config " + MacSql + "\n" + mac.lastError().text());
-       widget_Login.Serial_edit->setVisible(false);   // hide or show serial_edit
-       if(SortMAC(getMacAddress(), MacSql) == true){   // return true or false SortMac mac comparision goes here   
-           widget_Login.Aceptar->setCheckable(true);                         //  set enable
-           widget_Login.Aceptar->setStyleSheet("background-color:green;color:black; border-radius:10px");   // everything its fine continue to log on
-           widget_Login.Serial_edit->setVisible(false);   // hide or show serial_edit
-       } else{
-           widget_Login.Aceptar->setCheckable(false);              // not enable
+       if(mac.next() == true){
+           silo->Log("Erase extra rows");
+           mac.exec("DELETE FROM Config WHERE Ton_Socio IS NULL AND Actulz IS NULL");   
+        }
+       
+       if (MacSql == ""){
+           silo->Log("Mac its empty");
+           widget_Login.Serial_aviso->setText("Error de Serial, Introdusca un Serial Valido");
+           widget_Login.Aceptar->setCheckable(false);
+           widget_Login.Aceptar->setVisible(false);
            widget_Login.Serial_edit->setVisible(true);
-           widget_Login.Serial_aviso->setText("No se Puede leer Config");   // cant read table config
-           silo->Log("No se puede comparar la Mac");
+       }else{
+           if(SortMAC(getMacAddress(), MacSql) == true){   // return true or false SortMac   
+               widget_Login.Aceptar->setCheckable(true);               //  set enable, Start Application
+               widget_Login.Aceptar->setStyleSheet("background-color:green;color:black; border-radius:10px");   // everything its fine continue to log on
+               widget_Login.Serial_edit->setVisible(false);   // hide or show serial_edit
+           } else{
+               widget_Login.Aceptar->setCheckable(false);              // not enable
+               widget_Login.Aceptar->setVisible(false);
+               widget_Login.Serial_edit->setVisible(true);
+               widget_Login.Serial_aviso->setText("El serial no es Valido");   // cant read table config
+               silo->Log("No se puede comparar la Mac");
+           }
        }
-    
+        
       }else{   // Config file dosnt exist
         widget_Login.Aceptar->setCheckable(false); // hide button
         widget_Login.Aceptar->setStyleSheet("border-width:0px;background-color:white;");  // change button color
         widget_Login.Serial_edit->setVisible(true);   //show lineiedit for serial
         widget_Login.Serial_aviso->setText("Por favor Introduzca un Serial Valido");
-        silo->CreateConfigFile(InitApp,"");  // creates the Config file
+        CreateConfigFile(InitApp,"");  // creates the Config file
         silo->Log("Si config no existe, se crea");
-       /*
-        //   login->Check();
-           if(login->validSerial == true){  //if serial is valid, triger when Check() happends   como carajos llamo la funcion Check aqui???
-           login->findChild<QPushButton*>("Aceptar")->setCheckable(true); // 
-           login->findChild<QPushButton*>("Aceptar")->setStyleSheet("border-width:1px; background-color:transparent; color:red");  // change button color
-           //winPrin.show();    // base.show()  pantalla principal;
-           base->CreateConfigFile(app.applicationDirPath(), "");  // Create config File, pass the valid serial here
-         }
-         if (login->validSerial == true){base->Log("Hubo un cambio, valid serial es true ");} else{base->Log("valid serial es False"); }
-      */
+  
     }
     
 
@@ -265,3 +277,62 @@ bool Login::checkConfigFile(QString Dir){  // pasa la direccion de la aplicacion
     return fileConfig;
 }
 
+void Login::CreateConfigFile(QString DirFile, QString MAC){
+    // creates the DB Config 
+    // if the Mac its empty creates the file
+    // if the Mac its pass, it updates the mac inside Config table
+    // if the config file exist but the Mac field its empty, it updates that field
+    // if the Mac field its diferent, the program its not valid
+    
+    Silo* silo = new Silo;
+    if (MAC.isEmpty()){   // si esta vacio la mac crea el archivo
+        silo->CrearDB(DirFile, "Config.db");
+    
+        QSqlQuery valor(QSqlDatabase::database("Config.db"));
+       
+        valor.exec("CREATE TABLE IF NOT EXISTS Config"
+               "(Mac VARCHAR(18), Ton_Socio FLOAT, Sanidad FLOAT,"
+               " Cuota FLOAT, Modulo FLOAT, Actulz INTEGER, Precio_Fix FLOAT )");
+        if(valor.lastError().isValid()){
+            silo->Log("Config file failed to be created \n" + valor.lastQuery() + "\n" + valor.lastError().text() );
+        } else{
+            silo->Log("Creation of Config");
+        }
+    
+        valor.finish();
+        //KillDB();
+    }else{
+        // here i update the mac address inside the config file
+        silo->CrearDB(DirFile, "Config.db");                            // creates conecction to DB
+        QSqlQuery valor(QSqlDatabase::database("Config.db"));     // set query
+    
+        valor.exec("SELECT * FROM Config");
+        if(valor.lastError().isValid()){
+            silo->Log("Error \n" + valor.executedQuery() + "\n" + valor.lastError().text() );
+        }
+        silo->Log("Before database management");
+        valor.first();    //  if mac row its empty && Actulz is not empty OR mac row its diferent from Mac && Actulz is not empty, UPDATE
+        if((valor.value("Mac").toString() == "" && valor.value("Actulz").toString() != "") || 
+                (valor.value("Mac").toString() != MAC && valor.value("Actulz").toString() != "") ){
+           silo->Log("Mac is empty/diferent, update");
+           valor.prepare("UPDATE Config SET Mac = :serial");
+           valor.bindValue(":serial", MAC);
+           valor.exec();
+           if(valor.lastError().isValid()){
+              silo->Log("Error \n" + valor.executedQuery() + "\n" + valor.lastError().text() );
+           }
+        }else{
+            silo->Log("Rows are empty creating new one");
+            valor.prepare("INSERT INTO Config (Mac, Actulz) VALUES (:serial, :act)");
+            valor.bindValue(":serial", MAC);
+            valor.bindValue(":act", 1);
+            valor.exec();
+            if(valor.lastError().isValid()){
+                silo->Log("No se puede crear el registro\n" + valor.lastQuery() + "\n" + valor.lastError().text() );
+            }
+        }
+       
+        valor.finish();
+        //KillDB();
+    }
+} 

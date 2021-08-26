@@ -23,6 +23,7 @@
 #include <QLabel> // usar label
 #include <QObject>
 #include <QString>
+#include <QStringList>
 #include <QDebug> // hacer debug
 #include <QSqlError> //hacer debug sql
 #include <QSqlDatabase> // crea conecciones a base de datos
@@ -40,7 +41,7 @@
 #include <QVector>
 #include <QDoubleValidator>   // Validadores de float
 #include <QIntValidator>      // validadores de Int
-#include <QRegExpValidator>   // validadores de Expresiones regulares (RegExp)
+//#include <QRegularExpressionValidator>    //<QRegExpValidator>   // validadores de Expresiones regulares (RegExp)    cambiar por QRegularExpressionValidator   Qt6
 #include <QLineEdit>
 #include <QColor>
 
@@ -57,6 +58,9 @@
 #include <stdio.h>
 #include <iostream>
 #include <string>
+//#include <sstream>   // checar con sstream    basic_stringstream
+//#include <basic_stringstream>
+#include <iomanip>
 #include <cmath>
 #include <fstream>  // hacer stream para escribir en un archivo
 #include <windows.h> // funciones de windows, funciones para abrir y cerrar directorios 
@@ -64,6 +68,9 @@
 #include <QByteArray>
 #include <Iphlpapi.h>
 #include <Assert.h>
+#include <vector>
+#include <chrono>
+//#include <map>
 
 // usar una contrasena simple, getMacAddress() + serial
 
@@ -72,6 +79,15 @@
 QString ciclo_actual();
 QString users();
 QString adeudos();
+struct Data {
+
+        QString Nombre, Procedencia,Vehiculo, Placas, Chofer, Fecha ;
+        QString Folio, Total, TotalSecado;
+        QString Humedad, KilosxTon, Deduc, Merma, DeducTotal;
+        QString Bruto, Tara, Neto, Analizado, PrecioTon;
+        QString Secado, SecadoIva, Cuota_Conserv, Sanidad;
+    };
+
 
 class Silo : public QMainWindow {
     Q_OBJECT
@@ -87,7 +103,7 @@ public:
     void Contrasenas();                     // users
     void Creditos();                        // credits
     void Dry_n_Wet();                       // dry and wet tables
-    void CreateConfigFile(QString, QString);   //creates de config file
+    //void CreateConfigFile(QString, QString);   //creates de config file
     void CrearDB(QString, QString);      // creates and open the database
     void KillDB();//(QString);                // kills the open conecction
     bool ChecarDB(QString, QString);     // checks if the database exists
@@ -103,12 +119,15 @@ public:
     void Salidas_CB_Comprador();         // populates the CB Razon Social in Salidas
     void Liquidaciones_CB_Comp();
     void Liquidaciones_CB_Prod();
+    std::vector<float> Analizado(float , float);     // manejo del grano analizado
+    std::vector<float> Hmd (float, std::wstring);    // manejo de la humedad
     //void Liquidaciones_Show_Comp();
     void Popup_DrynWet_CB1();
     void Popup_DrynWet_CB2();
     void Popup_DrynWet_CB3();
     void Arrows();
     void ShowDeduc();
+    void ShowDeduc_Tarifa();
     void Options_Init();                     // set disable all the Qlineedits by default
     void Opt_Sanidad_Load();
     void Opt_Grano_Load();
@@ -120,6 +139,8 @@ public:
     void Validadores_Opciones();
     float comprador_Precio();
     void setColortoRow(int,int,QColor);
+    void Usuarios_Load_Borrar();
+    void RevisarDiasRestantes();
    
     QStringList buscarArchivos(QStringList, QString);
   
@@ -179,7 +200,8 @@ public slots:
     void Imp_Salidas();                     // prints Boletas Salidas
     void Entradas_CheckBrutoTara();
     void CheckBrutoTara_Salida();
-    void Usuarios(int);
+    void Usuarios_set(int);
+    void Usuarios_New();
     void Usuarios_Borrar(int);
     void Cuotas_Sanidad(int);
     void Cuotas_Modulo(int);
@@ -189,7 +211,7 @@ public slots:
     void Opt_Modulo();
     void Opt_TonsSocios();
     void Actualizacion(int);
-    void Usuarios_New();
+    
     //virtual void closeEvent(QCloseEvent *event) override;  // old exit program
    
     

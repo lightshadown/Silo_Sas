@@ -24,12 +24,21 @@
 //#include <QPainter>
 #include <QString>
 
+//struct Data {
+//
+//    QString Nombre, Procedencia,Vehiculo, Placas, Chofer, Fecha ;
+//    int Folio;
+//    float Humedad, KilosxTon, Deduc, Merma, DeducTotal;
+//    float Bruto, Tara, Neto, Analizado, PrecioTon;
+//    float Secado, SecadoIva, Cuota_Conserv, Sanidad;
+//};
+
 class Impresora {
 public:
     Impresora();
     virtual ~Impresora();
-    void imprimir(QWidget*, const std::vector<QString>&);
-    void pintarCarta(QPainter&, const std::vector<QString>&);
+    void imprimir(QWidget*, const std::vector<Data>&);
+    void Impresion_Carta(QPainter&, const std::vector<Data> &);
 private:
 
 };

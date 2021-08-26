@@ -13,12 +13,13 @@
 #include "Impresora.h"
 
 Impresora::Impresora() {
+    
 }
 
 Impresora::~Impresora() {
 }
 
-void Impresora::imprimir( QWidget *parent, const std::vector<QString> &Data ){  // este es el bueno
+void Impresora::imprimir( QWidget *parent, const std::vector<Data> &print ){  // este es el bueno
      
     QPrinter *printer;
     QPrintDialog dialog(parent);
@@ -40,11 +41,11 @@ void Impresora::imprimir( QWidget *parent, const std::vector<QString> &Data ){  
     e.scale(0.97,0.97); // usar para ajustar el tamaño de la impresion
     
     // vector<QString> Dinamic_Data
-    pintarCarta(e, Data);
+    Impresion_Carta(e, print);
 }
 
         // usar vector<QString> &Dinamic_Data para pasarle la info de la Db
-void Impresora::pintarCarta(QPainter &painter, const std::vector<QString> &Dinamic_Data ){   // revisar   https://stackoverflow.com/questions/36249645/qt-reusable-paint-functions-with-custom-arguments
+void Impresora::Impresion_Carta(QPainter &painter, const std::vector<Data> &Dinamic_Data ){   // revisar   https://stackoverflow.com/questions/36249645/qt-reusable-paint-functions-with-custom-arguments
     
     //painter = p;
     //painter(this); // declara el tipo de qpainter, se puede pasar un Qprinter por referencia, &printer para mandar a impresion
@@ -106,13 +107,14 @@ void Impresora::pintarCarta(QPainter &painter, const std::vector<QString> &Dinam
     painter.drawText(QRect(580,565,100,20), 0, "Peso Neto: ", &boundingRect);
     painter.drawText(QRect(548,588,120,20), 0, "- Deducciones: ", &boundingRect);
     painter.drawText(QRect(542,613,150,20), 0, "Peso Analizado: ", &boundingRect);
-    painter.drawText(QRect(780,520,30,20), 0, "Kgs", &boundingRect);
-    painter.drawText(QRect(780,542,30,20), 0, "Kgs", &boundingRect);
-    painter.drawText(QRect(780,565,30,20), 0, "Kgs", &boundingRect);
+    painter.drawText(QRect(780,520,30,20), 0, "Tons", &boundingRect);
+    painter.drawText(QRect(780,542,30,20), 0, "Tons", &boundingRect);
+    painter.drawText(QRect(780,565,30,20), 0, "Tons", &boundingRect);
     painter.drawText(QRect(780,588,30,20), 0, "Kgs", &boundingRect);
-    painter.drawText(QRect(780,612,30,20), 0, "Kgs", &boundingRect);
+    painter.drawText(QRect(780,612,30,20), 0, "Tons", &boundingRect);
     
     painter.drawText(QRect(60,700,200,20), 0, "PRECIO TONELADAS $: ", &boundingRect);
+    painter.drawText(QRect(350,700,100,20), 0, "Mx:", &boundingRect);
     painter.drawText(QRect(530,700,100,20), 0, "TOTAL $:", &boundingRect);
     painter.drawText(QRect(740,700,100,20), 0, "Mx", &boundingRect);
     painter.drawText(QRect(450,790,200,20), 0, "SUB TOTAL(SECADO) $ ", &boundingRect);
@@ -156,36 +158,37 @@ void Impresora::pintarCarta(QPainter &painter, const std::vector<QString> &Dinam
     pen.setColor(QColor(77,19,209)); // QColor especifica los colores en modo RGBA, se puede hacer transparente,  se tiene que usar este para que pase la opacidad --> QRgba64::fromRgba(150,40,27,100))
     painter.setPen(pen);
     
-    QString nombre = "Jose Luis Medina Alarcon";   // cambiar todos los nombres por variables de un Vector<QString>
-    painter.drawText(QRect(215,300,300,20), 0, nombre, &boundingRect);   // Nombre, Apellidos
-    painter.drawText(QRect(215,320,300,20), 0, "R. El Paraiso", &boundingRect);              // Procedencia
-    painter.drawText(QRect(215,340,150,20), 0, "KW Negro", &boundingRect);                   // Vehiculo
-    painter.drawText(QRect(215,360,150,20), 0, " ", &boundingRect);                          // Placas
-    painter.drawText(QRect(215,380,300,20), 0, "Juan Martinez", &boundingRect);              // Chofer
     
-    painter.drawText(QRect(650,300,100,20), 0, "#253681", &boundingRect);                   // No folio
-    painter.drawText(QRect(650,340,100,20), 0, "23/05/2021", &boundingRect);                   //  Fecha
+    // toda la info viene de un std::vector<Data>
+    painter.drawText(QRect(215,300,300,20), 0, Dinamic_Data[0].Nombre, &boundingRect);             // Nombre, Apellidos
+    painter.drawText(QRect(215,320,300,20), 0, Dinamic_Data[0].Procedencia , &boundingRect);       // Procedencia   
+    painter.drawText(QRect(215,340,150,20), 0, Dinamic_Data[0].Vehiculo , &boundingRect);          // Vehiculo      
+    painter.drawText(QRect(215,360,150,20), 0, Dinamic_Data[0].Placas, &boundingRect);             // Placas        
+    painter.drawText(QRect(215,380,300,20), 0, Dinamic_Data[0].Chofer, &boundingRect);             // Chofer        
     
-    painter.drawText(QRect(180,530,50,20), 0, "30,0", &boundingRect);    //  % de Humedad
-    painter.drawText(QRect(250,530,100,20), 0, "500,00", &boundingRect);    //  Kilos x Ton
-    painter.drawText(QRect(350,530,180,20), 0, "150,000.00", &boundingRect);    //  Deducciones
-    painter.drawText(QRect(185,570,50,20), 0, "1%", &boundingRect);
-    painter.drawText(QRect(350,570,100,20), 0, "1250.00", &boundingRect);        // Prevencio de Merma
-    painter.drawText(QRect(350,610,200,20), 0, "526,252.85", &boundingRect);     //Total Deducciones
+    painter.drawText(QRect(650,300,100,20), 0, Dinamic_Data[0].Folio, &boundingRect);              // No folio       
+    painter.drawText(QRect(650,340,100,20), 0, Dinamic_Data[0].Fecha, &boundingRect);              //  Fecha      
     
-    painter.drawText(QRect(680,520,100,20), 0, "60,000.00", &boundingRect);    // peso bruto
-    painter.drawText(QRect(680,542,100,20), 0, "20,000.00", &boundingRect);   // Tara
-    painter.drawText(QRect(680,565,100,20), 0, "40,000.00", &boundingRect);   // Neto
-    painter.drawText(QRect(680,588,120,20), 0, "10,000.00", &boundingRect);   //Deducciones
-    painter.drawText(QRect(680,613,150,20), 0, "10,000.00", &boundingRect);    // Peso Analizado
+    painter.drawText(QRect(180,530,50,20), 0, Dinamic_Data[0].Humedad, &boundingRect);             //  % de Humedad                     
+    painter.drawText(QRect(250,530,100,20), 0, Dinamic_Data[0].KilosxTon, &boundingRect);          //  Kilos x Ton      
+    painter.drawText(QRect(350,530,180,20), 0, Dinamic_Data[0].Deduc, &boundingRect);              //  Deducciones
+    painter.drawText(QRect(185,570,50,20), 0, "1%", &boundingRect);                               // merma 1% simbolo
+    painter.drawText(QRect(350,570,100,20), 0, Dinamic_Data[0].Merma, &boundingRect);             // Prevencio de Merma        
+    painter.drawText(QRect(350,610,200,20), 0, Dinamic_Data[0].DeducTotal, &boundingRect);        //Total Deducciones
+    
+    painter.drawText(QRect(680,520,100,20), 0, Dinamic_Data[0].Bruto, &boundingRect);             // peso bruto                  
+    painter.drawText(QRect(680,542,100,20), 0, Dinamic_Data[0].Tara, &boundingRect);              // Tara                         
+    painter.drawText(QRect(680,565,100,20), 0, Dinamic_Data[0].Neto, &boundingRect);              // Neto                         
+    painter.drawText(QRect(680,588,120,20), 0, Dinamic_Data[0].DeducTotal, &boundingRect);        //Deducciones                    
+    painter.drawText(QRect(680,613,150,20), 0, Dinamic_Data[0].Analizado, &boundingRect);         // Peso Analizado              
 
-    painter.drawText(QRect(250,700,200,20), 0, "10,000.00", &boundingRect);  // precio tonelada
-    painter.drawText(QRect(610,700,200,20), 0, "20,002,125.00", &boundingRect);        //total
+    painter.drawText(QRect(250,700,200,20), 0, Dinamic_Data[0].PrecioTon, &boundingRect);         // precio tonelada               
+    painter.drawText(QRect(610,700,200,20), 0, Dinamic_Data[0].Total, &boundingRect);             //total                
     
-    painter.drawText(QRect(650,790,250,20), 0, "500,000.25", &boundingRect);  //Subtotal secado
-    painter.drawText(QRect(650,815,250,20), 0, "89,050.50", &boundingRect);   //iva
-    painter.drawText(QRect(650,838,250,20), 0, "100,560.00", &boundingRect);     //total secado
-    painter.drawText(QRect(650,890,250,20), 0, "150,565.00", &boundingRect);   //cuota consv
-    painter.drawText(QRect(650,940,250,20), 0, "50,002.98", &boundingRect);    //Sanidad Vegetal
+    painter.drawText(QRect(650,790,250,20), 0, Dinamic_Data[0].Secado, &boundingRect);            //Subtotal secado               
+    painter.drawText(QRect(650,815,250,20), 0, Dinamic_Data[0].SecadoIva, &boundingRect);         //iva                           
+    painter.drawText(QRect(650,838,250,20), 0, Dinamic_Data[0].TotalSecado, &boundingRect);       //total secado
+    painter.drawText(QRect(650,890,250,20), 0, Dinamic_Data[0].Cuota_Conserv, &boundingRect);     //cuota consv                  
+    painter.drawText(QRect(650,940,250,20), 0, Dinamic_Data[0].Sanidad, &boundingRect);           //Sanidad Vegetal              
     
  }
