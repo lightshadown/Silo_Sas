@@ -17,12 +17,9 @@
 #include <QPrintDialog>
 #include <QPainter>
 #include "Silo_SaS.h"
-//#include <QWidget>
-//#include <QObject>
-//#include <QPrinter>
-//#include <QPrintDialog>
-//#include <QPainter>
+#include "Generales.h"
 #include <QString>
+#include <QColor>
 
 //struct Data {
 //
@@ -37,8 +34,13 @@ class Impresora {
 public:
     Impresora();
     virtual ~Impresora();
-    void imprimir(QWidget*, const std::vector<Data>&);
-    void Impresion_Carta(QPainter&, const std::vector<Data> &);
+    void imprimir_Boleta(QWidget*, const std::vector<Data>&);
+    void imprimir_RegInd(QWidget*, const std::vector<Data>&);
+    void imprimir_RegGen( QWidget *, const std::vector<Data>& );
+    void Imp_Boleta(QPainter&, const std::vector<Data> &);
+    void Imp_RegIndiv_Boletas(QPainter&, const std::vector<Data>&, int);
+    void Imp_RegGenerales_Boletas(QPainter &, const std::vector<Data> &, int);
+    
 private:
 
 };

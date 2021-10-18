@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 /* 
  * File:   Pantalla_Principal.h
@@ -16,7 +12,7 @@
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-copy"
-#include <QObject>
+#include <QtCore/QObject>
 #include <QSqlQuery>
 #include <QString>
 #include <QWidget> // usar el widget
@@ -28,6 +24,7 @@
 #include <QSqlError> //hacer debug sql
 #include <QSqlDatabase> // crea conecciones a base de datos
 #include <QTableWidget>
+#include <QTableWidgetItem>
 #include <QSqlTableModel> // tabla de una sola columna
 #include <QSqlRelationalTableModel> // tablas de varias columnas
 #include <QSqlQuery> // hace las busquedas y agrega data a los registros
@@ -41,11 +38,15 @@
 #include <QVector>
 #include <QDoubleValidator>   // Validadores de float
 #include <QIntValidator>      // validadores de Int
-//#include <QRegularExpressionValidator>    //<QRegExpValidator>   // validadores de Expresiones regulares (RegExp)    cambiar por QRegularExpressionValidator   Qt6
+#include <QRegExpValidator>   // validadores de Expresiones regulares (RegExp)    cambiar por QRegularExpressionValidator   Qt6
 #include <QLineEdit>
 #include <QColor>
+#include <QFuture>   // usar async, no funciona con mingw32
+#include <QtConcurrent>   // usar QtConcurrent::run para hacer asincronismo
 
-#include "ui_Pantalla_Principal V2.6.h"
+
+#include "ui_Pantalla_Principal V2.7.h"
+//#include "ui_Pantalla_Principal_V2.6.h"
 //#include "ui_Pantalla_Principal V2.5.h"
 //#include "ui_Pantalla_Principal V2.4.h"
 //#include "ui_Pantalla_Principal V2.3.h"
@@ -58,8 +59,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <string>
-//#include <sstream>   // checar con sstream    basic_stringstream
-//#include <basic_stringstream>
+#include <sstream>   
 #include <iomanip>
 #include <cmath>
 #include <fstream>  // hacer stream para escribir en un archivo
@@ -70,22 +70,24 @@
 #include <Assert.h>
 #include <vector>
 #include <chrono>
-//#include <map>
+//#include <future>   // usar std::async, no funciona con Qt
 
 // usar una contrasena simple, getMacAddress() + serial
 
 #pragma GCC diagnostic pop
 
+
+        
 QString ciclo_actual();
 QString users();
 QString adeudos();
 struct Data {
-
-        QString Nombre, Procedencia,Vehiculo, Placas, Chofer, Fecha ;
-        QString Folio, Total, TotalSecado;
-        QString Humedad, KilosxTon, Deduc, Merma, DeducTotal;
-        QString Bruto, Tara, Neto, Analizado, PrecioTon;
-        QString Secado, SecadoIva, Cuota_Conserv, Sanidad;
+    QString Nombre, Procedencia,Vehiculo, Placas, Chofer, Fecha ;
+    QString Folio, Total, TotalSecado;
+    QString Humedad, KilosxTon, Deduc, Merma, DeducTotal;
+    QString Bruto, Tara, Neto, Analizado, PrecioTon;
+    QString Secado, SecadoIva, Cuota_Conserv, Sanidad;
+    QString Comprador, Contrato, Precio_Contrato, Dif_Precio, Precio_Futuro, Tipo_Cambio, Cobertura;
     };
 
 
@@ -194,10 +196,11 @@ public slots:
     void mostrar_Compra(int, int);          //  Muestra la informacion de cada Comprador y la muestra
     void Liquidaciones_Data(QString);       // Recuadro Boletas dentro de Liquidacion
     void Liquidaciones(int, int);           // Muestra la info de la boleta dentro de Liquidaciones
-    
+    void Liquidar();
     //void AdeudosProdu(QString ComboBox);    // Manejo de Adeudos, se agregara en otra actualizacion
     void Imp_Liquida();                     // prints liquidacines
-    void Imp_Salidas();                     // prints Boletas Salidas
+    void Imp_RegInd();                     // prints Boletas Salidas
+    void Imp_RegGenerales();                // prints all Productor with total tons
     void Entradas_CheckBrutoTara();
     void CheckBrutoTara_Salida();
     void Usuarios_set(int);

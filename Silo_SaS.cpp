@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /*
  * File:   Pantalla_Principal.cpp
@@ -10,6 +5,7 @@
  *
  * Created on 22 de febrero de 2020, 20:08
  */
+
 
 #include "Silo_SaS.h"   // contiene todas las librerias por usar
 //#include "ui_Pantalla_Principal V2.2.h"
@@ -23,7 +19,9 @@
 #include "Login.h"
 //#include "ui_Pantalla_Principal V2.4.h"
 //#include "filesystem"  // hace la busqueda de archivos mas facil, c++ 17
-
+#include "Dependencies/stringbuilder/include/stringbuilder.h"
+#include "Servidor_RPI.h"
+using namespace sbldr;
    //**************  se usan en ciclo_actual() ********//
     //static constexpr int DAY_OFFSET = 0;
     //static constexpr int DAY_LENGTH = 3;
@@ -47,31 +45,33 @@ Silo::Silo() {
     // Conecciones
     //************ Botonera Principal *********//
     
-    QObject::connect(widget_PP.push_Boletas, SIGNAL(clicked()), this, SLOT(C_Ent()));                // boletas
-    QObject::connect(widget_PP.push_Registros, SIGNAL(clicked()), this, SLOT(C_Reg_Ind()));              //  Registros
+    QObject::connect(widget_PP.push_Boletas, &QPushButton::clicked, this, &Silo::C_Ent);   // (widget_PP.push_Boletas, SIGNAL(clicked()), this, SLOT(C_Ent()));                // boletas
+    QObject::connect(widget_PP.push_Registros, &QPushButton::clicked, this, &Silo::C_Reg_Ind);   // (widget_PP.push_Registros, SIGNAL(clicked()), this, SLOT(C_Reg_Ind()));              //  Registros
     //QObject::connect(widget_PP.push_Adeudos, SIGNAL(clicked()), this, SLOT(C_Ade()));              // Adeudos, eliminado no debe usarse
-    QObject::connect(widget_PP.push_Productores, SIGNAL(clicked()), this, SLOT(C_Pro()));            //productores
-    QObject::connect(widget_PP.push_Compradores, SIGNAL(clicked()), this, SLOT(C_Comp()));           // Compradores
-    QObject::connect(widget_PP.push_Liquidacion, SIGNAL(clicked()), this, SLOT(C_Liq()));            //Liquidaciones
-    QObject::connect(widget_PP.push_Silos, SIGNAL(clicked()), this, SLOT(Silos()));                  // Silos
-    QObject::connect(widget_PP.push_Salidas, SIGNAL(clicked()), this, SLOT(Salidas()));              // Salidas
+    QObject::connect(widget_PP.push_Productores, &QPushButton::clicked, this, &Silo::C_Pro);   // (widget_PP.push_Productores, SIGNAL(clicked()), this, SLOT(C_Pro()));            //productores
+    QObject::connect(widget_PP.push_Compradores, &QPushButton::clicked, this, &Silo::C_Comp);   // (widget_PP.push_Compradores, SIGNAL(clicked()), this, SLOT(C_Comp()));           // Compradores
+    QObject::connect(widget_PP.push_Liquidacion, &QPushButton::clicked, this, &Silo::C_Liq);   // (widget_PP.push_Liquidacion, SIGNAL(clicked()), this, SLOT(C_Liq()));            //Liquidaciones
+    //QObject::connect(widget_PP.push_Silos, SIGNAL(clicked()), this, SLOT(Silos()));                  // Silos
+    QObject::connect(widget_PP.push_Salidas, &QPushButton::clicked, this, &Silo::Salidas);   // (widget_PP.push_Salidas, SIGNAL(clicked()), this, SLOT(Salidas()));              // Salidas
     
     //************* Botones ***************************//
     
-    QObject::connect(widget_PP.push_Entradas_Nuevo, SIGNAL(clicked()), this, SLOT(Entradas_Boleta_New()));           // nueva boleta de entradas 
-    QObject::connect(widget_PP.push_Salidas_Nuevo, SIGNAL(clicked()), this, SLOT(Boleta_Salidas_New()));             // nueva boleta de salidas
-    QObject::connect(widget_PP.push_Salidas_Limpiar, SIGNAL(clicked()), this, SLOT(Salidas_Boletas_Limpiar()));               //  limpia los campos de boleta Salidas   Salidas_Limpiar
-    QObject::connect(widget_PP.push_NextTable, SIGNAL(clicked()), this, SLOT(C_HumySec2()));                         // Menu Humedad y secado 2, boton
-    QObject::connect(widget_PP.push_BeforeTable, SIGNAL(clicked()), this, SLOT(C_HumySec1()));                       // Menu Humedad y secado 1, boton
-    QObject::connect(widget_PP.Prod_Limpiar, SIGNAL(clicked()), this, SLOT(Produ_Limpiar()));                        //  limpia los campos de productor
-    QObject::connect(widget_PP.Prod_Borrar, SIGNAL(clicked()), this, SLOT(Productor_Erase()));                       //  borra el registro del productor
-    QObject::connect(widget_PP.Prod_Guardar, SIGNAL(clicked()), this, SLOT(Productor_New()));                        // nuevo productor
-    QObject::connect(widget_PP.Comp_Limpiar, SIGNAL(clicked()), this, SLOT(Comprador_Limpiar()));                    //  limpia los campos de comprador
-    QObject::connect(widget_PP.Comp_Borrar, SIGNAL(clicked()), this, SLOT(Comprador_Borrar()));                      // delete the user comprador
-    QObject::connect(widget_PP.Comp_Guardar, SIGNAL(clicked()), this, SLOT(Comprador_New()));                        // Creates new user comprador
-    QObject::connect(widget_PP.push_Entrada_Borrar, SIGNAL(clicked()), this, SLOT(Entradas_Boletas_Borrar()));       // Entradas_Boletas_Borrar()
-    QObject::connect(widget_PP.push_Salidas_Borrar, SIGNAL(clicked()), this, SLOT(Salidas_Boletas_Borrar()));       //  Salidas_Boletas_Borrar
-    QObject::connect(widget_PP.User_Add_Push, SIGNAL(clicked()), this, SLOT(Usuarios_New()));        //  Creates a new user, Usuarios_New()
+    QObject::connect(widget_PP.push_Entradas_Nuevo, &QPushButton::clicked, this, &Silo::Entradas_Boleta_New);   // (widget_PP.push_Entradas_Nuevo, SIGNAL(clicked()), this, SLOT(Entradas_Boleta_New()));           // nueva boleta de entradas 
+    QObject::connect(widget_PP.push_Salidas_Nuevo, &QPushButton::clicked, this, &Silo::Boleta_Salidas_New);   // (widget_PP.push_Salidas_Nuevo, SIGNAL(clicked()), this, SLOT(Boleta_Salidas_New()));             // nueva boleta de salidas
+    QObject::connect(widget_PP.push_Salidas_Limpiar, &QPushButton::clicked, this, &Silo::Salidas_Boletas_Limpiar);   // (widget_PP.push_Salidas_Limpiar, SIGNAL(clicked()), this, SLOT(Salidas_Boletas_Limpiar()));               //  limpia los campos de boleta Salidas   Salidas_Limpiar
+    QObject::connect(widget_PP.push_NextTable, &QPushButton::clicked, this, &Silo::C_HumySec2);  // (widget_PP.push_NextTable, SIGNAL(clicked()), this, SLOT(C_HumySec2()));                         // Menu Humedad y secado 2, boton
+    QObject::connect(widget_PP.push_BeforeTable, &QPushButton::clicked, this, &Silo::C_HumySec1);  // (widget_PP.push_BeforeTable, SIGNAL(clicked()), this, SLOT(C_HumySec1()));                       // Menu Humedad y secado 1, boton
+    QObject::connect(widget_PP.Prod_Limpiar, &QPushButton::clicked, this, &Silo::Produ_Limpiar);   // (widget_PP.Prod_Limpiar, SIGNAL(clicked()), this, SLOT(Produ_Limpiar()));                        //  limpia los campos de productor
+    QObject::connect(widget_PP.Prod_Borrar, &QPushButton::clicked, this, &Silo::Productor_Erase);   // (widget_PP.Prod_Borrar, SIGNAL(clicked()), this, SLOT(Productor_Erase()));                       //  borra el registro del productor
+    QObject::connect(widget_PP.Prod_Guardar, &QPushButton::clicked, this, &Silo::Productor_New);   // (widget_PP.Prod_Guardar, SIGNAL(clicked()), this, SLOT(Productor_New()));                        // nuevo productor
+    QObject::connect(widget_PP.Comp_Limpiar, &QPushButton::clicked, this, &Silo::Comprador_Limpiar);   // (widget_PP.Comp_Limpiar, SIGNAL(clicked()), this, SLOT(Comprador_Limpiar()));                    //  limpia los campos de comprador
+    QObject::connect(widget_PP.Comp_Borrar, &QPushButton::clicked, this, &Silo::Comprador_Borrar);    // (widget_PP.Comp_Borrar, SIGNAL(clicked()), this, SLOT(Comprador_Borrar()));                      // delete the user comprador
+    QObject::connect(widget_PP.Comp_Guardar, &QPushButton::clicked, this, &Silo::Comprador_New);  // (widget_PP.Comp_Guardar, SIGNAL(clicked()), this, SLOT(Comprador_New()));                        // Creates new user comprador
+    QObject::connect(widget_PP.push_Entrada_Borrar, &QPushButton::clicked, this, &Silo::Entradas_Boletas_Borrar);   // (widget_PP.push_Entrada_Borrar, SIGNAL(clicked()), this, SLOT(Entradas_Boletas_Borrar()));       // Entradas_Boletas_Borrar()
+    QObject::connect(widget_PP.push_Salidas_Borrar, &QPushButton::clicked, this, &Silo::Salidas_Boletas_Borrar);   // (widget_PP.push_Salidas_Borrar, SIGNAL(clicked()), this, SLOT(Salidas_Boletas_Borrar()));       //  Salidas_Boletas_Borrar
+    QObject::connect(widget_PP.User_Add_Push, &QPushButton::clicked, this, &Silo::Usuarios_New);   // (widget_PP.User_Add_Push, SIGNAL(clicked()), this, SLOT(Usuarios_New()));        //  Creates a new user, Usuarios_New()
+    QObject::connect(widget_PP.Liq_Liquidacion, &QAbstractButton::clicked, this, &Silo::Liquidar);      //  Liquida la boleta
+    
     // ************* ComboBox  y Checkbox **************************//
    
     QObject::connect(widget_PP.RegInd_Ciclo_CB, SIGNAL(currentIndexChanged(const QString)), this, SLOT(Reg_Individual_CB_Prod(QString)));           // Registros Individual 
@@ -93,36 +93,38 @@ Silo::Silo() {
     QObject::connect(widget_PP.Liq_Boletas_Lista, SIGNAL(cellClicked(int,int)), this, SLOT(Liquidaciones(int, int)));            // Liquidaciones Data
     QObject::connect(widget_PP.Productores_Lista, SIGNAL(cellClicked(int,int)), this, SLOT(mostrar_Produc(int, int)));           // Productores
     QObject::connect(widget_PP.Compradores_Lista, SIGNAL(cellClicked(int,int)), this, SLOT(mostrar_Compra(int, int)));           // Compradores 
-    QObject::connect(widget_PP.HumSec_CB1_edit, SIGNAL(returnPressed()), this, SLOT(TablasDeduc1()));                            // senal de enter al introducir el valor para las tablas de secado
-    QObject::connect(widget_PP.HumSec_CB2_edit, SIGNAL(returnPressed()), this, SLOT(TablasDeduc2()));                            // senal de enter al introducir el valor para las tablas de secado
-    QObject::connect(widget_PP.HumSec_CB3_edit, SIGNAL(returnPressed()), this, SLOT(TablasDeduc3()));                            // senal de enter al introducir el valor para las tablas de secado    
-    QObject::connect(widget_PP.Peso_Tara_edit, SIGNAL(returnPressed()), this, SLOT(Entradas_CheckBrutoTara()));                  // senal de enter de tara  
-    QObject::connect(widget_PP.Salidas_Tara_edit, SIGNAL(returnPressed()), this, SLOT(CheckBrutoTara_Salida()));                 // senal de enter de tara    CheckBrutoTara_Salida
-    QObject::connect(widget_PP.Cuotas_Sanidad_edit, SIGNAL(returnPressed()), this, SLOT(Opt_Sanidad()));                         //  Opt_Sanidad()
-    QObject::connect(widget_PP.Cuotas_Grano_edit, SIGNAL(returnPressed()), this, SLOT(Opt_Grano()));                             //  Opt_Grano()
-    QObject::connect(widget_PP.Cuotas_Modulo_edit, SIGNAL(returnPressed()), this, SLOT(Opt_Modulo()));                           //  Opt_Modulo()
-    QObject::connect(widget_PP.Socios_TonsxSocio_edit, SIGNAL(returnPressed()), this, SLOT(Opt_TonsSocios()));                   // Opt_TonsSocios()
+    QObject::connect(widget_PP.HumSec_CB1_edit, &QLineEdit::returnPressed, this, &Silo::TablasDeduc1);   // (widget_PP.HumSec_CB1_edit, SIGNAL(returnPressed()), this, SLOT(TablasDeduc1()));                            // senal de enter al introducir el valor para las tablas de secado
+    QObject::connect(widget_PP.HumSec_CB2_edit, &QLineEdit::returnPressed, this, &Silo::TablasDeduc2);   // (widget_PP.HumSec_CB2_edit, SIGNAL(returnPressed()), this, SLOT(TablasDeduc2()));                            // senal de enter al introducir el valor para las tablas de secado
+    QObject::connect(widget_PP.HumSec_CB3_edit, &QLineEdit::returnPressed, this, &Silo::TablasDeduc3);  // (widget_PP.HumSec_CB3_edit, SIGNAL(returnPressed()), this, SLOT(TablasDeduc3()));                            // senal de enter al introducir el valor para las tablas de secado    
+    QObject::connect(widget_PP.Peso_Tara_edit, &QLineEdit::returnPressed, this, &Silo::Entradas_CheckBrutoTara);    // (widget_PP.Peso_Tara_edit, SIGNAL(returnPressed()), this, SLOT(Entradas_CheckBrutoTara()));                  // senal de enter de tara  
+    QObject::connect(widget_PP.Salidas_Tara_edit, &QLineEdit::returnPressed, this, &Silo::CheckBrutoTara_Salida);   // (widget_PP.Salidas_Tara_edit, SIGNAL(returnPressed()), this, SLOT(CheckBrutoTara_Salida()));                 // senal de enter de tara    CheckBrutoTara_Salida
+    QObject::connect(widget_PP.Cuotas_Sanidad_edit, &QLineEdit::returnPressed, this, &Silo::Opt_Sanidad);   // (widget_PP.Cuotas_Sanidad_edit, SIGNAL(returnPressed()), this, SLOT(Opt_Sanidad()));                         //  Opt_Sanidad()
+    QObject::connect(widget_PP.Cuotas_Grano_edit, &QLineEdit::returnPressed, this, &Silo::Opt_Grano);  // (widget_PP.Cuotas_Grano_edit, SIGNAL(returnPressed()), this, SLOT(Opt_Grano()));                             //  Opt_Grano()
+    QObject::connect(widget_PP.Cuotas_Modulo_edit, &QLineEdit::returnPressed, this, &Silo::Opt_Modulo);   // (widget_PP.Cuotas_Modulo_edit, SIGNAL(returnPressed()), this, SLOT(Opt_Modulo()));                           //  Opt_Modulo()
+    QObject::connect(widget_PP.Socios_TonsxSocio_edit, &QLineEdit::returnPressed, this, &Silo::Opt_TonsSocios);    // (widget_PP.Socios_TonsxSocio_edit, SIGNAL(returnPressed()), this, SLOT(Opt_TonsSocios()));                   // Opt_TonsSocios()
     
     
     //************* Menu ************//
     
-    QObject::connect(widget_PP.About, SIGNAL(triggered()), this, SLOT(Ventana_About()));
-    QObject::connect(widget_PP.actionAcerda_de, SIGNAL(triggered()), this, SLOT(About()));                // Menu About
-    QObject::connect(widget_PP.actionOpciones, SIGNAL(triggered()), this, SLOT(C_Opc()));                 // Menu Opciones
-    QObject::connect(widget_PP.actionHumedad_y_secado, SIGNAL(triggered()), this, SLOT(C_HumySec1()));    // Menu Humedad y secado 1
-    QObject::connect(widget_PP.actionSalir, SIGNAL(triggered()), this, SLOT(Salir()));                    //closeEvent()));  // cerrar programa
-    QObject::connect(widget_PP.actionEntradas, SIGNAL(triggered()), this, SLOT(C_Ent()));                 // Menu Boletas
-    QObject::connect(widget_PP.actionIndividuales, SIGNAL(triggered()), this, SLOT(C_Reg_Ind()));             // Menu Registros
-    QObject::connect(widget_PP.actionGenerales, SIGNAL(triggered()), this, SLOT(C_Reg_Gen()) );  // Menu Registros Generales
-    QObject::connect(widget_PP.actionProductores, SIGNAL(triggered()), this, SLOT(C_Pro()));              // Menu Productores
-    QObject::connect(widget_PP.actionCompradores, SIGNAL(triggered()), this, SLOT(C_Comp()));             // Menu Compradores
-    QObject::connect(widget_PP.actionSalidas, SIGNAL(triggered()), this, SLOT(C_Liq()));                  // Menu Liquidaciones
+    //QObject::connect(widget_PP.About, &QAction::triggered, this, &Silo::Ventana_About);    (widget_PP.About, SIGNAL(triggered()), this, SLOT(Ventana_About()));
+    QObject::connect(widget_PP.actionAcerda_de, &QAction::triggered, this, &Silo::About);   // (widget_PP.actionAcerda_de, SIGNAL(triggered()), this, SLOT(About()));                // Menu About
+    QObject::connect(widget_PP.actionOpciones, &QAction::triggered, this, &Silo::C_Opc);   // (widget_PP.actionOpciones, SIGNAL(triggered()), this, SLOT(C_Opc()));                 // Menu Opciones
+    QObject::connect(widget_PP.actionHumedad_y_secado, &QAction::triggered, this, &Silo::C_HumySec1);   // (widget_PP.actionHumedad_y_secado, SIGNAL(triggered()), this, SLOT(C_HumySec1()));    // Menu Humedad y secado 1
+    QObject::connect(widget_PP.actionSalir, &QAction::triggered, this, &Silo::Salir);   // (widget_PP.actionSalir, SIGNAL(triggered()), this, SLOT(Salir()));                    //closeEvent()));  // cerrar programa
+    QObject::connect(widget_PP.actionEntradas, &QAction::triggered, this, &Silo::C_Ent);   // (widget_PP.actionEntradas, SIGNAL(triggered()), this, SLOT(C_Ent()));                 // Menu Boletas
+    QObject::connect(widget_PP.actionIndividuales, &QAction::triggered, this, &Silo::C_Reg_Ind);   // (widget_PP.actionIndividuales, SIGNAL(triggered()), this, SLOT(C_Reg_Ind()));             // Menu Registros
+    QObject::connect(widget_PP.actionGenerales, &QAction::triggered, this, &Silo::C_Reg_Gen);   // (widget_PP.actionGenerales, SIGNAL(triggered()), this, SLOT(C_Reg_Gen()) );          // Menu Registros Generales
+    QObject::connect(widget_PP.actionProductores, &QAction::triggered, this, &Silo::C_Pro);   // (widget_PP.actionProductores, SIGNAL(triggered()), this, SLOT(C_Pro()));              // Menu Productores
+    QObject::connect(widget_PP.actionCompradores, &QAction::triggered, this, &Silo::C_Comp);            // (widget_PP.actionCompradores, SIGNAL(triggered()), this, SLOT(C_Comp()));             // Menu Compradores
+    QObject::connect(widget_PP.actionSalidas, &QAction::triggered, this, &Silo::C_Liq);                 // (widget_PP.actionSalidas, SIGNAL(triggered()), this, SLOT(C_Liq()));                  // Menu Liquidaciones
+    QObject::connect(widget_PP.actionRespaldar, &QAction::triggered, [](){ Server server; server.RPI_Request(); }  );     // coneccion al servidor
     
     //*********** Impresion **********//
     
-    QObject::connect(widget_PP.Liq_Liquidacion, SIGNAL(clicked()),this, SLOT(Imp_Liquida()));   // impresion de liquidaciones
-    //QObject::connect(widget_PP, SIGNAL(clicked()), this, SLOT(Imp_Salidas()));              // cambiar impresion de boletas de salidas
     
+    QObject::connect(widget_PP.Liq_Imp_Boleta, &QAbstractButton::clicked, this, &Silo::Imp_Liquida);   // (widget_PP.Liq_Liquidacion, SIGNAL(clicked()),this, SLOT(Imp_Liquida()));   // impresion de liquidaciones
+    QObject::connect(widget_PP.RegInd_Print, &QAbstractButton::clicked, this, &Silo::Imp_RegInd);    // (widget_PP.RegInd_Print, SIGNAL(clicked()), this, SLOT(Imp_RegInd()));              // cambiar impresion de boletas de salidas
+    QObject::connect(widget_PP.RegGen_Print, &QAbstractButton::clicked, this, &Silo::Imp_RegGenerales);   // Registros Generales
 }
 
 Silo::~Silo() {  //Destructor de Clase
@@ -281,7 +283,7 @@ void Silo::InitDb(QString App){
     Ciclo(); 
     Dry_n_Wet();  // secado
     
-    RevisarDiasRestantes();
+    //RevisarDiasRestantes();
     
 }
 
@@ -620,7 +622,7 @@ void Silo::Entradas_CheckBrutoTara(){
     }
 
 void Silo::Entradas_CB_Productor(){  // llenar el combo box productor boletas
-    int dos{0};
+    auto dos{0};
     widget_PP.Prod_ComboBox->clear();
     widget_PP.Folio_edit->clear();
     widget_PP.Predio_Ubicacion_edit->clear();
@@ -661,21 +663,16 @@ void Silo::Entradas_CB_Productor(){  // llenar el combo box productor boletas
        i++;
     }
     
-    /*
-    do{
-       widget_PP.Prod_ComboBox->addItem(prod.value("Prod_Apellidos").toString() + ", " + prod.value("Prod_Nombre").toString()); //populates the combobox for users, this is one i need to know who is selected
-       prod.next();
-    }while(prod.last() == false);
-    
-    while (prod.next()){
-      widget_PP.Prod_ComboBox->addItem(prod.value("Prod_Apellidos").toString() + ", " + prod.value("Prod_Nombre").toString()); //populates the combobox for users, this is one i need to know who is selected
-    }*/
     prod.finish();
     //KillDB();
+
+
+
+
 }
 
 void Silo::Entradas_NumProdu(QString ComboBox){   // poner el numero del socio boletas
-    int contador = 0;  // super importante NO BORRAR!!!!!!!!!!!!!!!
+    auto cnt1{0};  // super importante NO BORRAR!!!!!!!!!!!!!!!
     QString prod;
     bool check = false;
    
@@ -693,30 +690,34 @@ void Silo::Entradas_NumProdu(QString ComboBox){   // poner el numero del socio b
         Log("Num Productor en Boletas \n" + busq.executedQuery() + "\n" + busq.lastError().text());
     }
     
+    busq.first();
     widget_PP.SocioNum_edit->setEnabled(false);// isEnabled(); // solo lectura
     do{
         prod = busq.value("Prod_Apellidos").toString() + ", " + busq.value("Prod_Nombre").toString();
-//        if(prod == ", "){
+        //if(prod == ", "){
 //            Log("Num prod empty \n" + prod + "\n" + ComboBox);
 //        }
         if(ComboBox == prod){
             widget_PP.SocioNum_edit->setText(busq.value("Prod_Num").toString());  //hacerlo protegido no debe cambiarlo el usuario
+            //break; }
             check = true;}
-            else {
-               if (prod.trimmed() == ","){contador++;}
-               busq.next();
+        else {
+               if (prod.trimmed() == ","){cnt1++;}
+               //Log("esta vacio Entradas" + prod + "  combobox : " + ComboBox);
+               
             }
-        
-        if( contador >= 5){
-            QMessageBox::warning( this, "Error", " No Existe ese Usuario");
-            
+        //if (busq.last() == true ){check = true;}
+        if( cnt1 >= 5){
+            //QMessageBox::warning( this, "Error", " No Existe ese Usuario");
             check = true;
-        }   
-        
-    }while (check == false);
+        }
+       busq.next();  
+    //}while (busq.last() == false);
+    }while (check == false || busq.last() != true);
    
     busq.finish();
     //KillDB();
+
 }
 
 /// Boletas Salidas
@@ -1026,6 +1027,7 @@ void Silo::Salidas_NumComprador(QString ComboBox){   // poner el numero del soci
     QString prod;
     bool check = false;
    
+    busq.first();
     widget_PP.SocioNum_Comp_edit->setEnabled(false);// isEnabled(); // solo lectura
     do{
         prod = busq.value("Razon_Social").toString();
@@ -1037,6 +1039,7 @@ void Silo::Salidas_NumComprador(QString ComboBox){   // poner el numero del soci
             check = true;
         }else {
             if (prod.trimmed() == ""){contador++;}
+            Log("Esta vacio salidas " + prod + " combo: " + ComboBox);
             busq.next();
         }
         
@@ -1765,6 +1768,7 @@ void Silo::Tabla_Reg_Individual(QString ComboBox){  // Muestra las boletas de ca
         
       for(int i : Grano){
           Grano_Entregado += Grano[i];
+          //Log("Grano entregado: " + QString::number(Grano_Entregado, 'f', 2) + " Grano: " + QString::number(Grano[i], 'f', 2));
       }
     widget_PP.GranoEntregado->setText(QString::number(Grano_Entregado, 'f', 3));
     
@@ -1920,7 +1924,7 @@ void Silo::Tabla_Reg_Generales(QString ComboBox){  // Registro general, muestra 
     widget_PP.Registros_General->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     
     //Log( "TablaRegGen dentro del ciclo \n" + ComboBox);
-    Log("antes del while");
+    //Log("antes del while");
     
     for ( auto boleta: listProd ){   // this for shows all producer in every row       
       
@@ -2390,6 +2394,11 @@ void Silo::Liquidaciones_Data(QString ComboBox){   // Recuadro Boletas dentro de
               obj2->setText(QString::number(Tons, 'f', 3));
               widget_PP.Liq_Boletas_Lista->setItem(filas,2,obj2);
               
+              if (prod.value("Precio").toString() != "" && prod.value("Comprador").toString() != ""){
+                  setColortoRow(filas, 0, QColor(45,234,103,255));   // color verde
+              } //else{
+                //  setColortoRow(row, 0, QColor(248,64,107,255));   // color rojo
+             // }
 //              si pongo en modo Qlineedit se quiebra liquidaciones
 //               QLineEdit *edit0 = new QLineEdit(widget_PP.Liq_Boletas_Lista);   // FolioNum
 //              //edit0->setValidator(new QDoubleValidator(1, 2, 2,edit5));   
@@ -2459,7 +2468,7 @@ float Silo::comprador_Precio(){
 #pragma GCC diagnostic ignored "-Wunused-variable"
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 void Silo::Liquidaciones(int row, int col){  // funcion principal, toma la info de la boleta dentro de Liquidaciones y la desglosa
-    bool Ok;
+   
     QMessageBox MBox;
     QPushButton *boton_OK = MBox.addButton("Ok", QMessageBox::AcceptRole);
     //QPushButton *boton_CANCEL = MBox.addButton(QMessageBox::Cancel);
@@ -2476,7 +2485,10 @@ void Silo::Liquidaciones(int row, int col){  // funcion principal, toma la info 
     float Iva_Secado, Reten_Total, Tarifa, Precio_Ton;
     auto Cuota_Cons{0.0}, Sanidad{0.0};  // las cuotas viene de la DB Config.db
     auto Bruto{0.0}, Tara{0.0}, Neto{0.0};
-    int rango{0};
+    auto rango{0};
+    QString fecha;
+    std::string date;
+    
     std::vector<float> Peso_Anali;
     std::vector<float> Hmd_Deduc;
     
@@ -2497,8 +2509,7 @@ void Silo::Liquidaciones(int row, int col){  // funcion principal, toma la info 
     QSqlQuery Cnf(QSqlDatabase::database("Config.db"));             // query to Config
    
     QTableWidgetItem* item = widget_PP.Liq_Boletas_Lista->item(row,0);  // item deliver the row and col for the object
-    setColortoRow(row, 0, QColor(248,64,107,255));   // color rojo
-    //setColortoRow(row, 0, QColor(45,234,103,255));   // color verde
+    
     int contador = 0; // stop the infinite loop
     
     for( int i = 0; i<160 ; ){   
@@ -2518,161 +2529,17 @@ void Silo::Liquidaciones(int row, int col){  // funcion principal, toma la info 
     do {
         QString table = reg.value("Folio").toString(); 
         //Log("Valor de Folio dentro del Do while:  " + table );
-        if (table == item->text()){  // ver cual renglon esta activo y comparararlo con table
-            //Log("Dentro del If en Liquidaciones_Data \n" + table + "\n"+ item->text());
-            /*   Calculo Excedentes, ver si se queda, revisar la tabla de contratos
-            if(reg.value("Sorgo_Contrato").toFloat() < reg.value("Sorgo_Entregado").toFloat() ){
-                Tons_Exced = reg.value("Sorgo_Entregado").toFloat() - reg.value("Sorgo_Contrato").toFloat() ;
-            }else{
-                Tons_Exced = 0.0;
-            }
-            */
+        if (table == item->text()){  // ver cual renglon esta activo y comparararlo con table, muestra toda la info de la boleta
+         
             // Calculo Deducciones
             ////////////////// Porcentaje /////////////////////////////
             
             Hmd_Deduc = Hmd (reg.value("Humedad").toFloat(), DirFile);   //  regresa la cantidad de kilos a descontar y la tarifa
             Humd_Kilos = Hmd_Deduc[0];
             Tarifa = Hmd_Deduc[1];
-//            Hmd.exec("SELECT * FROM Kilos");    // seleccionar las tablas de humedad
-//            if(Hmd.lastError().isValid()){
-//                Log("Error de Kilos \n" + Hmd.executedQuery() + "\n" + Hmd.lastError().text());
-//            }
-//            Hmd.first();
-//            
-//            for(int i = 0 ; i<160;){
-//                if(reg.value("Humedad").toFloat() == Hmd.value("Porcentaje").toFloat()){  // compares decimal values for Humidity
-//                    Humd_Kilos = Hmd.value("Kgs_Ton").toFloat();  // Kilos a restar por Ton
-//                    //Log( "Kilos a restar: " + QString::number(Humd_Kilos, 'f', 2));
-//                    break;//correcto_Hum = true;
-//                }
-//                if (reg.value("Humedad").toFloat() > 30.0){
-//                    Log("Error la humedad es mayor a 30.0");
-//                    return;
-//                }
-//                //Log("Dentro de Kilos X Humedad \nPorcentaje: " + QString::number(Hmd.value("Porcentaje").toFloat(), 'f', 2) + " ,Humedad: " + QString::number(reg.value("Humedad").toFloat(), 'f', 2 ));
-//                Hmd.next();
-//                i++;
-//            }
-////            
-////            do{    // Obtener kilos X Humedad
-////                if(reg.value("Humedad").toFloat() == Hmd.value("Porcentaje").toFloat()){  // compares decimal values for Humidity
-////                    Humd_Kilos = Hmd.value("Kgs_Ton").toFloat();  // Kilos a restar por Ton
-////                    break;//correcto_Hum = true;
-////                }
-////                if (reg.value("Humedad").toFloat() > 30.0){
-////                    Log("Error la humedad es mayor a 30.0");
-////                    return;
-////                }
-////                Log("Dentro de Kilos X Humedad " + QString::number(Hmd.value("Porcentaje").toFloat(), 'f', 3));
-////                Hmd.next();
-////            } while (Hmd.last() == false);
-//            
-//            /////////////////////  RANGO   /////////////////////////////
-//            Hmd.exec("SELECT * FROM Secado");
-//            if (Hmd.lastError().isValid()){
-//                Log("Error de Secado \n" + Hmd.executedQuery() + "\n" + Hmd.lastError().text() );
-//            }
-//                // Especifico el rango, ver si se puede hacer mejor
-//            if (reg.value("Humedad").toFloat() > 14.0 && reg.value("Humedad").toFloat() <15.1){
-//                rango = 0;
-//            }
-//            if (reg.value("Humedad").toFloat() > 15.0 && reg.value("Humedad").toFloat() <16.1){
-//                rango = 1;
-//            } 
-//            if (reg.value("Humedad").toFloat() > 16.0 && reg.value("Humedad").toFloat() <17.1){
-//                rango = 2;
-//            } 
-//            if (reg.value("Humedad").toFloat() > 17.0 && reg.value("Humedad").toFloat() <18.1){
-//                rango = 3;
-//            } 
-//            if (reg.value("Humedad").toFloat() > 18.0 && reg.value("Humedad").toFloat() <19.1){
-//                rango = 4;
-//            } 
-//            if (reg.value("Humedad").toFloat() > 19.0 && reg.value("Humedad").toFloat() <20.1){
-//                rango = 5;
-//            } 
-//            if (reg.value("Humedad").toFloat() > 20.0 && reg.value("Humedad").toFloat() <21.1){
-//                rango = 6;
-//            } 
-//            if (reg.value("Humedad").toFloat() > 21.0 && reg.value("Humedad").toFloat() <22.1){
-//                rango = 7;
-//            }
-//            if (reg.value("Humedad").toFloat() > 22.0 && reg.value("Humedad").toFloat() <23.1){
-//                rango = 8;
-//            } 
-//            if (reg.value("Humedad").toFloat() > 23.0 && reg.value("Humedad").toFloat() <24.1){
-//                rango = 9;
-//            } 
-//            if (reg.value("Humedad").toFloat() > 24.0 && reg.value("Humedad").toFloat() <25.1){
-//                rango = 10;
-//            } 
-//            if (reg.value("Humedad").toFloat() > 25.0 && reg.value("Humedad").toFloat() <26.1){
-//                rango = 11;
-//            }
-//            if (reg.value("Humedad").toFloat() > 26.0 && reg.value("Humedad").toFloat() <27.1){
-//                rango = 12;
-//            } 
-//            if (reg.value("Humedad").toFloat() > 27.0 && reg.value("Humedad").toFloat() <28.1){
-//                rango = 13;
-//            } 
-//            if (reg.value("Humedad").toFloat() > 28.0 && reg.value("Humedad").toFloat() <29.1){
-//                rango = 14;
-//            } 
-//            if (reg.value("Humedad").toFloat() > 29.0 && reg.value("Humedad").toFloat() <30.1){
-//                rango = 15;
-//            }
-//            
-//            Hmd.first();
-//            
-//            for (int i = 0; i<16 ; ){
-//                if(rango == Hmd.value("Rango").toInt() ){  // usar los index de la tabla  0..15, no puede ser comparacion directab
-//                    Tarifa = Hmd.value("Tarifa").toFloat();
-//                    //Log("Tarifa: " + QString::number(Hmd.value("Tarifa").toFloat(), 'f', 2) );
-//                    break;  //correcto_Tar = true;
-//                }
-//                if (reg.value("Humedad").toFloat() > 30.0){   // Manejo de errores Humedad
-//                    Log("error el valor de humedad es mayor a 30.0 " + QString::number(reg.value("Humedad").toFloat()));
-//                    MBox.setWindowTitle("Error de Humedad");
-//                    MBox.setText("La humedad del sorgo no puede ser mayor a 30.0");
-//                    MBox.exec();
-//                    Tarifa = 0.0;
-//                    return;
-//                    //correcto_Tar == true;
-//                }
-//                //Log("Dentro de Tarifa X Humedad \nRango: " + QString::number(rango) + " , " + QString::number(Hmd.value("Rango").toInt()));
-//                Hmd.next();
-//                i++;
-//            }
-//            
-////            do {// Obtener Tarifa x Humedad
-////                if(rango == Hmd.value("Rango").toInt() ){  // usar los index de la tabla  0..15, no puede ser comparacion directab
-////                    Tarifa = Hmd.value("Tarifa").toFloat();
-////                    break;  //correcto_Tar = true;
-////                }else{
-////                    Hmd.next();
-////                }
-////                if (reg.value("Humedad").toFloat() > 30.0){   // Manejo de errores Humedad
-////                    Log("error el valor de humedad es mayor a 30.0 " + QString::number(reg.value("Humedad").toFloat()));
-////                    MBox.setWindowTitle("Error de Humedad");
-////                    MBox.setText("La humedad del sorgo no puede ser mayor a 30.0");
-////                    MBox.exec();
-////                    Tarifa = 0.0;
-////                    return;
-////                    //correcto_Tar == true;
-////                }
-////                //Log("Dentro de Tarifa X Humedad");
-////            } while( Hmd.last() == false);   // correcto_Tar == true
-//            ///////////////////////////////////////////////////////////
-//            //  1000kgs = 1 Ton
-//            
+
             Peso_Anali = Analizado(Humd_Kilos, reg.value("Neto").toFloat() );   // le paso Kilos a restar y el peso neto, regresa un vector
-            
-//            DeduX_norma = (Humd_Kilos / 1000) * reg.value("Neto").toFloat(); // Kilos a restar al neto
-//            //Log( "Kilos a restar: " + QString::number(Humd_Kilos, 'f', 3) + " ,Neto: " + reg.value("Neto").toString() + " ,Deducciones: " + QString::number(DeduX_norma, 'f', 3) );
-//            Merma_1Ciento = (reg.value("Neto").toFloat() - DeduX_norma) * 0.01;  // 1% merma de la boleta
-//            Total_Deduc = DeduX_norma + Merma_1Ciento;  // total de deducciones
-//            Peso_Anali = (reg.value("Neto").toFloat() - Total_Deduc) / 1000 ;   // converts from Kgs to Ton
-//            
+        
             // Calculo Retenciones de Liquidacion
             Cnf.exec("SELECT * FROM Config");
             if(Cnf.lastError().isValid()){
@@ -2704,6 +2571,21 @@ void Silo::Liquidaciones(int row, int col){  // funcion principal, toma la info 
             Tara = reg.value("Tara").toFloat() / 1000;
             Neto = reg.value("Neto").toFloat() / 1000;
             
+              
+              fecha = reg.value("Fecha").toString();
+              date = fecha.toStdString();
+              
+            // tomar la hora y parsearla
+            //std::string day(date.begin() + DAY_OFFSET, date.begin() + DAY_OFFSET + DAY_LENGTH); // el primer argumento pone el cursor al principio de donde quiero leer
+              std::string month(date.begin() + MONTH_OFFSET, date.begin() + MONTH_OFFSET + MONTH_LENGTH);  // el segundo argumento le dices asta que direccion de memoria 
+              std::string dayNumber(date.begin() + DAY_NUMBER_OFFSET, date.begin() + DAY_NUMBER_OFFSET + DAY_NUMBER_LENGTH); // vas a leer
+              std::string hours(date.begin() + HOUR_OFFSET, date.begin() + HOUR_OFFSET + HOUR_LENGTH); // inicializacion c++11/14
+              std::string year(date.begin() + YEAR_OFFSET, date.begin() + YEAR_OFFSET + YEAR_LENGTH); 
+              fecha = QString::fromStdString(dayNumber) + " " + QString::fromStdString(month) + " " + QString::fromStdString(year) + " " +
+                      QString::fromStdString(hours);
+              //Log("Valores boletas_Entradas: " + Fecha + " ....... " + Tons + " ...... " + filas);
+              
+            
             //Info General Boleta
             widget_PP.Liq_Prod_Info_edit->setText(reg.value("Prod_Nombre").toString() + " " + reg.value("Prod_Apellidos").toString());         
             widget_PP.Liq_NoProd_edit->setText(reg.value("Prod_Num").toString());
@@ -2711,7 +2593,7 @@ void Silo::Liquidaciones(int row, int col){  // funcion principal, toma la info 
             widget_PP.Liq_Vehi_Info_edit->setText(reg.value("Tipo").toString());            
             widget_PP.Liq_Placas_Info_edit->setText(reg.value("Placas").toString());        
             widget_PP.Liq_Chofer_Info_edit->setText(reg.value("Chofer_Nombre").toString() + " " + reg.value("Chofer_Apellidos").toString());        
-            widget_PP.Liq_Fecha_Info_edit->setText(reg.value("Fecha").toString());        
+            widget_PP.Liq_Fecha_Info_edit->setText(fecha);        
             widget_PP.Liq_Folio_Info_edit->setText(reg.value("Folio").toString());       
             widget_PP.Liq_Bruto_Info_edit->setText(QString::number(Bruto, 'f', 3) );            
             widget_PP.Liq_Tara_Info_edit->setText(QString::number(Tara, 'f', 3) );
@@ -2755,6 +2637,72 @@ void Silo::Liquidaciones(int row, int col){  // funcion principal, toma la info 
     //KillDB();
     //KillDB("Humedad_Secado.db");
     //KillDB("Config.db");
+}
+
+void Silo::Liquidar(){   // liquida la boleta actual, guarda el comprador y el precio del sorgo tomando los valores de pantalla
+    QString Folio, foliosql, precio, comprador;
+    
+    QMessageBox MBox;
+    QPushButton *boton_OK = MBox.addButton("Ok", QMessageBox::AcceptRole);
+    //QPushButton *boton_CANCEL = MBox.addButton(QMessageBox::Cancel);
+    MBox.setDefaultButton(boton_OK);
+    MBox.setWindowIcon(QPixmap("images/Icono_App_Silo_1.png"));
+    
+    std::wstring DirFile;
+    TCHAR buffer[MAX_PATH] = {0};
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
+    DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
+    
+    CrearDB(QString::fromStdWString(DirFile), ciclo_actual());
+    QSqlQuery sql(QSqlDatabase::database(ciclo_actual()));
+    sql.exec("SELECT * FROM Boletas_Entradas ORDER BY Folio"); // orderna alphabeticamente por Apellidos   
+    if(sql.lastError().isValid()){
+        Log( "Error Liquidaciones data \n" + sql.executedQuery() + "\n" + sql.lastError().text());
+    }
+    sql.first();
+    
+    Folio = widget_PP.Liq_Folio_Info_edit->text();
+    precio = widget_PP.Liq_Total_PrecioTon_edit->text();
+    comprador = widget_PP.Liq_Comp_CB->currentText();
+    
+    if (Folio == ""){
+        MBox.setText("Por favor seleccione una boleta");
+        MBox.setWindowTitle("Error");
+        MBox.exec();
+    }else{
+    do{
+        foliosql = sql.value("Folio").toString();
+        if (Folio == foliosql){
+            if(sql.value("Precio").toString() == "" && sql.value("Comprador").toString() == ""){
+                    sql.prepare("UPDATE Boletas_Entradas SET Precio=:precio, Comprador=:comprador WHERE Folio=:folio ");
+                    sql.bindValue(":precio", precio);
+                    sql.bindValue(":comprador", comprador);
+                    sql.bindValue(":folio", Folio);
+                    sql.exec();
+                    if(sql.lastError().isValid()){
+                        Log("Error, no se pudo guardar el precio de liquidacion\n" + sql.executedQuery() + "\n" +sql.lastError().text());
+                        MBox.setText("No se pudo guardar en la Boleta");
+                        MBox.setWindowTitle("Error");
+                        MBox.exec();
+                        break;
+                    } else{
+                        MBox.setText("Boleta Liquidada con Exito");
+                        MBox.setWindowTitle("Exito");
+                        MBox.exec();
+                        LogData("Folio Boleta: " + Folio + " -- Comprador: " + comprador + " -- Precio: " + precio );
+                        break;
+                    }
+            } 
+            if (sql.value("Precio").toString() != "" || sql.value("Comprador").toString() !="" ){
+                Log("Error, ya esta liquidado la boleta");
+                MBox.setText("La boleta ya esta liquidada");
+                MBox.setWindowTitle("Error");
+                MBox.exec();
+            }
+        }
+    }while(sql.next());
+    }   
 }
 
 std::vector<float> Silo::Analizado(float Humd_Kilos, float Neto_eval){  // Calcula el peso analizado, pasar los valores tal cual de la DB
@@ -4542,7 +4490,8 @@ void Silo::Ciclo(){    // Creacion de tablas en base de datos del Ciclo
                "Neto FLOAT, Silo TINYINT, "
                //"foto_Cam1 VARBINARY, foto_Cam2 VARBINARY, " // VARBINARY(MAX) soporta imagenes/pdf/word etc
                "Fecha VARCHAR(30), Ciclo VARCHAR(20), "
-                "Procedencia VARCHAR(150), Peso_Esp INTEGER )" );
+               "Procedencia VARCHAR(150), Peso_Esp INTEGER, Precio FLOAT,"
+               "Comprador VARCHAR(250) )" );
     
     if(valor.lastError().isValid()){
         Log("Error al crear Boletas_Entradas \n " + valor.lastQuery() + "\n" + valor.lastError().text() );
@@ -4552,30 +4501,28 @@ void Silo::Ciclo(){    // Creacion de tablas en base de datos del Ciclo
                "(Folio INTEGER NOT NULL, Comp_Num INTEGER, "
                "Chofer_Nombre VARCHAR(100), Chofer_Apellidos VARCHAR(250),"
                "Placas VARCHAR(8), Color VARCHAR(20), Tipo VARCHAR(30), "
+               "Destino VARCHAR(150), Precio FLOAT, "
                "Bruto FLOAT, Tara FLOAT, Neto FLOAT, "
                //"foto_Cam1 VARBINARY, foto_Cam2 VARBINARY,"  // agregar cuando ponga las camaras
-               "Destino VARCHAR(150), "
                "Fecha VARCHAR(30), Silo TINYINT)");
     if(valor.lastError().isValid()){
         Log("Error al crear Boletas_salidas \n" + valor.lastQuery() + "\n" + valor.lastError().text() );
     }
     
     valor.exec("CREATE TABLE IF NOT EXISTS Contrato"
-               "(Prod_Num INTEGER, "
-               "Num_Contrato INTEGER, "
-               "Sorgo_Contrato FLOAT, "
-               "Sorgo_Entregado FLOAT, "
-               "Precio_Ton FLOAT, "
-               "Precio_Fix FLOAT )");
+               "(Prod_Num INTEGER, Num_Contrato INTEGER, "
+               "Sorgo_Contrato FLOAT, Sorgo_Entregado FLOAT, "
+               "Precio_Ton FLOAT, Precio_Fix FLOAT, "
+               "Tipo_Cambio FLOAT )");
     if(valor.lastError().isValid()){
         Log("Error al crear Contrato \n" + valor.lastQuery() + "\n" + valor.lastError().text() );
     }
     
     valor.exec("CREATE TABLE IF NOT EXISTS Compradores"
                "(RFCM VARCHAR(12), Comp_Num Integer, Razon_Social VARCHAR(250), "  // RFCM es para personas morales, 12 caracteres
-               "Direccion VARCHAR(500), Ciudad VARCHAR(250), Estado VARCHAR(250), "
-               "Contacto VARCHAR(500), Telefono INTEGER, "
-               "Whattsapp INTEGER, Email VARCHAR(250), Precio_Ton FLOAT )");
+               "Direccion VARCHAR(500), Contacto VARCHAR(500), Telefono INTEGER, "
+               "Whattsapp INTEGER, Email VARCHAR(250), Ciudad VARCHAR(250), "
+               " Estado VARCHAR(250), Precio_Ton FLOAT )");
     if(valor.lastError().isValid()){
         Log("Error al crear Compradores \n" + valor.lastQuery() + "\n" + valor.lastError().text() );
     }
@@ -4744,24 +4691,6 @@ void Silo::closeEvent(QCloseEvent *event)  // Old Method works but its not neede
 */
 
 void Silo::Salir(){
-/*
-    QMessageBox MBox;
-    QPushButton *boton_OK = MBox.addButton("Ok", QMessageBox::AcceptRole);
-    QPushButton *boton_NO = MBox.addButton("Cancel", QMessageBox::RejectRole);
-    
-    MBox.setDefaultButton(boton_OK);
-    MBox.setWindowIcon(QPixmap("images/Icono_App_Silo_1.png"));
-    MBox.setWindowTitle("Exit");
-    MBox.setText("Seguro que desea Salir?");
-    
-    if (MBox.clickedButton() == boton_OK){
-        Log("Salio de la App");
-        close();
-    } else if(MBox.clickedButton() == boton_NO) {
-        Log("Hizo click en no");
-        return;
-    }    
-    */
     this->close();
 }
 
@@ -4812,8 +4741,9 @@ void Silo::Validadores_Opciones(){
 void Silo::Imp_Liquida(){
     //  prints liquidaciones
     std::vector<Data> vector; 
+    std::vector<float> humd;
     Data boleta;
-    QString deduc, merma, secado, secadoIva;
+    QString deduc, merma, secado, secadoIva, humed;
     auto totaldeduc{0.0}, totalSecado{0.0};
     
     QMessageBox MBox;
@@ -4821,12 +4751,12 @@ void Silo::Imp_Liquida(){
     MBox.setWindowTitle("Error");
     MBox.setDefaultButton(boton_OK);
     MBox.setText("No esta seleccionado ningun Productor");
-    // struct vieja
-//     QString Nombre, Procedencia,Vehiculo, Placas, Chofer, Fecha ;
-//        int Folio;
-//        float Humedad, KilosxTon, Deduc, Merma, DeducTotal;
-//        float Bruto, Tara, Neto, Analizado, PrecioTon;
-//        float Secado, SecadoIva, Cuota_Conserv, Sanidad;
+    
+    std::wstring DirFile;
+    TCHAR buffer[MAX_PATH] = {0};
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
+    DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual 
     
      // Here goes the data that needs to be printed
     if (widget_PP.Liq_Prod_Info_edit->text() != "") {
@@ -4838,13 +4768,16 @@ void Silo::Imp_Liquida(){
         boleta.Fecha = widget_PP.Liq_Fecha_Info_edit->text();
         boleta.Folio = widget_PP.Liq_Folio_Info_edit->text();
         boleta.Humedad = widget_PP.Liq_Dedc_Humedad_edit->text();
-        boleta.KilosxTon = "pendiente";
+        //Log("Humedad: " + widget_PP.Liq_Dedc_Humedad_edit->text());
+        humed = boleta.Humedad;
+        humd = Hmd( boleta.Humedad.toFloat(), DirFile);
+        boleta.KilosxTon = QString::number(humd[0], 'f', 3 );
         boleta.Deduc = widget_PP.Liq_Dedc_Deducciones_edit->text();
         boleta.Merma = widget_PP.Liq_Dedc_Merma_edit->text();
 
         deduc = boleta.Deduc;
         merma = boleta.Merma;
-        totaldeduc = merma.toFloat() + deduc.toFloat();
+        totaldeduc = ( merma.toFloat() + deduc.toFloat() ) / 1000;  // conversion a Tons
 
         boleta.DeducTotal = QString::number(totaldeduc, 'f', 2);
         boleta.Bruto = widget_PP.Liq_Bruto_Info_edit->text();
@@ -4852,6 +4785,7 @@ void Silo::Imp_Liquida(){
         boleta.Neto = widget_PP.Liq_Neto_Info_edit->text();
         boleta.Analizado = widget_PP.Liq_Total_Analizado_edit->text();
         boleta.PrecioTon = widget_PP.Liq_Total_PrecioTon_edit->text();
+        boleta.Comprador = widget_PP.Liq_Comp_CB->currentText();
         boleta.Secado = widget_PP.Liq_Reten_Secado_edit->text();
         boleta.SecadoIva = widget_PP.Liq_Reten_IvaSecado_edit->text();
         boleta.Sanidad = widget_PP.Liq_Reten_Sanidad_edit->text();
@@ -4866,44 +4800,192 @@ void Silo::Imp_Liquida(){
 
         Impresora* print = new Impresora;
         vector.push_back(boleta);
-        print->imprimir(this, vector);
+        print->imprimir_Boleta(this, vector);
     }else{
         MBox.exec();
     }
 }
 
-void Silo::Imp_Salidas(){
+void Silo::Imp_RegInd(){
     // prints boletas salidas
+    std::vector<Data> vector; 
+    std::vector<float> analicis;
+    Data boleta;
+    QString Db, nombre, nombreDb;
+    std::wstring DirFile;
+    QString fecha;
+    std::string date;
+    
+    TCHAR buffer[MAX_PATH] = {0};
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
+    DirFile = std::wstring(buffer).substr(0, pos);   // ubicacion de la carpeta actual
+    
+    QMessageBox MBox;
+    QPushButton *boton_OK = MBox.addButton("Ok", QMessageBox::AcceptRole);
+    MBox.setWindowTitle("Error");
+    MBox.setDefaultButton(boton_OK);
+    MBox.setText("No esta seleccionado ningun Productor");
+    
+    Db = widget_PP.RegInd_Ciclo_CB->currentText();    // actual database
+    CrearDB(QString::fromStdWString(DirFile), Db);
+    CrearDB(QString::fromStdWString(DirFile), "Config.db");
+    QSqlQuery prod(QSqlDatabase::database(Db));  // haces la busqueda de boletas
+    QSqlQuery config(QSqlDatabase::database("Config.db"));
+    
+    prod.exec("SELECT a.Prod_Nombre, a.Prod_Apellidos, b.* FROM Productores AS a JOIN Boletas_Entradas AS b ON a.Prod_Num=b.Prod_Num GROUP BY Folio");
+    if(prod.lastError().isValid()){
+        Log("Lectura Tabla Registros Individual \n" + prod.executedQuery() + "\n" + prod.lastError().text() ); 
+    }
+    config.exec("SELECT * FROM Config");
+    if(config.lastError().isValid()){
+        Log("error en config, impresion \n" + config.executedQuery() + "\n" + config.lastError().text() );
+    }
+    
+    nombre = widget_PP.RegInd_Prod_CB->currentText();   // name of productor
+    
+    prod.first();
+    do{
+        nombreDb = prod.value("Prod_Apellidos").toString() + ", " + prod.value("Prod_Nombre").toString();
+        //Log("Imp reg ind \n" + nombre + "\n" + nombreDb);
+        if (nombre == nombreDb){  // revisar que este seleccionado algun productor
+            
+            // fecha parseada
+            
+              fecha = prod.value("Fecha").toString();
+              date = fecha.toStdString();
+              
+            // tomar la hora y parsearla
+            //std::string day(date.begin() + DAY_OFFSET, date.begin() + DAY_OFFSET + DAY_LENGTH); // el primer argumento pone el cursor al principio de donde quiero leer
+              std::string month(date.begin() + MONTH_OFFSET, date.begin() + MONTH_OFFSET + MONTH_LENGTH);  // el segundo argumento le dices asta que direccion de memoria 
+              std::string dayNumber(date.begin() + DAY_NUMBER_OFFSET, date.begin() + DAY_NUMBER_OFFSET + DAY_NUMBER_LENGTH); // vas a leer
+              //std::string hours(date.begin() + HOUR_OFFSET, date.begin() + HOUR_OFFSET + HOUR_LENGTH); // inicializacion c++11/14
+              std::string year(date.begin() + YEAR_OFFSET, date.begin() + YEAR_OFFSET + YEAR_LENGTH); 
+              fecha = QString::fromStdString(dayNumber) + " " + QString::fromStdString(month) + " " + QString::fromStdString(year);
+              //Log("Valores boletas_Entradas: " + Fecha + " ....... " + Tons + " ...... " + filas);
+              
+            
+            boleta.Nombre = ( prod.value("Prod_Nombre").toString() + " " + prod.value("Prod_Apellidos").toString());                             // nombre del productor
+            boleta.Comprador = prod.value("Comprador").toString();                   // comprador
+            boleta.Contrato = "No Disponible";                    // contrato
+            boleta.Precio_Contrato = "Cambiar el query";
+            boleta.Dif_Precio = "No Disponible";                  // 
+            boleta.Precio_Futuro = "No Disponible";
+            boleta.Tipo_Cambio = "Conectar con API Banxico";                 // cambiar la Db
+            boleta.Folio = prod.value("Folio").toString();        // No folio
+            boleta.Fecha = fecha;        // parsear la fecha
+            boleta.Bruto = QString::number( (prod.value("Bruto").toFloat() / 1000), 'f', 3 );        // bruto
+            boleta.Tara = QString::number( (prod.value("Tara").toFloat() / 1000), 'f', 3 );          // tara
+            boleta.Neto = QString::number( (prod.value("Neto").toFloat() /1000), 'f', 3 );          // neto
+            boleta.Humedad = prod.value("Humedad").toString();    // humedad
+            analicis = Analizado( prod.value("Humedad").toFloat(), prod.value("Neto").toFloat() );
+            boleta.Analizado = QString::number( analicis[2], 'f', 3 );  
+            boleta.PrecioTon = prod.value("Precio").toString();
+            boleta.Total = QString::number( (prod.value("Precio").toFloat() * analicis[2]), 'f', 2 );
+            boleta.Sanidad = config.value("Sanidad").toString();    // viene de config
+            
+            vector.push_back(boleta);
+        }
+//        else{
+//            MBox.exec();
+//        }
+    }while(prod.next());
+    //Log(" Imp despues while");
+    Impresora* print = new Impresora;
+    print->imprimir_RegInd(this, vector);
+}
+
+void Silo::Imp_RegGenerales(){
+    // prints boletas salidas
+
+    std::vector<Data> vector; 
+    Data boleta;   // struct with all the data
+    QString D1, D2, D3, D4, D5, D6;
+    int filas;
+    filas = widget_PP.Registros_General->rowCount() - 1;
+      
+    for ( auto i{0}; i<=filas ; ){
+           
+        QLineEdit *nombre = qobject_cast<QLineEdit*>(widget_PP.Registros_General->cellWidget(i,0));  
+        boleta.Nombre = nombre->text();                          // nombre del productor
+        QLineEdit *neto = qobject_cast<QLineEdit*>(widget_PP.Registros_General->cellWidget(i,1));
+        D1 = neto->text();
+        D1.chop(5);
+        boleta.Neto = D1;
+        QLineEdit *analizado = qobject_cast<QLineEdit*>(widget_PP.Registros_General->cellWidget(i,2));
+        D2 = analizado->text();
+        D2.chop(5);
+        boleta.Analizado = D2;
+        QLineEdit *secado = qobject_cast<QLineEdit*>(widget_PP.Registros_General->cellWidget(i,3));
+        D3 = secado->text();
+        D3.chop(5);
+        boleta.Secado = D3;
+        QLineEdit *cuota = qobject_cast<QLineEdit*>(widget_PP.Registros_General->cellWidget(i,4));
+        D4 = cuota->text();
+        D4.chop(3);
+        boleta.Cuota_Conserv = D4;
+        QLineEdit *sanidad = qobject_cast<QLineEdit*>(widget_PP.Registros_General->cellWidget(i,5));
+        D5 = sanidad->text();
+        D5.chop(3);
+        boleta.Sanidad = D5;
+        QLineEdit *total = qobject_cast<QLineEdit*>(widget_PP.Registros_General->cellWidget(i,6));
+        D6 = total->text();
+        D6.chop(3);
+        boleta.Total = D6;
+
+        vector.push_back(boleta);
+        i++;
+    }
+////        else{
+////            MBox.exec();
+////        }
+//    }while(prod.next());
+//    Log(" Imp despues while");
+    Impresora* print = new Impresora;
+    print->imprimir_RegGen(this, vector);
 }
 
 void Silo::RevisarDiasRestantes(){     // Check how many days are left, if the serial is 00 is for life
+
+    // obtain the current time with std::chrono and convert to struct tm * so it can be convert to an std::string
+    std::time_t now_c;
+    std::chrono::time_point<std::chrono::system_clock> now;
+    struct tm * timeinfo;
+    char bufferIn[80]; 
+    
+    now = std::chrono::system_clock::now();
+    now_c = std::chrono::system_clock::to_time_t(now);
+    time (&now_c);
+    timeinfo = localtime(&now_c);
+    strftime(bufferIn, sizeof(bufferIn), "%Y-%m-%d %H:%M:%S", timeinfo);
+    std::string str(bufferIn);
+    
+    Log("Tiempo usando Chrono " + QString::fromStdString(str));
 //    
-//    QString serial;
-    //QStringList ss2;
-    QString tiempo;
-    //std::stringstream ss ;
-    //std::string timer;
-//    if (serial.contains("-")){
-//            serial.chop(3);
-//            //silo->Log(serial);
-//        }
-//       
-////        if (serial.isEmpty() == false && serial == MAC_addrs){
-////            // create file for config
-////            //silo->Log(" valor de serial: " + serial + "\nMac addres: " + MAC_addrs);
-////            //ready = true;
-////            break;
-////        }
-    std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
-    std::time_t now_c = std::chrono::system_clock::to_time_t(now);
-    std::tm tm = *std::gmtime(&now_c);     // lo pasas a tiempo GMT (UTC)
+//    for (int a{0} ; a<1000 ; )   // just an standart for
+//    {
+//        a++;
+//    }
+//    
+    //   convert std::string to std::time_t and then convert to a std::chrono
+    str = "2021-08-05 22:59:22";   // changes to date from database
     
-    //ss << std::put_time( &tm, "%Y-%m-%d %H:%M:%S");
-    
-    //tiempo = QString::fromStdString(ss.str());
-    //tiempo = ss2.join("");
-    //Log("Tiempo usando Chrono " + tiempo);
-    //std::chrono::duration<float> DiasRestantes = tiempo_actual;
+    std::chrono::time_point<std::chrono::system_clock> end;
+    struct std::tm tm;
+    std::istringstream ss(str);
+
+    ss >> std::get_time( &tm, "%Y-%m-%d %H:%M:%S");
+    std::time_t time = mktime(&tm);
+    end = std::chrono::system_clock::from_time_t(time);
+    auto tiempo = std::chrono::duration_cast<std::chrono::minutes>(now - end);
+    auto tiempo2 = std::chrono::duration_cast<std::chrono::hours>(now-end);
+    auto tiempo3 = (std::chrono::duration_cast<std::chrono::hours>(now-end).count() / 24);
+    std::string dif = std::to_string(tiempo.count());
+    //auto tiempo3 = (tiempo2.count() / 1440);
+    Log( "Diferencia de tiempo: " + QString::fromStdString(dif) + " minutes " 
+            + QString::fromStdString(std::to_string(tiempo2.count())) + " hours "
+            + QString::fromStdString(std::to_string(tiempo3)) + " days");
+
 }
 
 void Silo::C_Ent(){  // Boletas de entrada

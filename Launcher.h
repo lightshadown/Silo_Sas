@@ -23,9 +23,11 @@
 #include <QLabel>
 
 #include "ui_Launcher.h"
-#include "Silo_SaS.h"
+//#include "Silo_SaS.h"
+#include "Generales.h"
 #include "Login.h"
 #include "Serial.h"
+
 
 //#include "framelesswindow.h"
 #include "../Qt-Frameless-Window-DarkStyle/DarkStyle.h"  // se debia agregar el DarkStyle.cpp a sources files del projecto

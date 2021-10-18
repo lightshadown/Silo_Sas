@@ -10,6 +10,8 @@
  * Created on 2 de junio de 2021, 14:01
  */
 
+#include <future>
+
 #include "Launcher.h"
 
 Launcher::Launcher() {
@@ -18,9 +20,9 @@ Launcher::Launcher() {
 }
 void Launcher::Init(QString App){
 
-    Silo* base = new Silo;
+    Gen base;
     //Silo base;
-    base->Log("....                 \n..........               \nInicio del programa");
+    base.Log("....                 \n..........               \nInicio del programa");
     
     //*********** Login Screen ******************//
   
@@ -46,9 +48,12 @@ void Launcher::ShowMainWindow(QString App){
     
     Silo *base = new Silo();
     
-    base->setMinimumSize(1280, 800);
-    base->setFixedSize(1920,1080);
-    //base->setWindowState(Qt::WindowMaximized);
+    //base->setMinimumSize(1280, 800);
+    //base->setBaseSize(1280, 800);
+    //base->resize( base->width(), base->height());
+    base->setMaximumSize(1920, 1080);
+    //base->setFixedSize();
+    base->setWindowState(Qt::WindowMaximized);
     base->setWindowTitle("SAAS");
     base->setWindowIcon(QIcon("images/Icono_App_Silo_1.png"));
     //FramelessWindow winPrin;
@@ -64,7 +69,7 @@ void Launcher::ShowMainWindow(QString App){
     base->InitDb(App);    // initialized the database
     //winPrin.show();
     base->show();
-    
+    //server->RPI_Request();  
 }
 Launcher::~Launcher() {
 }
