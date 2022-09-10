@@ -1,0 +1,94 @@
+# makefile for Sistema Silo
+
+TARGET_EXEC := Sistema_Silo_Windows_VScode_1_4.exe
+BUILD_DIR := build/Debug/Vscode_Windows
+SRC_DIRS := Cpp
+LIB := C:\Qt\Qt5.11.3\5.11.3\mingw53_32\lib
+INCLUDE := C:\Qt\Qt5.11.3\5.11.3\mingw53_32\include
+VERSION := 1.4
+
+COMPILER := C:\Qt\Qt5.11.3\Tools\mingw530_32\bin\g++.exe
+
+Recompile: clean ui-only all done
+ui-only: Qt_ui_interface Qt_ui_Launcher Qt_ui_Login
+all: silo main generales impresora launcher login server
+
+# el simbolo @ evita que se imprima en la pantalla
+# usa @echo para imprimir en pantalla sin producir un segundo echo
+silo: 
+	@powershell write-host -fore Red Compiling Silo_SaS
+#	@echo Compiling Silo_SaS
+	@$(COMPILER) -std=c++14 -c -Wall -Wpragmas -mthreads -I $(INCLUDE) -I $(INCLUDE)\QtCore -I $(INCLUDE)\QtSql -I $(INCLUDE)\QtWidgets -I $(INCLUDE)\QtPrintSupport -I $(INCLUDE)\QtNetwork -I $(INCLUDE)\QtGui -I $(INCLUDE)\QtConcurrent -lmingw32 -lshell32 -L C:\MinGW\lib\libiphlpapi.a -L $(LIB) -L $(LIB)\libqtmaind.a -L $(LIB)\libQt5Cored.a -L $(LIB)\libQt5Sqld.a -L $(LIB)\libQt5PrintSupportd.a -L $(LIB)\libQt5Widgetsd.a -L $(LIB)\libQt5Guid.a -L $(LIB)\libQt5Networkd.a -o $(BUILD_DIR)/Silo_Sas.o Cpp/Silo_SaS.cpp 
+.PHONY: silo
+
+main:
+	@powershell write-host -fore Red Compiling main
+#	@echo Compiling main_Pantalla_Principal
+	@$(COMPILER) -std=c++14 -c -Wall -Wpragmas -mthreads -I $(INCLUDE) -I $(INCLUDE)\QtCore -I $(INCLUDE)\QtSql -I $(INCLUDE)\QtWidgets -I $(INCLUDE)\QtPrintSupport -I $(INCLUDE)\QtNetwork -I $(INCLUDE)\QtGui -I $(INCLUDE)\QtConcurrent -lmingw32 -lshell32 -L C:\MinGW\lib\libiphlpapi.a -L $(LIB) -L $(LIB)\libqtmaind.a -L $(LIB)\libQt5Cored.a -L $(LIB)\libQt5Sqld.a -L $(LIB)\libQt5PrintSupportd.a -L $(LIB)\libQt5Widgetsd.a -L $(LIB)\libQt5Guid.a -L $(LIB)\libQt5Networkd.a -o $(BUILD_DIR)/main_Pantalla_Principal.o Cpp/main_Pantalla_Principal.cpp
+.PHONY: main
+	
+generales:
+	@powershell write-host -fore Red Compiling generales
+#	@echo Compiling Generales
+	@$(COMPILER) -std=c++14 -c -Wall -Wpragmas -mthreads -I $(INCLUDE) -I $(INCLUDE)\QtCore -I $(INCLUDE)\QtSql -I $(INCLUDE)\QtWidgets -I $(INCLUDE)\QtPrintSupport -I $(INCLUDE)\QtNetwork -I $(INCLUDE)\QtGui -I $(INCLUDE)\QtConcurrent -lmingw32 -lshell32 -L C:\MinGW\lib\libiphlpapi.a -L $(LIB) -L $(LIB)\libqtmaind.a -L $(LIB)\libQt5Cored.a -L $(LIB)\libQt5Sqld.a -L $(LIB)\libQt5PrintSupportd.a -L $(LIB)\libQt5Widgetsd.a -L $(LIB)\libQt5Guid.a -L $(LIB)\libQt5Networkd.a -o $(BUILD_DIR)/Generales.o Cpp/Generales.cpp
+.PHONY: generales
+
+impresora:
+	@powershell write-host -fore Red Compiling impresora
+#	@echo Compiling impresora
+	@$(COMPILER) -std=c++14 -c -Wall -Wpragmas -mthreads -I $(INCLUDE) -I $(INCLUDE)\QtCore -I $(INCLUDE)\QtSql -I $(INCLUDE)\QtWidgets -I $(INCLUDE)\QtPrintSupport -I $(INCLUDE)\QtNetwork -I $(INCLUDE)\QtGui -I $(INCLUDE)\QtConcurrent -lmingw32 -lshell32 -L C:\MinGW\lib\libiphlpapi.a -L $(LIB) -L $(LIB)\libqtmaind.a -L $(LIB)\libQt5Cored.a -L $(LIB)\libQt5Sqld.a -L $(LIB)\libQt5PrintSupportd.a -L $(LIB)\libQt5Widgetsd.a -L $(LIB)\libQt5Guid.a -L $(LIB)\libQt5Networkd.a -o $(BUILD_DIR)/Impresora.o Cpp/Impresora.cpp
+.PHONY: impresora
+
+launcher:
+	@powershell write-host -fore Red Compiling launcher
+#	@echo Compiling Launcher
+	@$(COMPILER) -std=c++14 -c -Wall -Wpragmas -mthreads -I $(INCLUDE) -I $(INCLUDE)\QtCore -I $(INCLUDE)\QtSql -I $(INCLUDE)\QtWidgets -I $(INCLUDE)\QtPrintSupport -I $(INCLUDE)\QtNetwork -I $(INCLUDE)\QtGui -I $(INCLUDE)\QtConcurrent -lmingw32 -lshell32 -L C:\MinGW\lib\libiphlpapi.a -L $(LIB) -L $(LIB)\libqtmaind.a -L $(LIB)\libQt5Cored.a -L $(LIB)\libQt5Sqld.a -L $(LIB)\libQt5PrintSupportd.a -L $(LIB)\libQt5Widgetsd.a -L $(LIB)\libQt5Guid.a -L $(LIB)\libQt5Networkd.a -o $(BUILD_DIR)/Launcher.o Cpp/Launcher.cpp
+.PHONY: launcher
+
+login:
+	@powershell write-host -fore Red Compiling login
+#	@echo Compiling Login
+	@$(COMPILER) -std=c++14 -c -Wall -Wpragmas -mthreads -I $(INCLUDE) -I $(INCLUDE)\QtCore -I $(INCLUDE)\QtSql -I $(INCLUDE)\QtWidgets -I $(INCLUDE)\QtPrintSupport -I $(INCLUDE)\QtNetwork -I $(INCLUDE)\QtGui -I $(INCLUDE)\QtConcurrent -lmingw32 -lshell32 -L C:\MinGW\lib\libiphlpapi.a -L $(LIB) -L $(LIB)\libqtmaind.a -L $(LIB)\libQt5Cored.a -L $(LIB)\libQt5Sqld.a -L $(LIB)\libQt5PrintSupportd.a -L $(LIB)\libQt5Widgetsd.a -L $(LIB)\libQt5Guid.a -L $(LIB)\libQt5Networkd.a -o $(BUILD_DIR)/Login.o Cpp/Login.cpp
+.PHONY: login
+
+server:
+	@powershell write-host -fore Red Compiling server
+#	@echo Compiling Server
+	@$(COMPILER) -std=c++14 -c -Wall -Wpragmas -mthreads -I $(INCLUDE) -I $(INCLUDE)\QtCore -I $(INCLUDE)\QtSql -I $(INCLUDE)\QtWidgets -I $(INCLUDE)\QtPrintSupport -I $(INCLUDE)\QtNetwork -I $(INCLUDE)\QtGui -I $(INCLUDE)\QtConcurrent -lmingw32 -lshell32 -L C:\MinGW\lib\libiphlpapi.a -L $(LIB) -L $(LIB)\libqtmaind.a -L $(LIB)\libQt5Cored.a -L $(LIB)\libQt5Sqld.a -L $(LIB)\libQt5PrintSupportd.a -L $(LIB)\libQt5Widgetsd.a -L $(LIB)\libQt5Guid.a -L $(LIB)\libQt5Networkd.a -o $(BUILD_DIR)/Servidor_Rpi.o Cpp/Servidor_Rpi.cpp
+.PHONY: server
+
+Qt_ui_interface:
+	@powershell write-host -fore Red Compiling Ui
+	@C:\Qt\Qt5.11.3\5.11.3\mingw53_32\bin\uic -o "Headers\ui_Pantalla_Principal V2.8.h" "Ui\Pantalla_Principal V2.8.ui"
+
+Qt_ui_Login:
+	@powershell write-host -fore Red Compiling Login UI
+	@C:\Qt\Qt5.11.3\5.11.3\mingw53_32\bin\uic -o "Headers\ui_Login V0.2.h" "Ui\Login V0.2.ui"
+
+Qt_ui_Launcher:
+	@powershell write-host -fore Red Compiling Launcher Ui
+	@C:\Qt\Qt5.11.3\5.11.3\mingw53_32\bin\uic -o "Headers\ui_Launcher.h" "Ui\Launcher.ui"
+
+Release:
+	@powershell write-host -fore Red Creating Exe File
+	@C:\Qt\Qt5.11.3\Tools\mingw530_32\bin\g++.exe -g build\Debug\Vscode_Windows\Silo_Sas.o build\Debug\Vscode_Windows\main_Pantalla_Principal.o build\Debug\Vscode_Windows\Generales.o build\Debug\Vscode_Windows\Impresora.o build\Debug\Vscode_Windows\Launcher.o build\Debug\Vscode_Windows\Login.o build\Debug\Vscode_Windows\Servidor_Rpi.o -o dist\Debug\Vscode_Windows\Sistema_Silo_Windows_VScode_1_4.exe
+.PHONY: Release
+
+#//"Cpp/Silo_SaS.cpp",
+#//"Cpp/main_Pantalla_Principal.cpp",
+#//"Cpp/Generales.cpp",
+#//"Cpp/Impresora.cpp",
+#//"Cpp/Launcher.cpp",
+#//"Cpp/Login.cpp",
+#                //"Cpp/Serial.cpp",  // este esta pendiente
+#//"Cpp/Servidor_Rpi.cpp",
+
+done:
+	@powershell write-host -fore Blue All Done
+
+clean:
+#   para windows
+	del build\Debug\Vscode_Windows\*.* 
+#	para linux	
+#	rm -r $(BUILD_DIR)   
+#.PHONY: clean
